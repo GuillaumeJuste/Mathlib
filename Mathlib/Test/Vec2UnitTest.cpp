@@ -76,14 +76,14 @@ TEST(Vec2UnitTest, Equality)
 	Vec2 vec_2 = Vec3(vec_2_x, vec_2_y);
 
 	// isZero()
-	EXPECT_EQ(vec_1.IsZero(), true);
-	EXPECT_EQ(vec_2.IsZero(), false);
-	EXPECT_EQ(vec_1.Equals(vec_2), false);
-	EXPECT_EQ(vec_2.Equals(vec_2), true);
-	EXPECT_EQ(vec_1 == vec_2, false);
-	EXPECT_EQ(vec_2 == vec_2, true);
-	EXPECT_EQ(vec_1 != vec_2, true);
-	EXPECT_EQ(vec_2 != vec_2, false);
+	EXPECT_TRUE(vec_1.IsZero(), true);
+	EXPECT_FALSE(vec_2.IsZero(), false);
+	EXPECT_FALSE(vec_1.Equals(vec_2), false);
+	EXPECT_TRUE(vec_2.Equals(vec_2), true);
+	EXPECT_FALSE(vec_1 == vec_2, false);
+	EXPECT_TRUE(vec_2 == vec_2, true);
+	EXPECT_TRUE(vec_1 != vec_2, true);
+	EXPECT_FALSE(vec_2 != vec_2, false);
 }
 
 /**
