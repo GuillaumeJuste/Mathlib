@@ -24,6 +24,9 @@ namespace Mathlib
 		/// Conversion constant to convert radian to degree.
 		static const double RadToDeg;
 
+		///machine epsilon value
+		static const float Epsilon;
+
 		/**
 		*	\brief Compute absolute value.
 		*
@@ -209,7 +212,15 @@ namespace Mathlib
 		* 	\param[in] _end right hand side operand to compare.
 		* 	\param[in] _epsilon threshold to accept equality.
 		*/
-		static bool Equals(float _lhs, float _rhs, float _epsilon = 0.f) noexcept;
+		static bool Equals(float _lhs, float _rhs, float _epsilon = Epsilon) noexcept;
+
+		/**
+		*	\brief Check if value is equal to 0.
+		*
+		* 	\param[in] _value right hand side operand to compare.
+		* 	\param[in] _epsilon threshold to accept equality.
+		*/
+		static bool Equals0(float _value, float _epsilon = Epsilon) noexcept;
 
 		/**
 		*	\brief Compute lerped vector between two float
