@@ -5,7 +5,7 @@
 #include <Vec3.hpp>
 #include <Vec4.hpp>
 #include <Math.hpp>
-
+#include <Callback.hpp>
 
 using namespace Mathlib;
 
@@ -127,7 +127,7 @@ Vec4& Vec4::Normalize() noexcept
 	}
 	else
 	{
-		Math::CallErrorCallback(CLASS_NAME, "Normalize", "Division by O due to vector length being equal to 0");
+		Callback::CallErrorCallback(CLASS_NAME, "Normalize", "Division by O due to vector length being equal to 0");
 	}
 
 	return *this;
@@ -160,7 +160,7 @@ Vec4 Vec4::operator*(float _scale) const noexcept
 Vec4 Vec4::operator/(float _scale) const
 {
 	if (_scale == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 	return Vec4(X / _scale, Y / _scale, Z / _scale, W / _scale);
 }
 
@@ -182,7 +182,7 @@ Vec4 Vec4::operator*(const Vec4& _rhs) const noexcept
 Vec4 Vec4::operator/(const Vec4& _rhs) const
 {
 	if (_rhs.X == 0.f || _rhs.Y == 0.f || _rhs.Z == 0.f || _rhs.W == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
 	return Vec4(X / _rhs.X, Y / _rhs.Y, Z / _rhs.Z, W / _rhs.W);
 }
@@ -217,7 +217,7 @@ Vec4& Vec4::operator*=(const Vec4& _rhs) noexcept
 Vec4& Vec4::operator/=(const Vec4& _rhs)
 {
 	if (_rhs.X == 0.f || _rhs.Y == 0.f || _rhs.Z == 0.f || _rhs.W == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
 	X /= _rhs.X;
 	Y /= _rhs.Y;
@@ -238,7 +238,7 @@ Vec4& Vec4::operator*=(float _scale) noexcept
 Vec4& Vec4::operator/=(float _scale)
 {
 	if (_scale == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
 	X /= _scale;
 	Y /= _scale;

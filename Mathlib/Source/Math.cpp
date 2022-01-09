@@ -3,12 +3,12 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <Callback.hpp>
 
 #define CLASS_NAME "Math"
 
 namespace Mathlib
 {
-	errorCallbackFunction Math::errorCallback = NULL;
 	const double Math::Pi = 3.1415926535897932384;
 	const double Math::DegToRad = Pi / 180.0;
 	const double Math::RadToDeg = 180.0 / Pi;
@@ -72,13 +72,13 @@ namespace Mathlib
 	float Math::Sqrt(int _value) noexcept
 	{
 		if(_value < 0)
-			Math::CallErrorCallback(CLASS_NAME, "Sqrt", "Square root of negative number");
+			Callback::CallErrorCallback(CLASS_NAME, "Sqrt", "Square root of negative number");
 		return int(std::sqrt(_value));
 	}
 	float Math::Sqrt(float _value) noexcept
 	{
 		if (_value < 0.f)
-			Math::CallErrorCallback(CLASS_NAME, "Sqrt", "Square root of negative number");
+			Callback::CallErrorCallback(CLASS_NAME, "Sqrt", "Square root of negative number");
 		return std::sqrt(_value);
 	}
 	
@@ -140,16 +140,5 @@ namespace Mathlib
 	int Math::Random(int _min, int _max) noexcept
 	{
 		return rand() % (_max - _min) + _min;
-	}
-
-	void Math::SetErrorCallback(errorCallbackFunction _errorCallback)
-	{
-		errorCallback = _errorCallback;
-	}
-
-	void Math::CallErrorCallback(const char* _class, const char* _function, const char* _errorMessage)
-	{
-		if (errorCallback != NULL)
-			errorCallback(_class, _function, _errorMessage);
 	}
 }

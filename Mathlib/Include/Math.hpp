@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef MATHLIB_MATHLIB
-#define MATHLIB_MATHLIB
+#ifndef MATHLIB_MATH
+#define MATHLIB_MATH
 
 #include "Includes.hpp"
 
@@ -12,8 +12,7 @@ namespace Mathlib
 {
 	class MATHLIBRARY_API Math
 	{
-	private:
-		static errorCallbackFunction errorCallback;
+	
 	public:
 		/// PI constant.
 		static const double Pi;
@@ -252,22 +251,6 @@ namespace Mathlib
 		* 	\param[in] _max random max value.
 		*/
 		static int Random(int _min, int _max) noexcept;
-
-		/**
-		*	\brief Set Callback function called in case of error
-		*
-		* 	\param[in] _errorCallback function to call.
-		*/
-		static void SetErrorCallback(errorCallbackFunction _errorCallback);
-
-		/**
-		*	\brief Call the error callback function.
-		* 
-		* 	\param[in] _class class name from which the callback function is called.
-		* 	\param[in] _function function from which the callback function is called.
-		* 	\param[in] _errorMessage details on the error.
-		*/
-		static void CallErrorCallback(const char* _class, const char* _function, const char* _errorMessage);
 	};
 }
 

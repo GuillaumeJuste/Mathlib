@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../Include/Math.hpp"
+#include <Callback.hpp>
 
 using namespace Mathlib;
 
@@ -142,6 +143,6 @@ void ErrorCallbackFunc(const char* _class, const char* _function, const char* _e
 TEST(MathUnitTest, Callback)
 {
 	Math::Sqrt(-3);
-	Math::SetErrorCallback(ErrorCallbackFunc);
+	Callback::SetErrorCallback(ErrorCallbackFunc);
 	Math::Sqrt(-3);
 }

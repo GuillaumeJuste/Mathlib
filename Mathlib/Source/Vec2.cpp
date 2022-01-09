@@ -5,6 +5,7 @@
 #include <Vec3.hpp>
 #include <Vec4.hpp>
 #include <Math.hpp>
+#include <Callback.hpp>
 
 using namespace Mathlib;
 
@@ -100,7 +101,7 @@ Vec2 Vec2::SLerp(const Vec2& _start, const Vec2& _end, float _alpha) noexcept
 
 	if (angle_sin == 0.f)
 	{
-		Math::CallErrorCallback(CLASS_NAME, "SLerp", "Division by 0 due to angle sine being equal to 0");
+		Callback::CallErrorCallback(CLASS_NAME, "SLerp", "Division by 0 due to angle sine being equal to 0");
 	}
 
 	Vec2 lhs = _start * (Math::Sin((1.f - _alpha) * angle) / angle_sin);
@@ -162,7 +163,7 @@ Vec2& Vec2::Normalize() noexcept
 	}
 	else
 	{
-		Math::CallErrorCallback(CLASS_NAME, "Normalize", "Division by O due to vector length being equal to 0");
+		Callback::CallErrorCallback(CLASS_NAME, "Normalize", "Division by O due to vector length being equal to 0");
 	}
 
 	return *this;
@@ -186,7 +187,7 @@ Vec2 Vec2::ProjectOn(const Vec2& _other) const noexcept
 	float otherLength = _other.SquaredLength();
 
 	if (otherLength == 0)
-		Math::CallErrorCallback(CLASS_NAME, "ProjectOn", "Division by 0 due to _other SquaredLength being 0");
+		Callback::CallErrorCallback(CLASS_NAME, "ProjectOn", "Division by 0 due to _other SquaredLength being 0");
 
 	return _other * (Vec2::DotProduct(*this, _other) / _other.SquaredLength());
 }
@@ -205,7 +206,7 @@ Vec2 Vec2::operator*(float _scale) const noexcept
 Vec2 Vec2::operator/(float _scale) const
 {
 	if (_scale == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 	return Vec2(X / _scale, Y / _scale);
 }
 
@@ -227,7 +228,7 @@ Vec2 Vec2::operator*(const Vec2& _rhs) const noexcept
 Vec2 Vec2::operator/(const Vec2& _rhs) const
 {
 	if (_rhs.X == 0.f || _rhs.Y == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
 	return Vec2(X / _rhs.X, Y / _rhs.Y);
 }
@@ -256,7 +257,7 @@ Vec2& Vec2::operator*=(const Vec2& _rhs) noexcept
 Vec2& Vec2::operator/=(const Vec2& _rhs)
 {
 	if (_rhs.X == 0.f || _rhs.Y == 0.f )
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
 	X /= _rhs.X;
 	Y /= _rhs.Y;
@@ -273,7 +274,7 @@ Vec2& Vec2::operator*=(float _scale) noexcept
 Vec2& Vec2::operator/=(float _scale)
 {
 	if (_scale == 0.f)
-		Math::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
 	X /= _scale;
 	Y /= _scale;
