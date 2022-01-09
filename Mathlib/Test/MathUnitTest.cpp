@@ -94,24 +94,24 @@ TEST(MathUnitTest, Trigonometry)
 	EXPECT_FLOAT_EQ(Math::Cos(0.f), 1.f);
 
 	//ACos
-	EXPECT_TRUE(Math::Equals0(Math::ACos(1.f)), true);
+	EXPECT_TRUE(Math::Equals0(Math::ACos(1.f)));
 
 	//Sin
-	EXPECT_TRUE(Math::Equals0(Math::Sin(0.f)), true);
+	EXPECT_TRUE(Math::Equals0(Math::Sin(0.f)));
 	EXPECT_FLOAT_EQ(Math::Sin(Math::Pi / 2.f), 1.f);
 
 	//ASin
-	EXPECT_TRUE(Math::Equals0(Math::ASin(0.f)), true);
+	EXPECT_TRUE(Math::Equals0(Math::ASin(0.f)));
 
 	//Tan
-	EXPECT_TRUE(Math::Equals0(Math::Tan(0.f)), true);
+	EXPECT_TRUE(Math::Equals0(Math::Tan(0.f)));
 
 
-	EXPECT_FLOAT_EQ(Math::Equals(Math::Tan(Math::Pi / 3.f), Math::Sqrt(3.f)), true);
+	EXPECT_TRUE(Math::Equals(Math::Tan(Math::Pi / 3.f), Math::Sqrt(3.f)));
 
 	//ATan
-	EXPECT_TRUE(Math::Equals0(Math::ATan(0.f)), true);
-	EXPECT_TRUE(Math::Equals(Math::ATan(Math::Sqrt(3.f)), Math::Pi / 3.f), true);
+	EXPECT_TRUE(Math::Equals0(Math::ATan(0.f)));
+	EXPECT_TRUE(Math::Equals(Math::ATan(Math::Sqrt(3.f)), Math::Pi / 3.f));
 }
 
 /**
