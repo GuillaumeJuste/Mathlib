@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MATHLIB_INCLUDES
 #define MATHLIB_INCLUDES
 
