@@ -3,27 +3,13 @@
 #ifndef MATHLIB_MATH
 #define MATHLIB_MATH
 
-#include "Includes.hpp"
-
-
-typedef void (* errorCallbackFunction)(const char*, const char*, const char*);
+#include <Includes.hpp>
+#include<Constants.hpp>
 
 namespace Mathlib
 {
 	namespace Math
 	{
-		/// PI constant.
-		extern MATHLIBRARY_API const float Pi;
-
-		/// Conversion constant to convert degree to radian.
-		extern MATHLIBRARY_API const float DegToRad;
-
-		/// Conversion constant to convert radian to degree.
-		extern MATHLIBRARY_API const float RadToDeg;
-
-		///machine epsilon value
-		extern MATHLIBRARY_API const float Epsilon;
-
 		/**
 		*	\brief Compute absolute value.
 		*
@@ -159,48 +145,6 @@ namespace Mathlib
 		*	\return square root of the value.
 		*/
 		MATHLIBRARY_API float Sqrt(float _value) noexcept;
-
-		/**
-		*	\brief Compute the cosine of the value.
-		*
-		* 	\param[in] _value value representing angle in radians.
-		*/
-		MATHLIBRARY_API float Cos(float _value) noexcept;
-
-		/**
-		*	\brief Compute the arc cosine of the value.
-		*
-		* 	\param[in] _value value to compute arc cosine from.
-		*/
-		MATHLIBRARY_API float ACos(float _value) noexcept;
-
-		/**
-		*	\brief Compute the sine  of the value.
-		*
-		* 	\param[in] _value value representing angle in radians.
-		*/
-		MATHLIBRARY_API float Sin(float _value) noexcept;
-
-		/**
-		*	\brief Compute the arc sine of the value.
-		*
-		* 	\param[in] _value value to compute arc cosine from.
-		*/
-		MATHLIBRARY_API float ASin(float _value) noexcept;
-
-		/**
-		*	\brief Compute the tangent of the value.
-		*
-		* 	\param[in] _value value representing angle in radians.
-		*/
-		MATHLIBRARY_API float Tan(float _value) noexcept;
-
-		/**
-		*	\brief Compute the arc tangent of the value.
-		*
-		* 	\param[in] _value value to compute arc cosine from.
-		*/
-		MATHLIBRARY_API float ATan(float _value) noexcept;
 
 		/**
 		*	\brief Compare two values.

@@ -6,6 +6,7 @@
 #include <Vec4.hpp>
 #include <Math.hpp>
 #include <Callback.hpp>
+#include <Trigonometry.hpp>
 
 using namespace Mathlib;
 

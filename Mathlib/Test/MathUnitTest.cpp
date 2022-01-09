@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include "../Include/Math.hpp"
+#include <Math.hpp>
+#include <Trigonometry.hpp>
 #include <Callback.hpp>
 
 using namespace Mathlib;

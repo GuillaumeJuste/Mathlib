@@ -11,11 +11,6 @@ namespace Mathlib
 {
 	namespace Math
 	{
-		const float Pi = 3.1415926535897932384f;
-		const float DegToRad = Pi / 180.0f;
-		const float RadToDeg = 180.0f / Pi;
-		const float Epsilon = std::numeric_limits<float>::epsilon();
-
 		int Abs(int _value) noexcept
 		{
 			return _value < 0 ? -_value : _value;
@@ -82,36 +77,6 @@ namespace Mathlib
 			if (_value < 0.f)
 				Callback::CallErrorCallback(CLASS_NAME, "Sqrt", "Square root of negative number");
 			return std::sqrt(_value);
-		}
-
-		float Cos(float _value) noexcept
-		{
-			return std::cosf(_value);
-		}
-
-		float ACos(float _value) noexcept
-		{
-			return std::acosf(_value);
-		}
-
-		float Sin(float _value) noexcept
-		{
-			return std::sinf(_value);
-		}
-
-		float ASin(float _value) noexcept
-		{
-			return std::asinf(_value);
-		}
-
-		float Tan(float _value) noexcept
-		{
-			return std::tanf(_value);
-		}
-
-		float ATan(float _value) noexcept
-		{
-			return std::atanf(_value);
 		}
 
 		bool Equals(float _lhs, float _rhs, float _epsilon) noexcept
