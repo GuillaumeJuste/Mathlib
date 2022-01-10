@@ -1,9 +1,10 @@
-#include <Math.hpp>
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
-#include <Callback.hpp>
+
+#include <Misc/Math.hpp>
+#include <Misc/Callback.hpp>
 
 #define CLASS_NAME "Math"
 

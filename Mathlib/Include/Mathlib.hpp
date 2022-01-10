@@ -3,12 +3,12 @@
 #ifndef MATHLIB_MATHLIB
 #define MATHLIB_MATHLIB
 
-#include <Vec2.hpp>
-#include <Vec3.hpp>
-#include <Vec4.hpp>
-#include <Math.hpp>
-#include <Callback.hpp>
-#include <Trigonometry.hpp>
-#include <Constants.hpp>
+#include <Vector/Vec2.hpp>
+#include <Vector/Vec3.hpp>
+#include <Vector/Vec4.hpp>
+#include <Misc/Math.hpp>
+#include <Misc/Callback.hpp>
+#include <Misc/Trigonometry.hpp>
+#include <Misc/Constants.hpp>
 
 #endif

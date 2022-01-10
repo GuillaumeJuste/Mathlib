@@ -3,8 +3,8 @@
 #ifndef MATHLIB_MATH
 #define MATHLIB_MATH
 
-#include <Includes.hpp>
-#include<Constants.hpp>
+#include <Misc/Includes.hpp>
+#include<Misc/Constants.hpp>
 
 namespace Mathlib
 {

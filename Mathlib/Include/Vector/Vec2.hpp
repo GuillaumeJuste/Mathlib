@@ -1,159 +1,148 @@
-#pragma once	
+#pragma once
 
-#ifndef MATHLIB_VEC3
-#define MATHLIB_VEC3
+#ifndef MATHLIB_VEC2
+#define MATHLIB_VEC2
 
-#include "Includes.hpp"
+#include "Misc/Includes.hpp"
 
 /**
-*	\file Vector3.hpp
+*	\file Vector2.hpp
 *
-*	\brief Vec3 type implementation.
+*	\brief Vec2 type implementation.
 */
 
 namespace Mathlib
 {
-	struct Vec2;
+	struct Vec3;
 	struct Vec4;
 
-	struct MATHLIBRARY_API Vec3
+	struct MATHLIBRARY_API Vec2
 	{
 		/// Vector's X component
 		float X = 0.f;
 		/// Vector's Y component
 		float Y = 0.f;
-		/// Vector's Z component
-		float Z = 0.f;
 
 		//Constants
 
-		/// Zero vector constant {0, 0, 0}.
-		static const Vec3 Zero;
+		/// Zero vector constant {0, 0}.
+		static const Vec2 Zero;
 
-		/// One vector constant {1, 1, 1}.
-		static const Vec3 One;
+		/// One vector constant {1, 1}.
+		static const Vec2 One;
 
-		/// Right vector constant {1, 0, 0}.
-		static const Vec3 Right;
+		/// Right vector constant {1, 0}.
+		static const Vec2 Right;
 
-		/// Left vector constant {-1, 0, 0}.
-		static const Vec3 Left;
+		/// Left vector constant {-1, 0}.
+		static const Vec2 Left;
 
-		/// Up vector constant {0, 1, 0}.
-		static const Vec3 Up;
+		/// Up vector constant {0, 1}.
+		static const Vec2 Up;
 
-		/// Down vector constant {0, -1, 0}.
-		static const Vec3 Down;
-
-		/// Down vector constant {0, 0, 1}.
-		static const Vec3 Forward;
-
-		/// Down vector constant {0, 0, -1}.
-		static const Vec3 Backward;
+		/// Down vector constant {0, -1}.
+		static const Vec2 Down;
 
 		//Constructors
 
 		/**
 		*	\brief Default constructor
 		*/
-		Vec3() = default;
+		Vec2() = default;
 
 		/**
 		*	\brief Value constructor
-		*	
-		*	\param[in] _xyz Value applied on all vector axis.
+		*
+		*	\param[in] _xy Value applied on all vector axis.
 		*/
-		Vec3(float _xyz) noexcept;
+		Vec2(float _xy) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _x X axis value.
 		* 	\param[in] _y Y axis value.
-		*	\param[in] _z Z axis value.
 		*/
-		Vec3(float _x, float _y, float _z) noexcept;
+		Vec2(float _x, float _y) noexcept;
 
 		/**
-		*	\brief Constructor from a Vec2
+		*	\brief Constructor from a Vec3
 		*
-		*	\param[in] _vec2 Vec2 to copy axis values from.
-		*	\param[in] _z Z axis value.
+		*	\param[in] _vec3 Vec3 to copy axis values from.
 		*/
-		Vec3(Vec2 _vec2, float _z = 0.f) noexcept;
+		Vec2(Vec3 _vec3) noexcept;
 
 		/**
 		*	\brief Constructor from a Vec4
 		*
 		*	\param[in] _vec4 Vec4 to copy axis values from.
 		*/
-		Vec3(Vec4 _vec4) noexcept;
+		Vec2(Vec4 _vec4) noexcept;
 
 		/**
 		*	\brief Default copy constructor
 		*/
-		Vec3(const Vec3& _vec3) = default;
+		Vec2(const Vec2& _vec2) = default;
 
 		/**
 		*	\brief Default move constructor
 		*/
-		Vec3(Vec3&& _vec3) = default;
+		Vec2(Vec2&& _vec2) = default;
 
 		//Static Methods
 
 		/**
-		*	\brief Compute dot product between two Vec3
-		* 
+		*	\brief Compute dot product between two Vec2
+		*
 		* 	\param[in] _lhs left hand side operand to compute dot product with.
 		* 	\param[in] _rhs right hand side operand to compute dot product with.
-		* 
+		*
 		*	\return dot product between _lhs and _rhs
 		*/
-		static float DotProduct(const Vec3& _lhs, const Vec3& _rhs) noexcept;
+		static float DotProduct(const Vec2& _lhs, const Vec2& _rhs) noexcept;
 
 		/**
-		*	\brief Compute cross product between two Vec3
+		*	\brief Compute cross product between two Vec2
 		*
 		* 	\param[in] _lhs left hand side operand to compute cross product with.
 		* 	\param[in] _rhs right hand side operand to compute cross product with.
-		* 
+		*
 		* 	\return cross product between _lhs and _rhs
 		*/
-		static Vec3 CrossProduct(const Vec3& _lhs, const Vec3& _rhs) noexcept;
+		static float CrossProduct(const Vec2& _lhs, const Vec2& _rhs) noexcept;
 
 		/**
 		*	\brief Compute angle between two vectors
 		*
 		* 	\param[in] _start left hand side operand to compute angle with.
 		* 	\param[in] _end right hand side operand to compute angle with.
-		* 	\param[in] _normal normal of the plan defined by _start and _end used to determine the angle's sign.
 		*
 		* 	\return Angle between _start and _end
 		*/
-		static float Angle(const Vec3& _start, const Vec3& _end, const Vec3& _normal = Vec3::Up);
-		
+		static float Angle(const Vec2& _start, const Vec2& _end);
+
 		/**
-		*	\brief Compute distance between two Vec3
+		*	\brief Compute distance between two Vec2
 		*
 		* 	\param[in] _start left hand side operand to compute distance with.
 		* 	\param[in] _end right hand side operand to compute distance with.
 		*
 		* 	\return distance between _start and _end
 		*/
-		static float Distance(const Vec3& _start, const Vec3& _end) noexcept;
-		
+		static float Distance(const Vec2& _start, const Vec2& _end) noexcept;
+
 		/**
-		*	\brief Compute squared distance between two Vec3
+		*	\brief Compute squared distance between two Vec2
 		*
 		* 	\param[in] _start left hand side operand to compute squared distance with.
 		* 	\param[in] _end right hand side operand to compute squared distance with.
 		*
 		* 	\return squared distance between _start and _end
 		*/
-		static float SqrDistance(const Vec3& _start, const Vec3& _end) noexcept;
-		
+		static float SqrDistance(const Vec2& _start, const Vec2& _end) noexcept;
+
 		/**
-		*	\brief Compute lerped vector between two Vec3
+		*	\brief Compute lerped vector between two Vec2
 		*
 		* 	\param[in] _start left hand side operand to compute lerped vector with.
 		* 	\param[in] _end right hand side operand to compute lerped vector with.
@@ -161,10 +150,10 @@ namespace Mathlib
 		*
 		* 	\return lerped vector between _start and _end
 		*/
-		static Vec3 Lerp(const Vec3& _start, const Vec3& _end, float _alpha) noexcept;
-		
+		static Vec2 Lerp(const Vec2& _start, const Vec2& _end, float _alpha) noexcept;
+
 		/**
-		*	\brief Compute spherical lerped vector between two Vec3
+		*	\brief Compute spherical lerped vector between two Vec2
 		*
 		* 	\param[in] _start left hand side operand to compute spherical lerped vector with.
 		* 	\param[in] _end right hand side operand to compute spherical lerped vector with.
@@ -172,24 +161,24 @@ namespace Mathlib
 		*
 		* 	\return spherical lerped vector between _start and _end
 		*/
-		static Vec3 SLerp(const Vec3& _start, const Vec3& _end, float _alpha) noexcept;
+		static Vec2 SLerp(const Vec2& _start, const Vec2& _end, float _alpha) noexcept;
 
 		//Equality
 
 		/**
-		*	\brief Check if Vec3 is equal to default Zero vector
+		*	\brief Check if Vec2 is equal to default Zero vector
 		*/
 		bool IsZero() const noexcept;
 
 		/**
 		*	\brief Compare this vector with with _other
-		* 
+		*
 		*	\param[in] _other other vector to do the comparison with.
 		* 	\param[in] _epsilon threshold to accept equality.
-		* 
+		*
 		*	\return if this and _other are equal.
 		*/
-		bool Equals(const Vec3& _other, float _epsilon = 0.f) const noexcept;
+		bool Equals(const Vec2& _other, float _epsilon = 0.f) const noexcept;
 
 		/**
 		*	\brief Operator to compare this vector with with _rhs
@@ -198,7 +187,7 @@ namespace Mathlib
 		*
 		*	\return if this and _rhs are equal.
 		*/
-		bool operator==(const Vec3& _rhs) const noexcept;
+		bool operator==(const Vec2& _rhs) const noexcept;
 
 		/**
 		*	\brief Operator to compare this vector with with _rhs.
@@ -207,10 +196,10 @@ namespace Mathlib
 		*
 		*	\return if this and _rhs are different.
 		*/
-		bool operator!=(const Vec3& _rhs) const noexcept;
+		bool operator!=(const Vec2& _rhs) const noexcept;
 
 		//Accessors
-		
+
 		/**
 		*	\brief return this vector as a float*.
 		*/
@@ -231,12 +220,12 @@ namespace Mathlib
 		/**
 		*	\brief Normalize this vector and return it.
 		*/
-		Vec3& Normalize() noexcept;
+		Vec2& Normalize() noexcept;
 
 		/**
 		*	\brief Return this vector normalized vector.
 		*/
-		Vec3 GetNormalized() const noexcept;
+		Vec2 GetNormalized() const noexcept;
 
 		/**
 		*	\brief Check if the vector is normalized.
@@ -245,36 +234,36 @@ namespace Mathlib
 
 		/**
 		*	\brief Project this vector on _other
-		*	
+		*
 		*	\param _other	Vector on which to project this vector.
-		* 
+		*
 		*	\return projection of this vector on the other vector
 		*/
-		Vec3 ProjectOn(const Vec3& _other) const noexcept;
+		Vec2 ProjectOn(const Vec2& _other) const noexcept;
 
 		//Operator
 
 		/**
-		*	\brief \e Default move assignement.
+		*	\brief Default move assignement.
 		*
 		*	\return self vector assigned.
 		*/
-		Vec3& operator=(Vec3&&) = default;
+		Vec2& operator=(Vec2&&) = default;
 
 		/**
-		*	\brief \e Default copy assignement.
+		*	\brief Default copy assignement.
 		*
 		*	\return self vector assigned.
 		*/
-		Vec3& operator=(const Vec3&) = default;
+		Vec2& operator=(const Vec2&) = default;
 
 		/**
-		*	\brief \e Getter of the opposite signed vector.
+		*	\brief Getter of the opposite signed vector.
 		*
 		*	\return new opposite signed vector.
 		*/
-		Vec3 operator-() const noexcept;
-		
+		Vec2 operator-() const noexcept;
+
 		/**
 		*	\brief Add term by term vector values.
 		*
@@ -282,7 +271,7 @@ namespace Mathlib
 		*
 		*	\return new vector sum of both vectors.
 		*/
-		Vec3 operator+(const Vec3& _rhs) const noexcept;
+		Vec2 operator+(const Vec2& _rhs) const noexcept;
 
 		/**
 		*	\brief Substract term by term vector values.
@@ -291,7 +280,7 @@ namespace Mathlib
 		*
 		*	\return new vector result of the substraction of both vectors.
 		*/
-		Vec3 operator-(const Vec3& _rhs) const noexcept;
+		Vec2 operator-(const Vec2& _rhs) const noexcept;
 
 		/**
 		*	\brief Multiply term by term vector values.
@@ -300,7 +289,7 @@ namespace Mathlib
 		*
 		*	\return new vector result of the multiplication of both vectors.
 		*/
-		Vec3 operator*(const Vec3& _rhs) const noexcept;
+		Vec2 operator*(const Vec2& _rhs) const noexcept;
 
 		/**
 		*	\brief Divide term by term vector values.
@@ -309,7 +298,7 @@ namespace Mathlib
 		*
 		*	\return new vector result of the operation.
 		*/
-		Vec3 operator/(const Vec3& _rhs) const ;
+		Vec2 operator/(const Vec2& _rhs) const;
 
 		/**
 		*	\brief Add term by term vector values.
@@ -318,7 +307,7 @@ namespace Mathlib
 		*
 		*	\return self vector result.
 		*/
-		Vec3& operator+=(const Vec3& _rhs) noexcept;
+		Vec2& operator+=(const Vec2& _rhs) noexcept;
 
 		/**
 		*	\brief Substract term by term vector values.
@@ -327,8 +316,8 @@ namespace Mathlib
 		*
 		*	\return self vector result.
 		*/
-		Vec3& operator-=(const Vec3& _rhs) noexcept;
-		
+		Vec2& operator-=(const Vec2& _rhs) noexcept;
+
 		/**
 		*	\brief Multiply term by term vector values.
 		*
@@ -336,7 +325,7 @@ namespace Mathlib
 		*
 		*	\return self vector result.
 		*/
-		Vec3& operator*=(const Vec3& _rhs) noexcept;
+		Vec2& operator*=(const Vec2& _rhs) noexcept;
 
 		/**
 		*	\brief Divide term by term vector values.
@@ -345,7 +334,7 @@ namespace Mathlib
 		*
 		*	\return self vector result.
 		*/
-		Vec3& operator/=(const Vec3& _rhs) ;
+		Vec2& operator/=(const Vec2& _rhs);
 
 		/**
 		*	\brief Scale each vector's axis by _scale.
@@ -354,7 +343,7 @@ namespace Mathlib
 		*
 		*	\return new vector scaled.
 		*/
-		Vec3 operator*(float _scale) const noexcept;
+		Vec2 operator*(float _scale) const noexcept;
 
 		/**
 		*	\brief Divide each vector's axis by _scale.
@@ -363,7 +352,7 @@ namespace Mathlib
 		*
 		*	\return new divided vector.
 		*/
-		Vec3 operator/(float _scale) const ;
+		Vec2 operator/(float _scale) const;
 
 		/**
 		*	\brief Scale each vector's axis by _scale.
@@ -372,7 +361,7 @@ namespace Mathlib
 		*
 		*	\return self vector result.
 		*/
-		Vec3& operator*=(float _scale) noexcept;
+		Vec2& operator*=(float _scale) noexcept;
 
 		/**
 		*	\brief Scale each vector's axis by _scale.
@@ -381,7 +370,7 @@ namespace Mathlib
 		*
 		*	\return self vector result.
 		*/
-		Vec3& operator/=(float _scale) ;
+		Vec2& operator/=(float _scale);
 
 		//Debug
 

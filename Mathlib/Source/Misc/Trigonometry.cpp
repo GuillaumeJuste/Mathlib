@@ -1,5 +1,6 @@
-#include <Trigonometry.hpp>
 #include <cmath>
+
+#include <Misc/Trigonometry.hpp>
 
 namespace Mathlib
 {

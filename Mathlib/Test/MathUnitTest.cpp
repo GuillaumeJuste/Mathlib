@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include <Math.hpp>
-#include <Trigonometry.hpp>
-#include <Callback.hpp>
+
+#include <Mathlib.hpp>
+
 
 using namespace Mathlib;
 
@@ -10,9 +10,9 @@ using namespace Mathlib;
 */
 TEST(MathUnitTest, Constants)
 {
-	EXPECT_FLOAT_EQ(Math::Pi, 3.1415926535897932384);
-	EXPECT_FLOAT_EQ(Math::DegToRad, 3.1415926535897932384 / 180.0);
-	EXPECT_FLOAT_EQ(Math::RadToDeg, 180.0 / 3.1415926535897932384);
+	EXPECT_FLOAT_EQ(Math::Pi, 3.1415926535897932384f);
+	EXPECT_FLOAT_EQ(Math::DegToRad, 3.1415926535897932384f / 180.0f);
+	EXPECT_FLOAT_EQ(Math::RadToDeg, 180.0f / 3.1415926535897932384f);
 }
 
 /**
@@ -32,8 +32,8 @@ TEST(MathUnitTest, Sign)
 	EXPECT_EQ(Math::Sign(10), 1);
 	EXPECT_EQ(Math::Sign(-64750), -1);
 
-	EXPECT_FLOAT_EQ(Math::Sign(84565.65454f), 1);
-	EXPECT_FLOAT_EQ(Math::Sign(-561.5646f), -1);
+	EXPECT_EQ(Math::Sign(84565.65454f), 1);
+	EXPECT_EQ(Math::Sign(-561.5646f), -1);
 }
 
 /**
