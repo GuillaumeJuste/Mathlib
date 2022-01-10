@@ -3,10 +3,11 @@
 #ifndef MATHLIB_VEC2
 #define MATHLIB_VEC2
 
+#include <string>
 #include "Misc/Includes.hpp"
 
 /**
-*	\file Vector2.hpp
+*	\file Vec2.hpp
 *
 *	\brief Vec2 type implementation.
 */
@@ -337,6 +338,24 @@ namespace Mathlib
 		Vec2& operator/=(const Vec2& _rhs);
 
 		/**
+		*	\brief Add scale to each vector's axis.
+		*
+		*	\param[in] _scale	Scale value to apply to all axis.
+		*
+		*	\return new vector scaled.
+		*/
+		Vec2 operator+(float _scale) const noexcept;
+
+		/**
+		*	\brief Substract scale to each vector's axis.
+		*
+		*	\param[in] _scale	Scale value to apply to all axis.
+		*
+		*	\return new vector scaled.
+		*/
+		Vec2 operator-(float _scale) const noexcept;
+
+		/**
 		*	\brief Scale each vector's axis by _scale.
 		*
 		*	\param[in] _scale	Scale value to apply to all axis.
@@ -353,6 +372,24 @@ namespace Mathlib
 		*	\return new divided vector.
 		*/
 		Vec2 operator/(float _scale) const;
+
+		/**
+		*	\brief Add scale to each vector's axis.
+		*
+		*	\param[in] _scale Scale value to apply to all axis.
+		*
+		*	\return self vector result.
+		*/
+		Vec2& operator+=(float _scale) noexcept;
+
+		/**
+		*	\brief Substract scale to each vector's axis.
+		*
+		*	\param[in] _scale Scale value to apply to all axis.
+		*
+		*	\return self vector result.
+		*/
+		Vec2& operator-=(float _scale) noexcept;
 
 		/**
 		*	\brief Scale each vector's axis by _scale.

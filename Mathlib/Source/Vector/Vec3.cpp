@@ -1,7 +1,12 @@
 #include <stdexcept>
 #include <string>
 
-#include <Mathlib.hpp>
+#include <Vector/Vec2.hpp>
+#include <Vector/Vec3.hpp>
+#include <Vector/Vec4.hpp>
+#include <Misc/Math.hpp>
+#include <Misc/Callback.hpp>
+#include <Misc/Trigonometry.hpp>
 
 using namespace Mathlib;
 
@@ -209,18 +214,6 @@ Vec3 Vec3::operator-() const noexcept
 	return Vec3(-X, -Y, -Z);
 }
 
-Vec3 Vec3::operator*(float _scale) const noexcept
-{
-	return Vec3(X * _scale, Y * _scale, Z * _scale);
-}
-
-Vec3 Vec3::operator/(float _scale) const 
-{
-	if (_scale == 0.f)
-		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
-	return Vec3(X / _scale, Y / _scale, Z / _scale);
-}
-
 Vec3 Vec3::operator+(const Vec3& _rhs) const noexcept
 {
 	return Vec3(X + _rhs.X, Y + _rhs.Y, Z + _rhs.Z);
@@ -276,6 +269,44 @@ Vec3& Vec3::operator/=(const Vec3& _rhs)
 	X /= _rhs.X;
 	Y /= _rhs.Y;
 	Z /= _rhs.Z;
+	return *this;
+}
+
+Vec3 Vec3::operator+(float _scale) const noexcept
+{
+	return Vec3(X + _scale, Y + _scale, Z + _scale);
+}
+
+Vec3 Vec3::operator-(float _scale) const noexcept
+{
+	return Vec3(X - _scale, Y - _scale, Z - _scale);
+}
+
+Vec3 Vec3::operator*(float _scale) const noexcept
+{
+	return Vec3(X * _scale, Y * _scale, Z * _scale);
+}
+
+Vec3 Vec3::operator/(float _scale) const
+{
+	if (_scale == 0.f)
+		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
+	return Vec3(X / _scale, Y / _scale, Z / _scale);
+}
+
+Vec3& Vec3::operator+=(float _scale) noexcept
+{
+	X += _scale;
+	Y += _scale;
+	Z += _scale;
+	return *this;
+}
+
+Vec3& Vec3::operator-=(float _scale) noexcept
+{
+	X -= _scale;
+	Y -= _scale;
+	Z -= _scale;
 	return *this;
 }
 

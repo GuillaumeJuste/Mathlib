@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-file(GLOB_RECURSE SOURCES "Source/*" "Include/*")
+file(GLOB_RECURSE SOURCES "Source/*")
 
 add_library (Mathlib SHARED ${SOURCES})
 target_compile_definitions(Mathlib PRIVATE MATHLIB_EXPORTS)

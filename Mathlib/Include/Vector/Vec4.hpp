@@ -6,7 +6,7 @@
 #include "Misc/Includes.hpp"
 
 /**
-*	\file Vector4.hpp
+*	\file Vec4.hpp
 *
 *	\brief Vec4 type implementation.
 */
@@ -301,6 +301,24 @@ namespace Mathlib
 		Vec4& operator/=(const Vec4& _rhs);
 
 		/**
+		*	\brief Add scale to each vector's axis.
+		*
+		*	\param[in] _scale	Scale value to apply to all axis.
+		*
+		*	\return new vector scaled.
+		*/
+		Vec4 operator+(float _scale) const noexcept;
+
+		/**
+		*	\brief Substract scale to each vector's axis.
+		*
+		*	\param[in] _scale	Scale value to apply to all axis.
+		*
+		*	\return new vector scaled.
+		*/
+		Vec4 operator-(float _scale) const noexcept;
+
+		/**
 		*	\brief Scale each vector's axis by _scale.
 		*
 		*	\param[in] _scale	Scale value to apply to all axis.
@@ -317,6 +335,24 @@ namespace Mathlib
 		*	\return new divided vector.
 		*/
 		Vec4 operator/(float _scale) const;
+
+		/**
+		*	\brief Add scale to each vector's axis.
+		*
+		*	\param[in] _scale Scale value to apply to all axis.
+		*
+		*	\return self vector result.
+		*/
+		Vec4& operator+=(float _scale) noexcept;
+
+		/**
+		*	\brief Substract scale to each vector's axis.
+		*
+		*	\param[in] _scale Scale value to apply to all axis.
+		*
+		*	\return self vector result.
+		*/
+		Vec4& operator-=(float _scale) noexcept;
 
 		/**
 		*	\brief Scale each vector's axis by _scale.

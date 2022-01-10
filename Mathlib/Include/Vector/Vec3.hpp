@@ -6,7 +6,7 @@
 #include "Misc/Includes.hpp"
 
 /**
-*	\file Vector3.hpp
+*	\file Vec3.hpp
 *
 *	\brief Vec3 type implementation.
 */
@@ -348,6 +348,24 @@ namespace Mathlib
 		Vec3& operator/=(const Vec3& _rhs) ;
 
 		/**
+		*	\brief Add scale to each vector's axis.
+		*
+		*	\param[in] _scale	Scale value to apply to all axis.
+		*
+		*	\return new vector scaled.
+		*/
+		Vec3 operator+(float _scale) const noexcept;
+
+		/**
+		*	\brief Substract scale to each vector's axis.
+		*
+		*	\param[in] _scale	Scale value to apply to all axis.
+		*
+		*	\return new vector scaled.
+		*/
+		Vec3 operator-(float _scale) const noexcept;
+
+		/**
 		*	\brief Scale each vector's axis by _scale.
 		*
 		*	\param[in] _scale	Scale value to apply to all axis.
@@ -363,7 +381,25 @@ namespace Mathlib
 		*
 		*	\return new divided vector.
 		*/
-		Vec3 operator/(float _scale) const ;
+		Vec3 operator/(float _scale) const;
+
+		/**
+		*	\brief Add scale to each vector's axis.
+		*
+		*	\param[in] _scale Scale value to apply to all axis.
+		*
+		*	\return self vector result.
+		*/
+		Vec3& operator+=(float _scale) noexcept;
+
+		/**
+		*	\brief Substract scale to each vector's axis.
+		*
+		*	\param[in] _scale Scale value to apply to all axis.
+		*
+		*	\return self vector result.
+		*/
+		Vec3& operator-=(float _scale) noexcept;
 
 		/**
 		*	\brief Scale each vector's axis by _scale.

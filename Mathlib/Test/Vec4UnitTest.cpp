@@ -192,13 +192,13 @@ TEST(Vec4UnitTest, Operator)
 	EXPECT_EQ(-vec_1, Vec4(-vec_1.X, -vec_1.Y, -vec_1.Z, -vec_1.W));
 	EXPECT_EQ(-vec_2, Vec4(-vec_2.X, -vec_2.Y, -vec_2.Z, -vec_2.W));
 
-	// operator+(vector3)
+	// operator+(Vec4)
 	EXPECT_EQ(vec_1 + vec_2, Vec4(vec_1.X + vec_2.X, vec_1.Y + vec_2.Y, vec_1.Z + vec_2.Z, vec_1.W + vec_2.W));
 
-	// operator-(vector3)
+	// operator-(Vec4)
 	EXPECT_EQ(vec_1 - vec_2, Vec4(vec_1.X - vec_2.X, vec_1.Y - vec_2.Y, vec_1.Z - vec_2.Z, vec_1.W - vec_2.W));
 
-	// operator*(vector3)
+	// operator*(Vec4)
 	EXPECT_EQ(vec_1 * vec_2, Vec4(vec_1.X * vec_2.X, vec_1.Y * vec_2.Y, vec_1.Z * vec_2.Z, vec_1.W * vec_2.W));
 
 	Vec4 test_result_1 = vec_1 / vec_2;
@@ -206,10 +206,10 @@ TEST(Vec4UnitTest, Operator)
 
 	bool test_compare = test_result_1 == test_result_2;
 
-	// operator/(vector3)
+	// operator/(Vec4)
 	EXPECT_EQ(vec_1 / vec_2, Vec4(vec_1.X / vec_2.X, vec_1.Y / vec_2.Y, vec_1.Z / vec_2.Z, vec_1.W / vec_2.W));
 
-	// operator+=(vector3)
+	// operator+=(Vec4)
 
 	vec_1 = GenerateVec4();
 	vec_2 = GenerateVec4();
@@ -226,7 +226,7 @@ TEST(Vec4UnitTest, Operator)
 	EXPECT_EQ(vec_4, vec_5 + vec_6);
 
 
-	// operator-=(vector3)
+	// operator-=(Vec4)
 
 	vec_1 = GenerateVec4();
 	vec_2 = GenerateVec4();
@@ -243,7 +243,7 @@ TEST(Vec4UnitTest, Operator)
 	EXPECT_EQ(vec_4, vec_6 - vec_5);
 
 
-	// operator*=(vector3)
+	// operator*=(Vec4)
 
 	vec_1 = GenerateVec4();
 	vec_2 = GenerateVec4();
@@ -259,7 +259,7 @@ TEST(Vec4UnitTest, Operator)
 
 	EXPECT_EQ(vec_4, vec_5 * vec_6);
 
-	// operator/=(vector3)
+	// operator/=(Vec4)
 	vec_1 = GenerateVec4();
 	vec_2 = GenerateVec4();
 	vec_3 = vec_1;
@@ -274,16 +274,35 @@ TEST(Vec4UnitTest, Operator)
 
 	EXPECT_EQ(vec_4, vec_6 / vec_5);
 
-	// operator*(float)
-
 	vec_1 = GenerateVec4();
 	float scale = static_cast<float>(Math::Random(1, 100));
 
+	// operator+(float)
+	EXPECT_EQ(vec_1 + scale, Vec4(vec_1.X + scale, vec_1.Y + scale, vec_1.Z + scale, vec_1.W + scale));
+	
+	// operator-(float)
+	EXPECT_EQ(vec_1 - scale, Vec4(vec_1.X - scale, vec_1.Y - scale, vec_1.Z - scale, vec_1.W - scale));
+
+	// operator*(float)
 	EXPECT_EQ(vec_1 * scale, Vec4(vec_1.X * scale, vec_1.Y * scale, vec_1.Z * scale, vec_1.W * scale));
 
 	// operator/(float)
 	EXPECT_EQ(vec_1 / scale, Vec4(vec_1.X / scale, vec_1.Y / scale, vec_1.Z / scale, vec_1.W / scale));
 
+	// operator+=(float)
+	vec_1 = GenerateVec4();
+	vec_2 = vec_1;
+	vec_1 += scale;
+
+	EXPECT_EQ(vec_1, vec_2 + scale);
+
+	// operator-=(float)
+	vec_1 = GenerateVec4();
+	vec_2 = vec_1;
+	vec_1 -= scale;
+
+	EXPECT_EQ(vec_1, vec_2 - scale);
+	
 	// operator*=(float)
 	vec_1 = GenerateVec4();
 	vec_2 = vec_1;
