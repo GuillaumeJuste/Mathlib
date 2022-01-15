@@ -67,10 +67,10 @@ TEST(Vec2UnitTest, Constructor)
 */
 TEST(Vec2UnitTest, Equality)
 {
-	Vec2 vec_1 = Vec3::Zero;
+	Vec2 vec_1 = Vec2::Zero;
 	float vec_2_x = static_cast<float>(Math::Random(1, 100));
 	float vec_2_y = static_cast<float>(Math::Random(1, 100));
-	Vec2 vec_2 = Vec3(vec_2_x, vec_2_y);
+	Vec2 vec_2 = Vec2(vec_2_x, vec_2_y);
 
 	// isZero()
 	EXPECT_TRUE(vec_1.IsZero());

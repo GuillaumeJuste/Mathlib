@@ -18,7 +18,7 @@ namespace Mathlib
 	struct MATHLIBRARY_API Mat2
 	{
 		/// Matrix components.
-		float m00, m01, m10, m11;
+		Vec2 X, Y;
 
 		//Constants
 		/**
@@ -56,9 +56,9 @@ namespace Mathlib
 		*	\brief Value constructor
 		*	Set all components of the matrix to the value
 		*
-		*	\param[in] _scale to initialise matix from.
+		*	\param[in] _value to initialise matix from.
 		*/
-		Mat2(float _scale) noexcept;
+		Mat2(float _value) noexcept;
 
 		/**
 		*	\brief Value constructor
@@ -78,12 +78,35 @@ namespace Mathlib
 		*/
 		Mat2(Mat2&& _mat2) noexcept  = default;
 
+		//Static methods
+
+		/**
+		*	\brief Create rotation matrix from specified angle.
+		* 
+		*	\param[in] _angle angle in radian to create matrix from.
+		*
+		*/
+		static Mat2 RotationMatrix(float _angle) noexcept;
+
+		/**
+		*	\brief Create scale matrix from specified scale.
+		*
+		*	\param[in] _scale scale to create matrix from.
+		*
+		*/
+		static Mat2 ScaleMatrix(float _scale) noexcept;
+
 		//Accessors
 
 		/**
 		*	\brief return this matrix as a float*.
 		*/
 		const float* Data() const noexcept;
+
+		/**
+		*	\brief Access matrix data at index.
+		*/
+		const float operator[](unsigned int _index) const;
 
 		//Equality
 
@@ -93,6 +116,11 @@ namespace Mathlib
 		bool IsZero() const noexcept;
 
 		/**
+		*	\brief Check if Mat2 is equal to default Identity Mat2
+		**/
+		bool IsIdentity() const noexcept;
+
+		/**
 		*	\brief Compare this matrix with with _other
 		*
 		*	\param[in] _other other matrix to do the comparison with.
@@ -100,7 +128,7 @@ namespace Mathlib
 		*
 		*	\return if this and _other are equal.
 		*/
-		bool Equals(const Mat2& _other, float _epsilon = 0.f) const noexcept;
+		bool Equals(const Mat2& _other, float _epsilon = Math::Epsilon) const noexcept;
 
 		/**
 		*	\brief Operator to compare this matrix with with _rhs
@@ -120,9 +148,43 @@ namespace Mathlib
 		*/
 		bool operator!=(const Mat2& _rhs) const noexcept;
 
+		//methods
+		/**
+		*	\brief Transpose Matrix.
+		* 
+		*	\return This matrix transposed.
+		**/
+		Mat2 Transpose() noexcept;
+
+		/**
+		*	\brief Transpose Matrix.
+		*
+		*	\return New transposed Matrix.
+		**/
+		Mat2 GetTranspose()const noexcept;
+
+		/**
+		*	\brief Compute inverse matrix.
+		*
+		*	\return This matrix inverted.
+		**/
+		Mat2 Inverse() noexcept;
+		
+		/**
+		*	\brief Compute inverse matrix.
+		*
+		*	\return new matrix inverted.
+		**/
+		Mat2 GetInverse() const noexcept;
+
+		/**
+		*	\brief Compute matrix determinant.
+		**/
+		float Determinant() const noexcept;
+
 		//Operators
 
-			/**
+		/**
 		*	\brief \e Default move assignement.
 		*
 		*	\return self vector assigned.
@@ -132,9 +194,144 @@ namespace Mathlib
 		/**
 		*	\brief \e Default copy assignement.
 		*
-		*	\return self vector assigned.
+		*	\return self matrix assigned.
 		*/
 		Mat2& operator=(const Mat2&) = default;
+
+		/**
+		*	\brief Add scale to each matrix components.
+		*
+		*	\param[in] _scale	Scale value to apply to all components.
+		*
+		*	\return new matrix scaled.
+		*/
+		Mat2 operator+(float _scale) const noexcept;
+
+		/**
+		*	\brief Substract scale to each matrix components.
+		*
+		*	\param[in] _scale	Scale value to apply to all components.
+		*
+		*	\return new matrix scaled.
+		*/
+		Mat2 operator-(float _scale) const noexcept;
+
+		/**
+		*	\brief Scale each vector's matrix components.
+		*
+		*	\param[in] _scale	Scale value to apply to all components.
+		*
+		*	\return new matrix scaled.
+		*/
+		Mat2 operator*(float _scale) const noexcept;
+
+		/**
+		*	\brief Divide each vector's matrix components.
+		*
+		*	\param[in] _scale	Scale value to apply to all components.
+		*
+		*	\return new divided matrix.
+		*/
+		Mat2 operator/(float _scale) const;
+
+		/**
+		*	\brief Add scale to each matrix components.
+		*
+		*	\param[in] _scale Scale value to apply to all components.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator+=(float _scale) noexcept;
+
+		/**
+		*	\brief Substract scale to each matrix components.
+		*
+		*	\param[in] _scale Scale value to apply to all components.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator-=(float _scale) noexcept;
+
+		/**
+		*	\brief Scale each matrix components by _scale.
+		*
+		*	\param[in] _scale Scale value to apply to all components.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator*=(float _scale) noexcept;
+
+		/**
+		*	\brief Divide each matrix components axis by _scale.
+		*
+		*	\param[in] _scale Scale value to apply to all components.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator/=(float _scale);
+
+		/**
+		*	\brief Multiply Mat2 and Vec2.
+		*
+		*	\param[in] _vec	vector to add to the matrix.
+		*
+		*	\return new vector.
+		*/
+		Vec2 operator*(const Vec2& _vec) const noexcept;
+
+		/**
+		*	\brief Add two Mat2.
+		*
+		*	\param[in] _mat	matrix to add to the matrix.
+		*
+		*	\return new matrix.
+		*/
+		Mat2 operator+(const Mat2& _mat) const noexcept;
+
+		/**
+		*	\brief Substract two Mat2.
+		*
+		*	\param[in] _mat	matrix to substract to the matrix.
+		*
+		*	\return new matrix.
+		*/
+		Mat2 operator-(const Mat2 & _mat) const noexcept;
+
+		/**
+		*	\brief Multiply two Mat2.
+		*
+		*	\param[in] _mat	matrix to multiply to the matrix.
+		*
+		*	\return new matrix.
+		*/
+		Mat2 operator*(const Mat2& _mat) const noexcept;
+
+		/**
+		*	\brief Add two Mat2.
+		*
+		*	\param[in] _mat	matrix to add to the matrix.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator+=(const Mat2& _mat) noexcept;
+
+		/**
+		*	\brief Substract two Mat2.
+		*
+		*	\param[in] _mat	matrix to substract to the matrix.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator-=(const Mat2& _mat) noexcept;
+
+		/**
+		*	\brief Multiply two Mat2.
+		*
+		*	\param[in] _mat	matrix to add to the matrix.
+		*
+		*	\return self matrix result.
+		*/
+		Mat2& operator*=(const Mat2& _mat) noexcept;
 	};
 }
 
