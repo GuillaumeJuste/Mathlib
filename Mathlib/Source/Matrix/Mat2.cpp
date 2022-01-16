@@ -79,6 +79,11 @@ bool Mat2::IsZero() const noexcept
 	return *this == Mat2::Zero;
 }
 
+bool Mat2::IsIdentity() const noexcept
+{
+	return *this == Mat2::Identity;
+}
+
 bool Mat2::Equals(const Mat2& _other, float _epsilon) const noexcept
 {
 	return Math::Equals(X.X, _other.X.X, _epsilon) &&
@@ -101,11 +106,6 @@ bool Mat2::operator!=(const Mat2& _rhs) const noexcept
 }
 
 //methods
-
-bool Mat2::IsIdentity() const noexcept
-{
-	return *this == Mat2::Identity;
-}
 
 Mat2 Mat2::Transpose() noexcept
 {
@@ -139,6 +139,7 @@ float Mat2::Determinant() const noexcept
 	return X.X * Y.Y - X.Y * Y.X;
 }
 
+//operator
 
 Mat2 Mat2::operator+(float _scale) const noexcept
 {
