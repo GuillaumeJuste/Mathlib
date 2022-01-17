@@ -114,7 +114,7 @@ namespace Mathlib
 		/**
 		*	\brief Access matrix data at index.
 		*/
-		const float operator[](unsigned int _index) const;
+		float& operator[](unsigned int _index);
 
 		//Equality
 

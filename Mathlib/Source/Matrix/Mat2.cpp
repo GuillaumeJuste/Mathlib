@@ -64,7 +64,7 @@ const float* Mat2::Data() const noexcept
 	return &X.X;
 }
 
-const float Mat2::operator[](unsigned int _index) const
+float& Mat2::operator[](unsigned int _index) 
 {
 	if(_index > 3)
 		Callback::CallErrorCallback(CLASS_NAME, "operator[]", "Index out of bound");
@@ -143,20 +143,19 @@ float Mat2::Determinant() const noexcept
 
 Mat2 Mat2::operator+(float _scale) const noexcept
 {
-	return Mat2(X.X + _scale, X.Y + _scale,
-		Y.X + _scale, Y.Y + _scale);
+	return Mat2(X + _scale, Y + _scale);
 }
 
 Mat2 Mat2::operator-(float _scale) const noexcept
 {
-	return Mat2(X.X - _scale, X.Y - _scale,
-		Y.X - _scale, Y.Y - _scale);
+	return Mat2(X - _scale, Y - _scale);
+
 }
 
 Mat2 Mat2::operator*(float _scale) const noexcept
 {
-	return Mat2(X.X * _scale, X.Y * _scale,
-		Y.X * _scale, Y.Y * _scale);
+	return Mat2(X * _scale, Y * _scale);
+
 }
 
 Mat2 Mat2::operator/(float _scale) const
@@ -164,34 +163,28 @@ Mat2 Mat2::operator/(float _scale) const
 	if (_scale == 0.f )
 		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
-	return Mat2(X.X / _scale, X.Y / _scale,
-		Y.X / _scale, Y.Y / _scale);
+	return Mat2(X / _scale, Y / _scale);
+
 }
 
 Mat2& Mat2::operator+=(float _scale) noexcept
 {
-	X.X += _scale;
-	X.Y += _scale;
-	Y.X += _scale;
-	Y.Y += _scale;
+	X += _scale;
+	Y += _scale;
 	return *this;
 }
 
 Mat2& Mat2::operator-=(float _scale) noexcept
 {
-	X.X -= _scale;
-	X.Y -= _scale;
-	Y.X -= _scale;
-	Y.Y -= _scale;
+	X -= _scale;
+	Y -= _scale;
 	return *this;
 }
 
 Mat2& Mat2::operator*=(float _scale) noexcept
 {
-	X.X *= _scale;
-	X.Y *= _scale;
-	Y.X *= _scale;
-	Y.Y *= _scale;
+	X *= _scale;
+	Y *= _scale;
 	return *this;
 }
 
@@ -200,10 +193,8 @@ Mat2& Mat2::operator/=(float _scale)
 	if (_scale == 0.f)
 		Callback::CallErrorCallback(CLASS_NAME, "operator/=", "Division by 0");
 
-	X.X /= _scale;
-	X.Y /= _scale;
-	Y.X /= _scale;
-	Y.Y /= _scale;
+	X /= _scale;
+	Y /= _scale;
 	return *this;
 }
 
@@ -215,14 +206,13 @@ Vec2 Mat2::operator*(const Vec2& _vec) const noexcept
 
 Mat2 Mat2::operator+(const Mat2& _mat) const noexcept
 {
-	return Mat2(X.X + _mat.X.X, X.Y + _mat.X.Y,
-		Y.X + _mat.Y.X, Y.Y + _mat.Y.Y);
+	return Mat2(X + _mat.X, Y + _mat.Y);
 }
 
 Mat2 Mat2::operator-(const Mat2& _mat) const noexcept
 {
-	return Mat2(X.X - _mat.X.X, X.Y - _mat.X.Y,
-		Y.X - _mat.Y.X, Y.Y - _mat.Y.Y);
+	return Mat2(X - _mat.X, Y - _mat.Y);
+
 }
 
 Mat2 Mat2::operator*(const Mat2& _mat) const noexcept
@@ -233,19 +223,15 @@ Mat2 Mat2::operator*(const Mat2& _mat) const noexcept
 
 Mat2& Mat2::operator+=(const Mat2& _mat) noexcept
 {
-	X.X += _mat.X.X;
-	X.Y += _mat.X.Y;
-	Y.X += _mat.Y.X;
-	Y.Y += _mat.Y.Y;
+	X += _mat.X;
+	Y += _mat.Y;
 	return *this;
 }
 
 Mat2& Mat2::operator-=(const Mat2& _mat) noexcept
 {
-	X.X -= _mat.X.X;
-	X.Y -= _mat.X.Y;
-	Y.X -= _mat.Y.X;
-	Y.Y -= _mat.Y.Y;
+	X -= _mat.X;
+	Y -= _mat.Y;
 	return *this;
 }
 

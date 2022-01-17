@@ -7,7 +7,7 @@
 
 using namespace Mathlib;
 
-#define CLASS_NAME "Mat2"
+#define CLASS_NAME "Mat3"
 
 //Constants
 
@@ -86,9 +86,9 @@ const float* Mat3::Data() const noexcept
 	return &X.X;
 }
 
-const float Mat3::operator[](unsigned int _index) const
+float& Mat3::operator[](unsigned int _index)
 {
-	if (_index > 3)
+	if (_index > 8)
 		Callback::CallErrorCallback(CLASS_NAME, "operator[]", "Index out of bound");
 
 	return (&X.X)[_index];
