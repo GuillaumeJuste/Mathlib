@@ -69,10 +69,10 @@ TEST(Mat2UnitTest, Accessors)
 
 	const float* mat_1_data = mat_1.Data();
 
-	EXPECT_FLOAT_EQ(mat_1_data[0], mat_1.X.X);
-	EXPECT_FLOAT_EQ(mat_1_data[1], mat_1.X.Y);
-	EXPECT_FLOAT_EQ(mat_1_data[2], mat_1.Y.X);
-	EXPECT_FLOAT_EQ(mat_1_data[3], mat_1.Y.Y);
+	EXPECT_FLOAT_EQ(mat_1_data[0], mat_1.e00);
+	EXPECT_FLOAT_EQ(mat_1_data[1], mat_1.e01);
+	EXPECT_FLOAT_EQ(mat_1_data[2], mat_1.e10);
+	EXPECT_FLOAT_EQ(mat_1_data[3], mat_1.e11);
 
 	Mat2 mat_2 = GenerateMat2();
 	const float* mat_2_data = mat_2.Data();

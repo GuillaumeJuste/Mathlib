@@ -18,7 +18,8 @@ namespace Mathlib
 	struct MATHLIBRARY_API Mat2
 	{
 		/// Matrix components.
-		Vec2 X, Y;
+		float e00{ 0.f }; float e01{ 0.f }; 
+		float e10{ 0.f }; float e11{ 0.f };
 
 		//Constants
 		/**
@@ -50,7 +51,7 @@ namespace Mathlib
 		*	\param[in] _m10 matrix second row first column value.
 		*	\param[in] _m11 matrix second row second column value.
 		*/
-		Mat2(float _m00, float _m01, float _m10, float _m11) noexcept;
+		Mat2(float _e00, float _e01, float _e10, float _e11) noexcept;
 
 		/**
 		*	\brief Value constructor

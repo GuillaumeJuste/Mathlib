@@ -21,22 +21,22 @@ const Mat2 Mat2::Identity = Mat2(1.f, 0.f,
 //Constructors
 
 Mat2::Mat2() noexcept :
-	X { 0.f }, Y{ 0.f }
+	e00{ 0.f }, e01{ 0.f }, e10{ 0.f }, e11{ 0.f }
 {
 }
 
-Mat2::Mat2(float _m00, float _m01, float _m10, float _m11) noexcept :
-	X{ _m00, _m01 }, Y { _m10, _m11 }
+Mat2::Mat2(float _e00, float _e01, float _e10, float _e11) noexcept :
+	e00{ _e00 }, e01{ _e01 }, e10{ _e10 }, e11{ _e11 }
 {
 }
 
 Mat2::Mat2(float _value) noexcept :
-	X{ _value }, Y{ _value }
+	e00{ _value }, e01{ _value }, e10{ _value }, e11{ _value }
 {
 }
 
 Mat2::Mat2(Vec2 _row0, Vec2 _row1) noexcept:
-	X{ _row0 }, Y{ _row1 }
+	e00{ _row0.X }, e01{ _row0.Y }, e10{ _row1.X }, e11{ _row1.Y }
 {
 }
 
@@ -61,7 +61,7 @@ Mat2 Mat2::ScaleMatrix(float _scale) noexcept
 
 const float* Mat2::Data() const noexcept
 {
-	return &X.X;
+	return &e00;
 }
 
 float& Mat2::operator[](unsigned int _index) 
@@ -69,7 +69,7 @@ float& Mat2::operator[](unsigned int _index)
 	if(_index > 3)
 		Callback::CallErrorCallback(CLASS_NAME, "operator[]", "Index out of bound");
 
-	return (&X.X)[_index];
+	return (&e00)[_index];
 }
 
 //Equality
@@ -86,18 +86,18 @@ bool Mat2::IsIdentity() const noexcept
 
 bool Mat2::Equals(const Mat2& _other, float _epsilon) const noexcept
 {
-	return Math::Equals(X.X, _other.X.X, _epsilon) &&
-		Math::Equals(X.Y, _other.X.Y, _epsilon) &&
-		Math::Equals(Y.X, _other.Y.X, _epsilon) &&
-		Math::Equals(Y.Y, _other.Y.Y, _epsilon);
+	return Math::Equals(e00, _other.e00, _epsilon) &&
+		Math::Equals(e01, _other.e01, _epsilon) &&
+		Math::Equals(e10, _other.e10, _epsilon) &&
+		Math::Equals(e11, _other.e11, _epsilon);
 }
 
 bool Mat2::operator==(const Mat2& _rhs) const noexcept
 {
-	return X.X == _rhs.X.X &&
-		X.Y == _rhs.X.Y &&
-		Y.X == _rhs.Y.X &&
-		Y.Y == _rhs.Y.Y;
+	return e00 == _rhs.e00 &&
+		e01 == _rhs.e01 &&
+		e10 == _rhs.e10 &&
+		e11 == _rhs.e11;
 }
 
 bool Mat2::operator!=(const Mat2& _rhs) const noexcept
@@ -115,7 +115,7 @@ Mat2 Mat2::Transpose() noexcept
 
 Mat2 Mat2::GetTranspose()const noexcept
 {
-	return Mat2(X.X, Y.X, X.Y, Y.Y);
+	return Mat2(e00, e10, e01, e11);
 }
 
 Mat2 Mat2::Inverse() noexcept
@@ -128,7 +128,7 @@ Mat2 Mat2::GetInverse() const noexcept
 {
 	float determinant = Determinant();
 	if(determinant != 0.f)
-		return Mat2(Y.Y, -X.Y, -Y.X, X.X) / determinant;
+		return Mat2(e11, -e01, -e10, e00) / determinant;
 
 	Callback::CallErrorCallback(CLASS_NAME, "GetInverse", "Matrix determinant equal 0");
 	return *this;
@@ -136,26 +136,27 @@ Mat2 Mat2::GetInverse() const noexcept
 
 float Mat2::Determinant() const noexcept
 {
-	return X.X * Y.Y - X.Y * Y.X;
+	return e00 * e11 - e01 * e10;
 }
 
 //operator
 
 Mat2 Mat2::operator+(float _scale) const noexcept
 {
-	return Mat2(X + _scale, Y + _scale);
+	return Mat2(e00 + _scale, e01 + _scale,
+		e10 + _scale, e11 + _scale);
 }
 
 Mat2 Mat2::operator-(float _scale) const noexcept
 {
-	return Mat2(X - _scale, Y - _scale);
-
+	return Mat2(e00 - _scale, e01 - _scale,
+		e10 - _scale, e11 - _scale);
 }
 
 Mat2 Mat2::operator*(float _scale) const noexcept
 {
-	return Mat2(X * _scale, Y * _scale);
-
+	return Mat2(e00 * _scale, e01 * _scale,
+		e10 * _scale, e11 * _scale);
 }
 
 Mat2 Mat2::operator/(float _scale) const
@@ -163,28 +164,34 @@ Mat2 Mat2::operator/(float _scale) const
 	if (_scale == 0.f )
 		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
-	return Mat2(X / _scale, Y / _scale);
-
+	return Mat2(e00 / _scale, e01 / _scale,
+		e10 / _scale, e11 / _scale);
 }
 
 Mat2& Mat2::operator+=(float _scale) noexcept
 {
-	X += _scale;
-	Y += _scale;
+	e00 += _scale;
+	e01 += _scale;
+	e10 += _scale;
+	e11 += _scale;
 	return *this;
 }
 
 Mat2& Mat2::operator-=(float _scale) noexcept
 {
-	X -= _scale;
-	Y -= _scale;
+	e00 -= _scale;
+	e01 -= _scale;
+	e10 -= _scale;
+	e11 -= _scale;
 	return *this;
 }
 
 Mat2& Mat2::operator*=(float _scale) noexcept
 {
-	X *= _scale;
-	Y *= _scale;
+	e00 *= _scale;
+	e01 *= _scale;
+	e10 *= _scale;
+	e11 *= _scale;
 	return *this;
 }
 
@@ -193,54 +200,61 @@ Mat2& Mat2::operator/=(float _scale)
 	if (_scale == 0.f)
 		Callback::CallErrorCallback(CLASS_NAME, "operator/=", "Division by 0");
 
-	X /= _scale;
-	Y /= _scale;
+	e00 /= _scale;
+	e01 /= _scale;
+	e10 /= _scale;
+	e11 /= _scale;
 	return *this;
 }
 
 Vec2 Mat2::operator*(const Vec2& _vec) const noexcept
 {
-	return Vec2(X.X * _vec.X + X.Y * _vec.Y,
-		Y.X * _vec.X + Y.Y * _vec.Y);
+	return Vec2(e00 * _vec.X + e01 * _vec.Y,
+		e10 * _vec.X + e11 * _vec.Y);
 }
 
 Mat2 Mat2::operator+(const Mat2& _mat) const noexcept
 {
-	return Mat2(X + _mat.X, Y + _mat.Y);
+	return Mat2(e00 + _mat.e00, e01 + _mat.e01,
+		e10 + _mat.e10, e11 + _mat.e11);
 }
 
 Mat2 Mat2::operator-(const Mat2& _mat) const noexcept
 {
-	return Mat2(X - _mat.X, Y - _mat.Y);
-
+	return Mat2(e00 - _mat.e00, e01 - _mat.e01,
+		e10 - _mat.e10, e11 - _mat.e11);
 }
 
 Mat2 Mat2::operator*(const Mat2& _mat) const noexcept
 {
-	return Mat2(X.X * _mat.X.X + X.Y * _mat.Y.X, X.X * _mat.X.Y + X.Y * _mat.Y.Y,
-		Y.X * _mat.X.X + Y.Y * _mat.Y.X, Y.X * _mat.X.Y + Y.Y * _mat.Y.Y);
+	return Mat2(e00 * _mat.e00 + e01 * _mat.e10, e00 * _mat.e01 + e01 * _mat.e11,
+		e10 * _mat.e00 + e11 * _mat.e10, e10 * _mat.e01 + e11 * _mat.e11);
 }
 
 Mat2& Mat2::operator+=(const Mat2& _mat) noexcept
 {
-	X += _mat.X;
-	Y += _mat.Y;
+	e00 += _mat.e00;
+	e01 += _mat.e01;
+	e10 += _mat.e10;
+	e11 += _mat.e11;
 	return *this;
 }
 
 Mat2& Mat2::operator-=(const Mat2& _mat) noexcept
 {
-	X -= _mat.X;
-	Y -= _mat.Y;
+	e00 -= _mat.e00;
+	e01 -= _mat.e01;
+	e10 -= _mat.e10;
+	e11 -= _mat.e11;
 	return *this;
 }
 
 Mat2& Mat2::operator*=(const Mat2& _mat) noexcept
 {
 	Mat2 tmp = *this;
-	X.X = tmp.X.X * _mat.X.X + tmp.X.Y * _mat.Y.X;
-	X.Y = tmp.X.X * _mat.X.Y + tmp.X.Y * _mat.Y.Y;
-	Y.X = tmp.Y.X * _mat.X.X + tmp.Y.Y * _mat.Y.X;
-	Y.Y = tmp.Y.X * _mat.X.Y + tmp.Y.Y * _mat.Y.Y;
+	e00 = tmp.e00 * _mat.e00 + tmp.e01 * _mat.e10;
+	e01 = tmp.e00 * _mat.e01 + tmp.e01 * _mat.e11;
+	e10 = tmp.e10 * _mat.e00 + tmp.e11 * _mat.e10;
+	e11 = tmp.e10 * _mat.e01 + tmp.e11 * _mat.e11;
 	return *this;
 }
