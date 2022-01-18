@@ -38,6 +38,10 @@ add_executable(Mat2UnitTest Test/Mat2UnitTest.cpp)
 target_link_libraries(Mat2UnitTest gtest_main)
 target_link_libraries(Mat2UnitTest Mathlib)
 
+add_executable(Mat3UnitTest Test/Mat3UnitTest.cpp)
+target_link_libraries(Mat3UnitTest gtest_main)
+target_link_libraries(Mat3UnitTest Mathlib)
+
 
 include(GoogleTest)
 gtest_discover_tests(Vector3UnitTest)

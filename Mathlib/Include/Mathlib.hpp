@@ -13,5 +13,6 @@
 #include <Vector/Vec4.hpp>
 
 #include <Matrix/Mat2.hpp>
+#include <Matrix/Mat3.hpp>
 
 #endif

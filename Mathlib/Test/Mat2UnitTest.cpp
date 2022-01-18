@@ -89,11 +89,7 @@ TEST(Mat2UnitTest, Accessors)
 TEST(Mat2UnitTest, Equality)
 {
 	Mat2 mat_1 = Mat2::Zero;
-	float mat_2_m00 = static_cast<float>(Math::Random(1, 100));
-	float mat_2_m01 = static_cast<float>(Math::Random(1, 100));
-	float mat_2_m10 = static_cast<float>(Math::Random(1, 100));
-	float mat_2_m11 = static_cast<float>(Math::Random(1, 100));
-	Mat2 mat_2 = Mat2(mat_2_m00, mat_2_m01, mat_2_m10, mat_2_m11);
+	Mat2 mat_2 = GenerateMat2();
 	Mat2 mat_3 = Mat2::Identity;
 
 	// isZero()
@@ -225,7 +221,7 @@ TEST(Mat2UnitTest, vec2_operator)
 */
 TEST(Mat2UnitTest, mat2_operator)
 {
-	Mat2 mat_1 = Mat2(-8.f, 5.f, 3.f, -5.f);;
+	Mat2 mat_1 = Mat2(-8.f, 5.f, 3.f, -5.f);
 	Mat2 mat_2 = Mat2::Identity;
 
 	EXPECT_EQ(mat_1 + mat_2, Mat2(-7.f, 5.f, 3.f, -4.f));

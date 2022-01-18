@@ -22,25 +22,26 @@ const Mat3 Mat3::Identity = Mat3(1.f, 0.f, 0.f,
 
 //Constructors
 
-Mat3::Mat3() noexcept :
-	X{ 0.f }, Y{ 0.f }
-{
-}
-
-Mat3::Mat3(float _m00, float _m01, float _m02,
-	float _m10, float _m11, float _m12,
-	float _m20, float _m21, float _m22) noexcept :
-	X{ _m00, _m01, _m02 }, Y{ _m10, _m11, _m12 }, Z{ _m20, _m21, _m22 }
+Mat3::Mat3(float _e00, float _e01, float _e02,
+	float _e10, float _e11, float _e12,
+	float _e20, float _e21, float _e22) noexcept :
+	e00{ _e00 }, e01{ _e01 }, e02{ _e02 },
+	e10{ _e10 }, e11{ _e11 }, e12{ _e12 },
+	e20{ _e20 }, e21{ _e21 }, e22{ _e22 }
 {
 }
 
 Mat3::Mat3(float _value) noexcept :
-	X{ _value }, Y{ _value }, Z{ _value }
+	e00{ _value }, e01{ _value }, e02{ _value },
+	e10{ _value }, e11{ _value }, e12{ _value },
+	e20{ _value }, e21{ _value }, e22{ _value }
 {
 }
 
 Mat3::Mat3(Vec3 _row0, Vec3 _row1, Vec3 _row2) noexcept :
-	X{ _row0 }, Y{ _row1 }, Z{ _row2 }
+	e00{ _row0.X }, e01{ _row0.Y }, e02{ _row0.Z },
+	e10{ _row1.X }, e11{ _row1.Y }, e12{ _row1.Z },
+	e20{ _row2.X }, e21{ _row2.Y }, e22{ _row2.Z }
 {
 }
 
@@ -57,19 +58,9 @@ Mat3 Mat3::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexce
 	float cos_z = Math::Cos(_z_angle);
 	float sin_z = Math::Sin(_z_angle);
 
-	Mat3 rotation_x = Mat3(1.f, 0.f, 0.f,
-							0.f, cos_x, -sin_x,
-							0.f, sin_x, cos_x);
-
-	Mat3 rotation_y = Mat3(cos_y, 0.f, sin_y,
-						0.f, 1.f, 0.f,
-						-sin_y, 0, cos_y);
-
-	Mat3 rotation_z = Mat3(cos_z, -sin_z, 0.f,
-						sin_z, cos_z, 0.f,
-						0.f, 0.f, 1.f);
-
-	return rotation_z * rotation_y * rotation_x;
+	return Mat3(cos_z * cos_y, cos_z * sin_y * sin_x - sin_z * cos_x, cos_z * sin_y * cos_x + sin_z * sin_x,
+				sin_z * cos_y, sin_z * sin_y * sin_x + cos_z * cos_y, sin_z * sin_y * cos_x - cos_z * sin_x,
+				-sin_y, cos_y * sin_x, cos_y * cos_x);
 }
 
 Mat3 Mat3::ScaleMatrix(float _scale) noexcept
@@ -83,7 +74,7 @@ Mat3 Mat3::ScaleMatrix(float _scale) noexcept
 
 const float* Mat3::Data() const noexcept
 {
-	return &X.X;
+	return &e00;
 }
 
 float& Mat3::operator[](unsigned int _index)
@@ -91,7 +82,7 @@ float& Mat3::operator[](unsigned int _index)
 	if (_index > 8)
 		Callback::CallErrorCallback(CLASS_NAME, "operator[]", "Index out of bound");
 
-	return (&X.X)[_index];
+	return (&e00)[_index];
 }
 
 //Equality
@@ -108,15 +99,29 @@ bool Mat3::IsIdentity() const noexcept
 
 bool Mat3::Equals(const Mat3& _other, float _epsilon) const noexcept
 {
-	return Math::Equals(X.X, _other.X.X, _epsilon) &&
-		Math::Equals(X.Y, _other.X.Y, _epsilon) &&
-		Math::Equals(Y.X, _other.Y.X, _epsilon) &&
-		Math::Equals(Y.Y, _other.Y.Y, _epsilon);
+	return Math::Equals(e00, _other.e00, _epsilon) &&
+		Math::Equals(e01, _other.e01, _epsilon) &&
+		Math::Equals(e02, _other.e02, _epsilon) &&
+		Math::Equals(e10, _other.e10, _epsilon) &&
+		Math::Equals(e11, _other.e11, _epsilon) &&
+		Math::Equals(e12, _other.e12, _epsilon) &&
+		Math::Equals(e20, _other.e20, _epsilon) &&
+		Math::Equals(e21, _other.e21, _epsilon) &&
+		Math::Equals(e22, _other.e22, _epsilon);
 }
 
 bool Mat3::operator==(const Mat3& _rhs) const noexcept
 {
-	return X == _rhs.X && Y == Y && Z == Z;
+	return e00 == _rhs.e00 &&
+		e01 == _rhs.e01 &&
+		e02 == _rhs.e02 &&
+		e10 == _rhs.e10 &&
+		e11 == _rhs.e11 &&
+		e12 == _rhs.e12 &&
+		e20 == _rhs.e20 &&
+		e21 == _rhs.e21 &&
+		e22 == _rhs.e22 ;
+
 }
 
 bool Mat3::operator!=(const Mat3& _rhs) const noexcept
@@ -134,9 +139,9 @@ Mat3 Mat3::Transpose() noexcept
 
 Mat3 Mat3::GetTranspose()const noexcept
 {
-	return Mat3(X.X, Y.X, Z.X,
-				X.Y, Y.Y, Z.Y,
-				X.Z, Y.Z, Z.Z);
+	return Mat3(e00, e10, e20,
+				e01, e11, e21,
+				e02, e12, e22);
 }
 
 Mat3 Mat3::Inverse() noexcept
@@ -151,9 +156,9 @@ Mat3 Mat3::GetInverse() const noexcept
 	if (determinant != 0.f)
 	{
 		return  Mat3(
-			Y.Y * Z.Z - Z.Y * Y.Z, X.Z * Z.Y - X.Y * Z.Z, X.Y * Y.Z - Y.Y * X.Z,
-			Y.Z * Z.X - Y.X * Z.Z, X.X * Z.Z - Z.X * X.Z, X.Z * Y.X - X.X * Y.Z,
-			Y.X * Z.Y - Z.X * Y.Y, X.Y * Z.X - X.X * Z.Y, X.X * Y.Y - Y.X * X.Y
+			e11 * e22 - e21 * e12, e02 * e21 - e01 * e22, e01 * e12 - e11 * e02,
+			e12 * e20 - e10 * e22, e00 * e22 - e20 * e02, e02 * e10 - e00 * e12,
+			e10 * e21 - e20 * e11, e01 * e20 - e00 * e21, e00 * e11 - e10 * e01
 		) * (1.0f / determinant);
 	}
 	Callback::CallErrorCallback(CLASS_NAME, "GetInverse", "Matrix determinant equal 0");
@@ -162,26 +167,30 @@ Mat3 Mat3::GetInverse() const noexcept
 
 float Mat3::Determinant() const noexcept
 {
-	return X.X * (Y.Y * Z.Z - Y.Z * Z.Y) - X.Y * (Y.X * Z.Z - Y.Z * Z.X) + X.X * (Y.X * Z.Y - Y.Y * Z.X);
+	return e00 * (e11 * e22 - e12 * e21) - e01 * (e10 * e22 - e12 * e20) + e02 * (e10 * e21 - e11 * e20);
 }
 
 //operator
 
 Mat3 Mat3::operator+(float _scale) const noexcept
 {
-	return Mat3(X + _scale, Y + _scale, Z + _scale);
+	return Mat3(e00 + _scale, e01 + _scale, e02 + _scale,
+				e10 + _scale, e11 + _scale, e12 + _scale,
+				e20 + _scale, e21 + _scale, e22 + _scale);
 }
 
 Mat3 Mat3::operator-(float _scale) const noexcept
 {
-	return Mat3(X - _scale, Y - _scale, Z - _scale);
-
+	return Mat3(e00 - _scale, e01 - _scale, e02 - _scale,
+		e10 - _scale, e11 - _scale, e12 - _scale,
+		e20 - _scale, e21 - _scale, e22 - _scale);
 }
 
 Mat3 Mat3::operator*(float _scale) const noexcept
 {
-	return Mat3(X * _scale, Y * _scale, Z * _scale);
-
+	return Mat3(e00 * _scale, e01 * _scale, e02 * _scale,
+		e10 * _scale, e11 * _scale, e12 * _scale,
+		e20 * _scale, e21 * _scale, e22 * _scale);
 }
 
 Mat3 Mat3::operator/(float _scale) const
@@ -189,31 +198,50 @@ Mat3 Mat3::operator/(float _scale) const
 	if (_scale == 0.f)
 		Callback::CallErrorCallback(CLASS_NAME, "operator/", "Division by 0");
 
-	return Mat3(X / _scale, Y / _scale, Z / _scale);
-
+	return Mat3(e00 / _scale, e01 / _scale, e02 / _scale,
+		e10 / _scale, e11 / _scale, e12 / _scale,
+		e20 / _scale, e21 / _scale, e22 / _scale);
 }
 
 Mat3& Mat3::operator+=(float _scale) noexcept
 {
-	X += _scale;
-	Y += _scale;
-	Z += _scale;
+	e00 += _scale;
+	e01 += _scale;
+	e02 += _scale;
+	e10 += _scale;
+	e11 += _scale;
+	e12 += _scale;
+	e20 += _scale;
+	e21 += _scale;
+	e22 += _scale;
 	return *this;
 }
 
 Mat3& Mat3::operator-=(float _scale) noexcept
 {
-	X -= _scale;
-	Y -= _scale;
-	Z -= _scale;
+	e00 -= _scale;
+	e01 -= _scale;
+	e02 -= _scale;
+	e10 -= _scale;
+	e11 -= _scale;
+	e12 -= _scale;
+	e20 -= _scale;
+	e21 -= _scale;
+	e22 -= _scale;
 	return *this;
 }
 
 Mat3& Mat3::operator*=(float _scale) noexcept
 {
-	X *= _scale;
-	Y *= _scale;
-	Z *= _scale;
+	e00 *= _scale;
+	e01 *= _scale;
+	e02 *= _scale;
+	e10 *= _scale;
+	e11 *= _scale;
+	e12 *= _scale;
+	e20 *= _scale;
+	e21 *= _scale;
+	e22 *= _scale;
 	return *this;
 }
 
@@ -222,75 +250,97 @@ Mat3& Mat3::operator/=(float _scale)
 	if (_scale == 0.f)
 		Callback::CallErrorCallback(CLASS_NAME, "operator/=", "Division by 0");
 
-	X /= _scale;
-	Y /= _scale;
-	Z /= _scale;
+	e00 /= _scale;
+	e01 /= _scale;
+	e02 /= _scale;
+	e10 /= _scale;
+	e11 /= _scale;
+	e12 /= _scale;
+	e20 /= _scale;
+	e21 /= _scale;
+	e22 /= _scale;
 	return *this;
 }
 
 Vec3 Mat3::operator*(const Vec3& _rhs) const noexcept
 {
-	return Vec3(X.X * _rhs.X + X.Y * _rhs.Y + X.Z * _rhs.Z,
-				Y.X * _rhs.X + Y.Y * _rhs.Y + Y.Z * _rhs.Z,
-				Z.X * _rhs.X + Z.Y * _rhs.Y + Z.Z * _rhs.Z);
+	return Vec3(e00 * _rhs.X + e01 * _rhs.Y + e02 * _rhs.Z,
+		e10 * _rhs.X + e11 * _rhs.Y + e12 * _rhs.Z,
+		e20 * _rhs.X + e21 * _rhs.Y + e22 * _rhs.Z);
 }
 
 Mat3 Mat3::operator+(const Mat3& _rhs) const noexcept
 {
-	return Mat3(X + _rhs.X, Y + _rhs.Y, Z + _rhs.Z);
+	return Mat3(e00 + _rhs.e00, e01 + _rhs.e01, e02 + _rhs.e02, 
+		e10 + _rhs.e10, e11 + _rhs.e11, e12 + _rhs.e12,
+		e20 + _rhs.e20, e21 + _rhs.e21, e22 + _rhs.e22);
 }
 
 Mat3 Mat3::operator-(const Mat3& _rhs) const noexcept
 {
-	return Mat3(X - _rhs.X, Y - _rhs.Y, Z - _rhs.Z);
+	return Mat3(e00 - _rhs.e00, e01 - _rhs.e01, e02 - _rhs.e02,
+				e10 - _rhs.e10, e11 - _rhs.e11, e12 - _rhs.e12,
+				e20 - _rhs.e20, e21 - _rhs.e21, e22 - _rhs.e22);
 }
 
 Mat3 Mat3::operator*(const Mat3& _rhs) const noexcept
 {
 	return Mat3(
-		X.X * _rhs.X.X + X.Y * _rhs.Y.X + X.Z * _rhs.Z.X,
-		X.X * _rhs.X.Y + X.Y * _rhs.Y.Y + X.Z * _rhs.Z.Y,
-		X.X * _rhs.X.Z + X.Y * _rhs.Y.Z + X.Z * _rhs.Z.Z,
+		e00 * _rhs.e00 + e01 * _rhs.e10 + e02 * _rhs.e20,
+		e00 * _rhs.e01 + e01 * _rhs.e11 + e02 * _rhs.e21,
+		e00 * _rhs.e02 + e01 * _rhs.e12 + e02 * _rhs.e22,
 
-		Y.X* _rhs.X.X + Y.Y * _rhs.Y.X + Y.Z * _rhs.Z.X,
-		Y.X* _rhs.X.Y + Y.Y * _rhs.Y.Y + Y.Z * _rhs.Z.Y,
-		Y.X* _rhs.X.Z + Y.Y * _rhs.Y.Z + Y.Z * _rhs.Z.Z,
+		e10* _rhs.e00 + e11 * _rhs.e10 + e12 * _rhs.e20,
+		e10* _rhs.e01 + e11 * _rhs.e11 + e12 * _rhs.e21,
+		e10* _rhs.e02 + e11 * _rhs.e12 + e12 * _rhs.e22,
 
-		Z.X* _rhs.X.X + Z.Y * _rhs.Y.X + Z.Z * _rhs.Z.X,
-		Z.X* _rhs.X.Y + Z.Y * _rhs.Y.Y + Z.Z * _rhs.Z.Y,
-		Z.X* _rhs.X.Z + Z.Y * _rhs.Y.Z + Z.Z * _rhs.Z.Z
+		e20* _rhs.e00 + e21 * _rhs.e10 + e22 * _rhs.e20,
+		e20* _rhs.e01 + e21 * _rhs.e11 + e22 * _rhs.e21,
+		e20* _rhs.e02 + e21 * _rhs.e12 + e22 * _rhs.e22
 	);
 }
 
 Mat3& Mat3::operator+=(const Mat3& _rhs) noexcept
 {
-	X += _rhs.X;
-	Y += _rhs.Y;
-	Z += _rhs.Z;
+	e00 += _rhs.e00;
+	e01 += _rhs.e01;
+	e02 += _rhs.e02;
+	e10 += _rhs.e10;
+	e11 += _rhs.e11;
+	e12 += _rhs.e12;
+	e20 += _rhs.e20;
+	e21 += _rhs.e21;
+	e22 += _rhs.e22;
 	return *this;
 }
 
 Mat3& Mat3::operator-=(const Mat3& _rhs) noexcept
 {
-	X -= _rhs.X;
-	Y -= _rhs.Y;
-	Z -= _rhs.Z;
+	e00 -= _rhs.e00;
+	e01 -= _rhs.e01;
+	e02 -= _rhs.e02;
+	e10 -= _rhs.e10;
+	e11 -= _rhs.e11;
+	e12 -= _rhs.e12;
+	e20 -= _rhs.e20;
+	e21 -= _rhs.e21;
+	e22 -= _rhs.e22;
 	return *this;
 }
 
 Mat3& Mat3::operator*=(const Mat3& _rhs) noexcept
 {
 	Mat3 tmp = *this;
-	X.X = X.X* _rhs.X.X + X.Y * _rhs.Y.X + X.Z * _rhs.Z.X;
-	X.Y = X.X* _rhs.X.Y + X.Y * _rhs.Y.Y + X.Z * _rhs.Z.Y;
-	X.Z = X.X* _rhs.X.Z + X.Y * _rhs.Y.Z + X.Z * _rhs.Z.Z;
-
-	Y.X = Y.X * _rhs.X.X + Y.Y * _rhs.Y.X + Y.Z * _rhs.Z.X;
-	Y.Y = Y.X * _rhs.X.Y + Y.Y * _rhs.Y.Y + Y.Z * _rhs.Z.Y;
-	Y.Z = Y.X* _rhs.X.Z + Y.Y * _rhs.Y.Z + Y.Z * _rhs.Z.Z;
-
-	Z.X = Z.X * _rhs.X.X + Z.Y * _rhs.Y.X + Z.Z * _rhs.Z.X;
-	Z.Y = Z.X * _rhs.X.Y + Z.Y * _rhs.Y.Y + Z.Z * _rhs.Z.Y;
-	Z.Z = Z.X* _rhs.X.Z + Z.Y * _rhs.Y.Z + Z.Z * _rhs.Z.Z;
+	e00 = e00* _rhs.e00 + e01 * _rhs.e10 + e02 * _rhs.e20;
+	e01 = e00* _rhs.e01 + e01 * _rhs.e11 + e02 * _rhs.e21;
+	e02 = e00* _rhs.e02 + e01 * _rhs.e12 + e02 * _rhs.e22;
+												   
+	e10 = e10* _rhs.e00 + e11 * _rhs.e10 + e12 * _rhs.e20;
+	e11 = e10* _rhs.e01 + e11 * _rhs.e11 + e12 * _rhs.e21;
+	e12 = e10* _rhs.e02 + e11 * _rhs.e12 + e12 * _rhs.e22;
+												   
+	e20 = e20* _rhs.e00 + e21 * _rhs.e10 + e22 * _rhs.e20;
+	e21 = e20* _rhs.e01 + e21 * _rhs.e11 + e22 * _rhs.e21;
+	e22 = e20* _rhs.e02 + e21 * _rhs.e12 + e22 * _rhs.e22;
 	return *this;
 }

@@ -20,11 +20,6 @@ const Mat2 Mat2::Identity = Mat2(1.f, 0.f,
 
 //Constructors
 
-Mat2::Mat2() noexcept :
-	e00{ 0.f }, e01{ 0.f }, e10{ 0.f }, e11{ 0.f }
-{
-}
-
 Mat2::Mat2(float _e00, float _e01, float _e10, float _e11) noexcept :
 	e00{ _e00 }, e01{ _e01 }, e10{ _e10 }, e11{ _e11 }
 {

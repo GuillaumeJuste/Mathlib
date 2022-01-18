@@ -18,7 +18,9 @@ namespace Mathlib
 	struct MATHLIBRARY_API Mat3
 	{
 		/// Matrix components.
-		Vec3 X, Y, Z;
+		float e00{ 0.f }; float e01{ 0.f }; float e02{ 0.f };
+		float e10{ 0.f }; float e11{ 0.f }; float e12{ 0.f };
+		float e20{ 0.f }; float e21{ 0.f }; float e22{ 0.f };
 
 		//Constants
 		/**
@@ -40,24 +42,24 @@ namespace Mathlib
 		/**
 		*	\brief Default constructor
 		*/
-		Mat3() noexcept;
+		Mat3() noexcept = default;
 
 		/**
 		*	\brief Value constructor
 		*
-		*	\param[in] _m00 matrix first row first column value.
-		* 	\param[in] _m01 matrix first row second column value.
-		*	\param[in] _m02 matrix first row third column value.
-		*	\param[in] _m10 matrix second row first column value.
-		* 	\param[in] _m11 matrix second row second column value.
-		* 	\param[in] _m12 matrix second row third column value.
-		*	\param[in] _m20 matrix third row first column value.
-		*	\param[in] _m21 matrix third row second column value.
-		*	\param[in] _m22 matrix third row third column value.
+		*	\param[in] _e00 matrix first row first column value.
+		* 	\param[in] _e01 matrix first row second column value.
+		*	\param[in] _e02 matrix first row third column value.
+		*	\param[in] _e10 matrix second row first column value.
+		* 	\param[in] _e11 matrix second row second column value.
+		* 	\param[in] _e12 matrix second row third column value.
+		*	\param[in] _e20 matrix third row first column value.
+		*	\param[in] _e21 matrix third row second column value.
+		*	\param[in] _e22 matrix third row third column value.
 		*/
-		Mat3(float _m00, float _m01, float _m02, 
-			float _m10, float _m11, float _m12, 
-			float _m20, float _m21, float _m22) noexcept;
+		Mat3(float _e00, float _e01, float _e02,
+			float _e10, float _e11, float _e12,
+			float _e20, float _e21, float _e22) noexcept;
 
 		/**
 		*	\brief Value constructor
