@@ -41,7 +41,7 @@ namespace Mathlib
 		/**
 		*	\brief Default constructor
 		*/
-		Mat2() noexcept;
+		Mat2() noexcept = default;
 
 		/**
 		*	\brief Value constructor
