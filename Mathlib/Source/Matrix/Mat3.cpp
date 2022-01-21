@@ -331,16 +331,16 @@ Mat3& Mat3::operator-=(const Mat3& _rhs) noexcept
 Mat3& Mat3::operator*=(const Mat3& _rhs) noexcept
 {
 	Mat3 tmp = *this;
-	e00 = e00* _rhs.e00 + e01 * _rhs.e10 + e02 * _rhs.e20;
-	e01 = e00* _rhs.e01 + e01 * _rhs.e11 + e02 * _rhs.e21;
-	e02 = e00* _rhs.e02 + e01 * _rhs.e12 + e02 * _rhs.e22;
-												   
-	e10 = e10* _rhs.e00 + e11 * _rhs.e10 + e12 * _rhs.e20;
-	e11 = e10* _rhs.e01 + e11 * _rhs.e11 + e12 * _rhs.e21;
-	e12 = e10* _rhs.e02 + e11 * _rhs.e12 + e12 * _rhs.e22;
-												   
-	e20 = e20* _rhs.e00 + e21 * _rhs.e10 + e22 * _rhs.e20;
-	e21 = e20* _rhs.e01 + e21 * _rhs.e11 + e22 * _rhs.e21;
-	e22 = e20* _rhs.e02 + e21 * _rhs.e12 + e22 * _rhs.e22;
+	e00 = tmp.e00* _rhs.e00 + tmp.e01 * _rhs.e10 + tmp.e02 * _rhs.e20;
+	e01 = tmp.e00* _rhs.e01 + tmp.e01 * _rhs.e11 + tmp.e02 * _rhs.e21;
+	e02 = tmp.e00* _rhs.e02 + tmp.e01 * _rhs.e12 + tmp.e02 * _rhs.e22;
+
+	e10 = tmp.e10* _rhs.e00 + tmp.e11 * _rhs.e10 + tmp.e12 * _rhs.e20;
+	e11 = tmp.e10* _rhs.e01 + tmp.e11 * _rhs.e11 + tmp.e12 * _rhs.e21;
+	e12 = tmp.e10* _rhs.e02 + tmp.e11 * _rhs.e12 + tmp.e12 * _rhs.e22;
+
+	e20 = tmp.e20* _rhs.e00 + tmp.e21 * _rhs.e10 + tmp.e22 * _rhs.e20;
+	e21 = tmp.e20* _rhs.e01 + tmp.e21 * _rhs.e11 + tmp.e22 * _rhs.e21;
+	e22 = tmp.e20* _rhs.e02 + tmp.e21 * _rhs.e12 + tmp.e22 * _rhs.e22;
 	return *this;
 }

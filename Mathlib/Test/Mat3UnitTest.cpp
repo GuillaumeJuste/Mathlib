@@ -57,7 +57,7 @@ TEST(Mat3UnitTest, Constructor)
 }
 
 /**
-*	\brief Unit test for rotation matrix constructors
+*	\brief Unit test for rotation matrix constructor
 */
 TEST(Mat3UnitTest, Rotation_matrix)
 {
@@ -70,6 +70,9 @@ TEST(Mat3UnitTest, Rotation_matrix)
 	EXPECT_TRUE(result.Equals(mat));
 }
 
+/**
+*	\brief Unit test for scale matrix constructor
+*/
 TEST(Mat3UnitTest, Scale_matrix)
 {
 	Mat3 mat_1 = Mat3::ScaleMatrix(5.f);
@@ -80,7 +83,7 @@ TEST(Mat3UnitTest, Scale_matrix)
 }
 
 /**
-*	\brief Unit test for Mat2 accessors fuction
+*	\brief Unit test for Mat3 accessors fuction
 */
 TEST(Mat3UnitTest, Accessors)
 {
@@ -113,7 +116,7 @@ TEST(Mat3UnitTest, Accessors)
 }
 
 /**
-*	\brief Unit test for equality and comparison between Vec2
+*	\brief Unit test for equality and comparison between Mat3
 */
 TEST(Mat3UnitTest, Equality)
 {
@@ -270,7 +273,7 @@ TEST(Mat3UnitTest, vec3_operator)
 }
 
 /**
-*	\brief Unit test mat2 & mat2 operators
+*	\brief Unit test mat3 & mat3 operators
 */
 TEST(Mat3UnitTest, mat3_operator)
 {

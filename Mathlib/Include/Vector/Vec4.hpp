@@ -4,6 +4,7 @@
 #define MATHLIB_VEC4
 
 #include "Misc/Includes.hpp"
+#include <string>
 
 /**
 *	\file Vec4.hpp
