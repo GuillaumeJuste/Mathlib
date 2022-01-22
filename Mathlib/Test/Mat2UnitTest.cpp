@@ -38,6 +38,9 @@ TEST(Mat2UnitTest, Constructor)
 	EXPECT_EQ(Mat2(-10.f), Mat2(-10.f, -10.f, -10.f, -10.f));
 	
 	EXPECT_EQ(Mat2(Vec2(5.f, 48.f), Vec2(12.f, 7.f)), Mat2(5.f, 48.f, 12.f, 7.f));
+
+	EXPECT_EQ(Mat2(Mat3::Identity), Mat2::Identity);
+	EXPECT_EQ(Mat2(Mat4::Identity), Mat2::Identity);
 }
 
 /**

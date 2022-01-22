@@ -13,7 +13,10 @@
 
 namespace Mathlib
 {
+	struct Vec3;
 	struct Vec4;
+	struct Mat2;
+	struct Mat3;
 
 	struct MATHLIBRARY_API Mat4
 	{
@@ -93,6 +96,20 @@ namespace Mathlib
 		Mat4(Vec4 _row0, Vec4 _row1, Vec4 _row2, Vec4 _row3) noexcept;
 
 		/**
+		*	\brief Value constructor
+		*
+		*	\param[in] _mat matrix to create matrix from.
+		*/
+		Mat4(Mat2 _mat) noexcept;
+
+		/**
+		*	\brief Value constructor
+		*
+		*	\param[in] _mat matrix to create matrix from.
+		*/
+		Mat4(Mat3 _mat) noexcept;
+
+		/**
 		*	\brief Default copy constructor
 		*/
 		Mat4(const Mat4& _mat) noexcept = default;
@@ -107,10 +124,21 @@ namespace Mathlib
 		/**
 		*	\brief Create rotation matrix from specified angle.
 		*
-		*	\param[in] _angle angle in radian to create matrix from.
+		*	\param[in] _x_angle angle of the rotation around X axuis in radian.
+		*	\param[in] _y_angle angle of the rotation around Y axuis in radian.
+		*	\param[in] _z_angle angle of the rotation around Z axuis in radian.
 		*
 		*/
 		static Mat4 RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept;
+
+		/**
+		*	\brief Create rotation matrix from specified angle.
+		*
+		*	\param[in] _rotation vec3 containing rotation value around X, Y and Z axis.
+		*
+		*/
+		static Mat4 RotationMatrix(Vec3 _rotation) noexcept;
+
 
 		/**
 		*	\brief Create scale matrix from specified scale.
@@ -119,6 +147,32 @@ namespace Mathlib
 		*
 		*/
 		static Mat4 ScaleMatrix(float _scale) noexcept;
+
+		/**
+		*	\brief Create scale matrix from specified scale vector.
+		*
+		*	\param[in] _scale vector containg scale value for each axis.
+		*
+		*/
+		static Mat4 ScaleMatrix(Vec3 _scale) noexcept;
+
+		/**
+		*	\brief Create translation matrix from specified vector.
+		*
+		*	\param[in] _vec vector to create matrix from.
+		*
+		*/
+		static Mat4 TranslationMatrix(Vec3 _vec) noexcept;
+
+		/**
+		*	\brief Create transform matrix.
+		*
+		*	\param[in] _rotation transform's rotations.
+		*	\param[in] _position transform's position.
+		*	\param[in] _scale transform's scale.
+		*
+		*/
+		static Mat4 TransformMatrix(Vec3 _rotation, Vec3 _position, Vec3 _scale) noexcept;
 
 		//Accessors
 

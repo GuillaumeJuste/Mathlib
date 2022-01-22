@@ -1,8 +1,11 @@
+#include <Vector/Vec3.hpp>
 #include <Vector/Vec4.hpp>
 #include <Misc/Math.hpp>
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>
 
+#include <Matrix/Mat2.hpp>
+#include <Matrix/Mat3.hpp>
 #include <Matrix/Mat4.hpp>
 
 using namespace Mathlib;
@@ -51,6 +54,22 @@ Mat4::Mat4(Vec4 _row0, Vec4 _row1, Vec4 _row2, Vec4 _row3) noexcept :
 {
 }
 
+Mat4::Mat4(Mat2 _mat) noexcept :
+	e00{ _mat.e00 }, e01{ _mat.e01 }, e02{ 0.f }, e03{ 0.f },
+	e10{ _mat.e10 }, e11{ _mat.e11 }, e12{ 0.f }, e13{ 0.f },
+	e20{ 0.f }, e21{ 0.f }, e22{ 1.f }, e23{ 0.f },
+	e30{ 0.f }, e31{ 0.f }, e32{ 0.f }, e33{ 1.f }
+{
+}
+
+Mat4::Mat4(Mat3 _mat) noexcept :
+	e00{ _mat.e00 }, e01{ _mat.e01 }, e02{ _mat.e02 }, e03{ 0.f },
+	e10{ _mat.e10 }, e11{ _mat.e11 }, e12{ _mat.e12 }, e13{ 0.f },
+	e20{ _mat.e20 }, e21{ _mat.e21 }, e22{ _mat.e22 }, e23{ 0.f },
+	e30{ 0.f }, e31{ 0.f }, e32{ 0.f }, e33{ 1.f }
+{
+}
+
 //static methods
 
 Mat4 Mat4::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept
@@ -70,12 +89,55 @@ Mat4 Mat4::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexce
 		0.f, 0.f, 0.f, 1.f);
 }
 
+Mat4 Mat4::RotationMatrix(Vec3 _rotation) noexcept
+{
+	return Mat4::RotationMatrix(_rotation.X, _rotation.Y, _rotation.Z);
+}
+
 Mat4 Mat4::ScaleMatrix(float _scale) noexcept
 {
 	return Mat4(_scale, 0.f, 0.f, 0.f,
 		0.f, _scale, 0.f, 0.f,
 		0.f, 0.f, _scale, 0.f,
-		0.f, 0.f, 0.f, _scale);
+		0.f, 0.f, 0.f, 1.f);
+}
+
+Mat4 Mat4::ScaleMatrix(Vec3 _scale) noexcept
+{
+	return Mat4(_scale.X, 0.f, 0.f, 0.f,
+		0.f, _scale.Y, 0.f, 0.f,
+		0.f, 0.f, _scale.Z, 0.f,
+		0.f, 0.f, 0.f, 1.f);
+}
+
+Mat4 Mat4::TranslationMatrix(Vec3 _vec) noexcept
+{
+	return Mat4(1.f, 0.f, 0.f, _vec.X,
+		0.f, 1.f, 0.f, _vec.Y,
+		0.f, 0.f, 1.f, _vec.Z,
+		0.f, 0.f, 0.f, 1.f);
+}
+
+Mat4 Mat4::TransformMatrix(Vec3 _rotation, Vec3 _position, Vec3 _scale) noexcept
+{
+	Mat4 transform = Mat4::RotationMatrix(_rotation);
+	transform.e00 *= _scale.X;
+	transform.e01 *= _scale.X;
+	transform.e02 *= _scale.X;
+
+	transform.e10 *= _scale.Y;
+	transform.e11 *= _scale.Y;
+	transform.e12 *= _scale.Y;
+
+	transform.e20 *= _scale.Z;
+	transform.e21 *= _scale.Z;
+	transform.e22 *= _scale.Z;
+
+	transform.e03 = _position.X;
+	transform.e13 = _position.Y;
+	transform.e23 = _position.Z;
+
+	return transform;
 }
 
 //Accessors
@@ -227,9 +289,7 @@ Mat4 Mat4::GetInverse() const noexcept
 			e23 * _00x12 - e22 * _00x13 - e23 * _02x10 + e22 * _03x10 + e20 * _02x13 - e20 * _03x12,
 
 			e10 * _21x33 + e11 * _23x30 + e13 * _20x31 - e13 * _21x30 - e11 * _20x33 - e10 * _23x31,
-			
 			-e00 * _21x33 + e00 * _23x31 + e01 * _20x33 + e03 * _21x30 - e01 * _23x30 - e03 * _20x31,
-
 			e33 * _00x11 + e30 * _01x13 + e31 * _03x10 - e30 * _03x11 - e33 * _01x10 - e31 * _00x13,
 			-e23 * _00x11 - e20 * _01x13 - e21 * _03x10 + e20 * _03x11 + e23 * _01x10 + e21 * _00x13,
 

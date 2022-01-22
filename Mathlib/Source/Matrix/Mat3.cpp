@@ -1,9 +1,12 @@
+#include <Vector/Vec2.hpp>
 #include <Vector/Vec3.hpp>
 #include <Misc/Math.hpp>
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>
 
+#include <Matrix/Mat2.hpp>
 #include <Matrix/Mat3.hpp>
+#include <Matrix/Mat4.hpp>
 
 using namespace Mathlib;
 
@@ -45,6 +48,21 @@ Mat3::Mat3(Vec3 _row0, Vec3 _row1, Vec3 _row2) noexcept :
 {
 }
 
+Mat3::Mat3(Mat2 _mat) noexcept :
+	e00{ _mat.e00 }, e01{ _mat.e01 }, e02{ 0.f },
+	e10{ _mat.e10 }, e11{ _mat.e11 }, e12{ 0.f },
+	e20{ 0.f}, e21{ 0.f }, e22{ 1.f }
+{
+}
+
+Mat3::Mat3(Mat4 _mat) noexcept :
+	e00{ _mat.e00 }, e01{ _mat.e01 }, e02{ _mat.e02 },
+	e10{ _mat.e10 }, e11{ _mat.e11 }, e12{ _mat.e12 },
+	e20{ _mat.e20 }, e21{ _mat.e21 }, e22{ _mat.e22 }
+{
+}
+
+
 //static methods
 
 Mat3 Mat3::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept
@@ -63,11 +81,50 @@ Mat3 Mat3::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexce
 				-sin_y, cos_y * sin_x, cos_y * cos_x);
 }
 
+Mat3 Mat3::RotationMatrix(Vec3 _rotation) noexcept
+{
+	return Mat3::RotationMatrix(_rotation.X, _rotation.Y, _rotation.Z);
+}
+
+Mat3 Mat3::RotationMatrix2D(float _rotation) noexcept
+{
+	float cos = Math::Cos(_rotation);
+	float sin = Math::Sin(_rotation);
+
+	return Mat3(cos, -sin, 0.f,
+				sin, cos, 0.f,
+				0.f, 0.f, 1.f);
+}
+
 Mat3 Mat3::ScaleMatrix(float _scale) noexcept
 {
 	return Mat3(_scale, 0.f, 0.f,
 				0.f, _scale, 0.f,
-				0.f, 0.f, _scale);
+				0.f, 0.f, 1.f);
+}
+
+Mat3 Mat3::ScaleMatrix(Vec2 _scale) noexcept
+{
+	return Mat3(_scale.X, 0.f, 0.f,
+		0.f, _scale.Y, 0.f,
+		0.f, 0.f, 1.f);
+}
+
+Mat3 Mat3::TranslationMatrix(Vec2 _vec) noexcept
+{
+	return Mat3(1.f, 0.f, _vec.X,
+				0.f, 1.f, _vec.Y,
+				0.f, 0.f, 1.f);
+}
+
+Mat3 Mat3::TransformMatrix2D(float _rotation, Vec2 _position, Vec2 _scale) noexcept
+{
+	float cos = Math::Cos(_rotation);
+	float sin = Math::Sin(_rotation);
+
+	return Mat3(cos * _scale.X, -sin * _scale.X, _position.X,
+		sin * _scale.Y, cos * _scale.Y, _position.Y,
+		0.f, 0.f, 1.f);
 }
 
 //Accessors

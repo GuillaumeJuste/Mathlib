@@ -13,7 +13,10 @@
 
 namespace Mathlib
 {
+	struct Vec2;
 	struct Vec3;
+	struct Mat2;
+	struct mat4;
 
 	struct MATHLIBRARY_API Mat3
 	{
@@ -81,6 +84,20 @@ namespace Mathlib
 		Mat3(Vec3 _row0, Vec3 _row1, Vec3 _row2) noexcept;
 
 		/**
+		*	\brief Value constructor
+		*
+		*	\param[in] _mat matrix to create matrix from.
+		*/
+		Mat3(Mat2 _mat) noexcept;
+
+		/**
+		*	\brief Value constructor
+		*
+		*	\param[in] _mat matrix to create matrix from.
+		*/
+		Mat3(Mat4 _mat) noexcept;
+
+		/**
 		*	\brief Default copy constructor
 		*/
 		Mat3(const Mat3& _mat) noexcept = default;
@@ -101,12 +118,54 @@ namespace Mathlib
 		static Mat3 RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept;
 
 		/**
+		*	\brief Create rotation matrix from specified angle.
+		*
+		*	\param[in] _rotation vec3 containing rotation value around X, Y and Z axis.
+		*
+		*/
+		static Mat3 RotationMatrix(Vec3 _rotation) noexcept;
+
+		/**
+		*	\brief Create rotation matrix from specified angle.
+		*
+		*	\param[in] _rotation angle in radian to create matrix from.
+		*
+		*/
+		static Mat3 RotationMatrix2D(float _rotation) noexcept;
+
+		/**
 		*	\brief Create scale matrix from specified scale.
 		*
 		*	\param[in] _scale scale to create matrix from.
 		*
 		*/
 		static Mat3 ScaleMatrix(float _scale) noexcept;
+
+		/**
+		*	\brief Create scale matrix from specified scale vector.
+		*
+		*	\param[in] _scale vector containg scale value for each axis.
+		*
+		*/
+		static Mat3 ScaleMatrix(Vec2 _scale) noexcept;
+
+		/**
+		*	\brief Create translation matrix from specified vector.
+		*
+		*	\param[in] _vec vector to create matrix from.
+		*
+		*/
+		static Mat3 TranslationMatrix(Vec2 _vec) noexcept;
+
+		/**
+		*	\brief Create 2D transform matrix.
+		*
+		*	\param[in] _rotation transform's rotations.
+		*	\param[in] _position transform's position.
+		*	\param[in] _scale transform's scale.
+		*
+		*/
+		static Mat3 TransformMatrix2D(float _rotation, Vec2 _position, Vec2 _scale) noexcept;
 
 		//Accessors
 

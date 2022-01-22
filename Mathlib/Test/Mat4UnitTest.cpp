@@ -72,6 +72,9 @@ TEST(Mat4UnitTest, Constructor)
 			12.f, 7.f, 34.9f, 5.5f,
 			85.2f, 97.54f, 98.9f, 85.f,
 			54.32f, 32.f, 88.f, 67.f));
+
+	EXPECT_EQ(Mat4(Mat2::Identity), Mat4::Identity);
+	EXPECT_EQ(Mat4(Mat3::Identity), Mat4::Identity);
 }
 
 /**
@@ -87,6 +90,23 @@ TEST(Mat4UnitTest, Rotation_matrix)
 		0.f, 0.f, 0.f, 1.f);
 
 	EXPECT_TRUE(result.Equals(mat));
+
+	Mat4 mat_2 = Mat4::RotationMatrix(Vec3(Math::Pi, Math::Pi / 2.f, 3 * Math::Pi / 2.f));
+
+	EXPECT_TRUE(result.Equals(mat_2));
+}
+
+/**
+*	\brief Unit test for transform matrix constructor
+*/
+TEST(Mat4UnitTest, Transform_matrix)
+{
+	Mat4 mat_1 = Mat4::TransformMatrix(Vec3(Math::Pi, Math::Pi / 2.f, 3 * Math::Pi / 2.f), Vec3(2.4f, 3.6f, 6.4f), Vec3(5.f, 1.f, -3.f));
+
+	Mat4 result = Mat4(0.f, -5.f, 0.f, 2.4f,
+		0.f, 0.f, 1.f, 3.6f,
+		3.f, 0.f, 0.f, 6.4f,
+		0.f, 0.f, 0.f, 1.f);
 }
 
 /**
@@ -99,7 +119,13 @@ TEST(Mat4UnitTest, Scale_matrix)
 	EXPECT_TRUE(mat_1.Equals(Mat4(5.f, 0.f, 0.f, 0.f,
 		0.f, 5.f, 0.f, 0.f,
 		0.f, 0.f, 5.f, 0.f,
-		0.f, 0.f, 0.f, 5.f)));
+		0.f, 0.f, 0.f, 1.f)));
+
+	Mat4 mat_2 = Mat4::ScaleMatrix(Vec3(7.4f, 8.6f, 5.9f));
+	EXPECT_TRUE(mat_2.Equals(Mat4(7.4f, 0.f, 0.f, 0.f,
+		0.f, 8.6f, 0.f, 0.f,
+		0.f, 0.f, 5.9f, 0.f,
+		0.f, 0.f, 0.f, 1.f)));
 }
 
 /**
