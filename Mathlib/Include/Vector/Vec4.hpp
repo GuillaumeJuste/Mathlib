@@ -127,7 +127,7 @@ namespace Mathlib
 		static float SqrDistance(const Vec4& _start, const Vec4& _end) noexcept;
 
 		/**
-		*	\brief Compute lerped vector between two Vec3
+		*	\brief Compute lerped vector between two Vec4
 		*
 		* 	\param[in] _start left hand side operand to compute lerped vector with.
 		* 	\param[in] _end right hand side operand to compute lerped vector with.

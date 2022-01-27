@@ -206,7 +206,7 @@ namespace Mathlib
 		*
 		*	\return if this and _other are equal.
 		*/
-		bool Equals(const Mat4& _other, float _epsilon = Math::Epsilon) const noexcept;
+		bool Equals(const Mat4& _other, float _epsilon = Math::FloatEpsilon) const noexcept;
 
 		/**
 		*	\brief Operator to compare this matrix with with _rhs

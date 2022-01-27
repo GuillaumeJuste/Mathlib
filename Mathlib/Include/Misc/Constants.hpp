@@ -19,7 +19,7 @@ namespace Mathlib
 		extern MATHLIBRARY_API const float RadToDeg;
 
 		///machine epsilon value
-		extern MATHLIBRARY_API const float Epsilon;
+		extern MATHLIBRARY_API const float FloatEpsilon;
 	}
 }
 

@@ -5,17 +5,6 @@
 using namespace Mathlib;
 
 /**
-*	\brief Generate a random Vec3
-*/
-Vec3 GenerateVec3()
-{
-	float vec_x = static_cast<float>(Math::Random(-100, 100));
-	float vec_y = static_cast<float>(Math::Random(-100, 100));
-	float vec_z = static_cast<float>(Math::Random(-100, 100));
-	return Vec3(vec_x, vec_y, vec_z);
-}
-
-/**
 *	\brief Unit test for constants values
 */
 TEST(Vec3UnitTest, Constant)
@@ -96,11 +85,13 @@ TEST(Vec3UnitTest, Equality)
 */
 TEST(Vec3UnitTest, Length)
 {
-	Vec3 vec_1 = GenerateVec3();
+	Vec3 vec_1 = Vec3(3.8f, -5.2f, 7.2f);
 	Vec3 vec_2 = Vec3::Backward;
 
-	float sqrLen = vec_1.X * vec_1.X + vec_1.Y * vec_1.Y + vec_1.Z * vec_1.Z;
-	float len = Math::Sqrt(sqrLen);
+	float sqrLen = 93.32f;
+	float len = 9.6602277f;
+
+	Vec3 vec_1_normalized = vec_1 / len;
 
 	EXPECT_FLOAT_EQ(vec_1.Length(), len);
 	EXPECT_FLOAT_EQ(vec_2.Length(), 1.f);
@@ -110,10 +101,10 @@ TEST(Vec3UnitTest, Length)
 
 	EXPECT_EQ(vec_2.IsNormalized(), true);
 
-	EXPECT_EQ(vec_1.GetNormalized(), Vec3(vec_1.X / len, vec_1.Y / len, vec_1.Z / len));
+	EXPECT_TRUE(vec_1_normalized.Equals(vec_1.GetNormalized(), 0.000001f));
 	EXPECT_EQ(vec_2.GetNormalized(), vec_2);
 
-	EXPECT_EQ(vec_1.Normalize(), Vec3(vec_1.X / len, vec_1.Y / len, vec_1.Z / len));
+	EXPECT_TRUE(vec_1_normalized.Equals(vec_1.Normalize(), 0.000001f));
 	EXPECT_EQ(vec_2.Normalize(), vec_2);
 
 	EXPECT_EQ(vec_1.IsNormalized(), true);
@@ -124,10 +115,10 @@ TEST(Vec3UnitTest, Length)
 */
 TEST(Vec3UnitTest, Projection)
 {
-	Vec3 vec_1 = GenerateVec3();
+	Vec3 vec_1 = Vec3(7.9f, 5.2f, -3.4f);
 	Vec3 vec_2 = Vec3(1.f, 0.f, 0.f);
 
-	EXPECT_EQ(vec_1.ProjectOn(vec_2), Vec3(vec_1.X, 0.f, 0.f));
+	EXPECT_EQ(vec_1.ProjectOn(vec_2), Vec3(7.9f, 0.f, 0.f));
 }
 
 /**
@@ -135,10 +126,10 @@ TEST(Vec3UnitTest, Projection)
 */
 TEST(Vec3UnitTest, DotProduct)
 {
-	Vec3 vec_1 = GenerateVec3();
-	Vec3 vec_2 = GenerateVec3();
+	Vec3 vec_1 = Vec3(15.7f, -4.3f, 8.5f);
+	Vec3 vec_2 = Vec3(-3.3f, 7.5f, 5.6f);
 
-	float dot_result = vec_1.X * vec_2.X + vec_1.Y * vec_2.Y + vec_1.Z * vec_2.Z;
+	float dot_result = -36.46f;
 
 	EXPECT_EQ(Vec3::DotProduct(vec_1, vec_2), dot_result);
 }
@@ -148,14 +139,14 @@ TEST(Vec3UnitTest, DotProduct)
 */
 TEST(Vec3UnitTest, CrossProduct)
 {
-	Vec3 vec_1 = GenerateVec3();
-	Vec3 vec_2 = GenerateVec3();
+	Vec3 vec_1 = Vec3(12.1f, -7.8f, -8.4f);
+	Vec3 vec_2 = Vec3(-22.5f, 6.5f, 13.9f);
 
-	Vec3 cross_result =  Vec3(vec_1.Y * vec_2.Z - vec_1.Z * vec_2.Y,
-		vec_1.Z * vec_2.X - vec_1.X * vec_2.Z,
-		vec_1.X * vec_2.Y - vec_1.Y * vec_2.X);
+	Vec3 cross_result =  Vec3(-53.82f,
+		20.81f,
+		-96.85f);
 
-	EXPECT_EQ(Vec3::CrossProduct(vec_1, vec_2), cross_result);
+	EXPECT_TRUE(Vec3::CrossProduct(vec_1, vec_2).Equals(cross_result, 0.001f));
 }
 
 /**
@@ -173,8 +164,8 @@ TEST(Vec3UnitTest, Angle)
 */
 TEST(Vec3UnitTest, Distance)
 {
-	Vec3 vec_1 = GenerateVec3();
-	Vec3 vec_2 = GenerateVec3();
+	Vec3 vec_1 = Vec3(6.4f, 8.7f, -3.2f);
+	Vec3 vec_2 = Vec3(-8.3f, 7.5f, 2.5f);
 
 	Vec3 vec_3 = vec_2 - vec_1;
 
@@ -190,10 +181,10 @@ TEST(Vec3UnitTest, Distance)
 */
 TEST(Vec3UnitTest, Lerp)
 {
-	Vec3 vec_1 = GenerateVec3();
-	Vec3 vec_2 = GenerateVec3();
+	Vec3 vec_1 = Vec3(3.7f, 9.2f, 6.2f);
+	Vec3 vec_2 = Vec3(-8.7f, -5.6f, 8.4f);
 
-	float alpha = float(Math::Random(0, 10))/ 10.f;
+	float alpha = 0.3f;
 
 	Vec3 vec_3 = vec_1 + (vec_2 - vec_1) * alpha;
 
@@ -217,7 +208,7 @@ TEST(Vec3UnitTest, SLerp)
 */
 TEST(Vec3UnitTest, Accessors)
 {
-	Vec3 vec_1 = GenerateVec3();
+	Vec3 vec_1 = Vec3(-8.6f, 4.8f, -5.4f);
 
 	const float* vec_1_data = vec_1.Data();
 
@@ -225,7 +216,7 @@ TEST(Vec3UnitTest, Accessors)
 	EXPECT_EQ(vec_1_data[1], vec_1.Y);
 	EXPECT_EQ(vec_1_data[2], vec_1.Z);
 
-	Vec3 vec_2 = GenerateVec3();
+	Vec3 vec_2 = Vec3(2.8f, -6.8f, 4.5f);
 	const float* vec_2_data = vec_2.Data();
 
 	EXPECT_EQ(vec_2_data[0], vec_2.X);
@@ -239,11 +230,11 @@ TEST(Vec3UnitTest, Accessors)
 TEST(Vec3UnitTest, Operator)
 {
 	// operator- (invert vector)
-	Vec3 vec_1 = GenerateVec3();
-	Vec3 vec_2 = GenerateVec3();
+	Vec3 vec_1 = Vec3(-26.7f, 5.8f, 15.4f);
+	Vec3 vec_2 = Vec3(5.1, 18.6f, -9.3f);
 
-	EXPECT_EQ(-vec_1, Vec3(-vec_1.X, -vec_1.Y, -vec_1.Z));
-	EXPECT_EQ(-vec_2, Vec3(-vec_2.X, -vec_2.Y, -vec_2.Z));
+	EXPECT_EQ(-vec_1, Vec3(26.7f, -5.8f, -15.4f));
+	EXPECT_EQ(-vec_2, Vec3(-5.1, -18.6f, 9.3f));
 
 	// operator+(Vec3)
 	EXPECT_EQ(vec_1 + vec_2, Vec3(vec_1.X + vec_2.X, vec_1.Y + vec_2.Y, vec_1.Z + vec_2.Z));
@@ -259,15 +250,15 @@ TEST(Vec3UnitTest, Operator)
 
 	// operator+=(Vec3)
 
-	vec_1 = GenerateVec3();
-	vec_2 = GenerateVec3();
+	vec_1 = Vec3(15.7f, -4.3f, 8.2f);
+	vec_2 = Vec3(8.1f, 15.f, 3.7f);
 	Vec3 vec_3 = vec_1;
 	vec_1 += vec_2;
 
 	EXPECT_EQ(vec_1, vec_3 + vec_2);
 
-	Vec3 vec_4 = GenerateVec3();
-	Vec3 vec_5 = GenerateVec3();
+	Vec3 vec_4 = Vec3(10.2f, -4.3f, 6.2f);
+	Vec3 vec_5 = Vec3(-3.3f, 7.5f, 14.7f);
 	Vec3 vec_6 = vec_4;
 	vec_4 += vec_5;
 
@@ -276,15 +267,15 @@ TEST(Vec3UnitTest, Operator)
 
 	// operator-=(Vec3)
 
-	vec_1 = GenerateVec3();
-	vec_2 = GenerateVec3();
+	vec_1 = Vec3(15.7f, -4.3f, 8.2f);
+	vec_2 = Vec3(8.1f, 15.f, 3.7f);
 	vec_3 = vec_1;
 	vec_1 -= vec_2;
 
 	EXPECT_EQ(vec_1, vec_3 - vec_2);
 
-	vec_4 = GenerateVec3();
-	vec_5 = GenerateVec3();
+	vec_4 = Vec3(10.2f, -4.3f, 6.2f);
+	vec_5 = Vec3(-3.3f, 7.5f, 14.7f);
 	vec_6 = vec_4;
 	vec_4 -= vec_5;
 
@@ -293,15 +284,15 @@ TEST(Vec3UnitTest, Operator)
 
 	// operator*=(Vec3)
 
-	vec_1 = GenerateVec3();
-	vec_2 = GenerateVec3();
+	vec_1 = Vec3(15.7f, -4.3f, 8.2f);
+	vec_2 = Vec3(8.1f, 15.f, 3.7f);
 	vec_3 = vec_1;
 	vec_1 *= vec_2;
 
 	EXPECT_EQ(vec_1, vec_3 * vec_2);
 
-	vec_4 = GenerateVec3();
-	vec_5 = GenerateVec3();
+	vec_4 = Vec3(10.2f, -4.3f, 6.2f);
+	vec_5 = Vec3(-3.3f, 7.5f, 14.7f);
 	vec_6 = vec_4;
 	vec_4 *= vec_5;
 
@@ -309,22 +300,22 @@ TEST(Vec3UnitTest, Operator)
 
 	// operator/=(Vec3)
 
-	vec_1 = GenerateVec3();
-	vec_2 = GenerateVec3();
+	vec_1 = Vec3(15.7f, -4.3f, 8.2f);
+	vec_2 = Vec3(8.1f, 15.f, 3.7f);
 	vec_3 = vec_1;
 	vec_1 /= vec_2;
 
 	EXPECT_EQ(vec_1, vec_3 / vec_2);
 
-	vec_4 = GenerateVec3();
-	vec_5 = GenerateVec3();
+	vec_4 = Vec3(10.2f, -4.3f, 6.2f);
+	vec_5 = Vec3(-3.3f, 7.5f, 14.7f);
 	vec_6 = vec_4;
 	vec_4 /= vec_5;
 
 	EXPECT_EQ(vec_4, vec_6 / vec_5);
 
 	// operator+(float)
-	vec_1 = GenerateVec3();
+	vec_1 = Vec3(5.3f, 19.2f, -3.8f);
 	float scale = static_cast<float>(Math::Random(1, 100));
 	
 	EXPECT_EQ(vec_1 + scale, Vec3(vec_1.X + scale, vec_1.Y + scale, vec_1.Z + scale));
@@ -339,28 +330,28 @@ TEST(Vec3UnitTest, Operator)
 	EXPECT_EQ(vec_1 / scale, Vec3(vec_1.X / scale, vec_1.Y / scale, vec_1.Z / scale));
 
 	// operator+=(float)
-	vec_1 = GenerateVec3();
+	vec_1 = Vec3(-20.6f, 18.6f, 15.2f);
 	vec_2 = vec_1;
 	vec_1 += scale;
 
 	EXPECT_EQ(vec_1, vec_2 + scale);
 
 	// operator-=(float)
-	vec_1 = GenerateVec3();
+	vec_1 = Vec3(23.7f, 15.4f, 7.6f);
 	vec_2 = vec_1;
 	vec_1 -= scale;
 
 	EXPECT_EQ(vec_1, vec_2 - scale);
 
 	// operator*=(float)
-	vec_1 = GenerateVec3();
+	vec_1 = Vec3(26.4f, -8.3f, 12.8f);
 	vec_2 = vec_1;
 	vec_1 *= scale;
 
 	EXPECT_EQ(vec_1, vec_2 * scale);
 
 	// operator/=(float)
-	vec_1 = GenerateVec3();
+	vec_1 = Vec3(8.4f, 10.48f, -5.8f);
 	vec_2 = vec_1;
 	vec_1 /= scale;
 

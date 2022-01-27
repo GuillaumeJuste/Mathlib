@@ -153,7 +153,7 @@ namespace Mathlib
 		* 	\param[in] _end right hand side operand to compare.
 		* 	\param[in] _epsilon threshold to accept equality.
 		*/
-		MATHLIBRARY_API bool Equals(float _lhs, float _rhs, float _epsilon = Math::Epsilon) noexcept;
+		MATHLIBRARY_API bool Equals(float _lhs, float _rhs, float _epsilon = Math::FloatEpsilon) noexcept;
 
 		/**
 		*	\brief Check if value is equal to 0.
@@ -161,7 +161,7 @@ namespace Mathlib
 		* 	\param[in] _value right hand side operand to compare.
 		* 	\param[in] _epsilon threshold to accept equality.
 		*/
-		MATHLIBRARY_API bool Equals0(float _value, float _epsilon = Math::Epsilon) noexcept;
+		MATHLIBRARY_API bool Equals0(float _value, float _epsilon = Math::FloatEpsilon) noexcept;
 
 		/**
 		*	\brief Compute lerped vector between two float
