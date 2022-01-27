@@ -225,9 +225,9 @@ TEST(Vec3UnitTest, Accessors)
 }
 
 /**
- * \brief Unit test for Vec3 operators
+ * \brief Unit test for Vec3 & Vec3 operators
 */
-TEST(Vec3UnitTest, Operator)
+TEST(Vec3UnitTest, Operator_Vec3)
 {
 	// operator- (invert vector)
 	Vec3 vec_1 = Vec3(-26.7f, 5.8f, 15.4f);
@@ -313,25 +313,31 @@ TEST(Vec3UnitTest, Operator)
 	vec_4 /= vec_5;
 
 	EXPECT_EQ(vec_4, vec_6 / vec_5);
+}
 
+/**
+ * \brief Unit test for Vec3 & float operators
+*/
+TEST(Vec3UnitTest, Operator_float)
+{
 	// operator+(float)
-	vec_1 = Vec3(5.3f, 19.2f, -3.8f);
+	Vec3 vec_1 = Vec3(5.3f, 19.2f, -3.8f);
 	float scale = static_cast<float>(Math::Random(1, 100));
-	
+
 	EXPECT_EQ(vec_1 + scale, Vec3(vec_1.X + scale, vec_1.Y + scale, vec_1.Z + scale));
 
 	// operator-(float)
 	EXPECT_EQ(vec_1 - scale, Vec3(vec_1.X - scale, vec_1.Y - scale, vec_1.Z - scale));
 
 	// operator*(float)
-	EXPECT_EQ(vec_1 * scale, Vec3(vec_1.X * scale,  vec_1.Y * scale, vec_1.Z * scale));
+	EXPECT_EQ(vec_1 * scale, Vec3(vec_1.X * scale, vec_1.Y * scale, vec_1.Z * scale));
 
 	// operator/(float)
 	EXPECT_EQ(vec_1 / scale, Vec3(vec_1.X / scale, vec_1.Y / scale, vec_1.Z / scale));
 
 	// operator+=(float)
 	vec_1 = Vec3(-20.6f, 18.6f, 15.2f);
-	vec_2 = vec_1;
+	Vec3 vec_2 = vec_1;
 	vec_1 += scale;
 
 	EXPECT_EQ(vec_1, vec_2 + scale);

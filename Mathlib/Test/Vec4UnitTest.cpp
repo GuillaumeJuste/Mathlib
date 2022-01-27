@@ -171,7 +171,7 @@ TEST(Vec4UnitTest, Lerp)
 }
 
 /**
- * \brief Unit test for Vec4 operators
+ * \brief Unit test for Vec4 & Vec4 operators
 */
 TEST(Vec4UnitTest, Operator)
 {
@@ -264,12 +264,19 @@ TEST(Vec4UnitTest, Operator)
 
 	EXPECT_EQ(vec_4, vec_6 / vec_5);
 
-	vec_1 = Vec4(5.3f, 19.2f, -3.8f, 7.6f);
+}
+
+/**
+ * \brief Unit test for Vec4 & float operators
+*/
+TEST(Vec4UnitTest, Operator_float)
+{
+	Vec4 vec_1 = Vec4(5.3f, 19.2f, -3.8f, 7.6f);
 	float scale = static_cast<float>(Math::Random(1, 100));
 
 	// operator+(float)
 	EXPECT_EQ(vec_1 + scale, Vec4(vec_1.X + scale, vec_1.Y + scale, vec_1.Z + scale, vec_1.W + scale));
-	
+
 	// operator-(float)
 	EXPECT_EQ(vec_1 - scale, Vec4(vec_1.X - scale, vec_1.Y - scale, vec_1.Z - scale, vec_1.W - scale));
 
@@ -281,7 +288,7 @@ TEST(Vec4UnitTest, Operator)
 
 	// operator+=(float)
 	vec_1 = Vec4(-20.6f, 18.6f, 15.2f, 9.4f);
-	vec_2 = vec_1;
+	Vec4 vec_2 = vec_1;
 	vec_1 += scale;
 
 	EXPECT_EQ(vec_1, vec_2 + scale);
@@ -292,7 +299,7 @@ TEST(Vec4UnitTest, Operator)
 	vec_1 -= scale;
 
 	EXPECT_EQ(vec_1, vec_2 - scale);
-	
+
 	// operator*=(float)
 	vec_1 = Vec4(26.4f, -8.3f, 12.8f, 7.8f);
 	vec_2 = vec_1;

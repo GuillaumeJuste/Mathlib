@@ -214,9 +214,9 @@ TEST(Vec2UnitTest, Accessors)
 }
 
 /**
- * \brief Unit test for Vec2 operators
+ * \brief Unit test for Vec2 & Vec2 operators
 */
-TEST(Vec2UnitTest, Operator)
+TEST(Vec2UnitTest, Operator_Vec2)
 {
 	// operator- (invert vector)
 	Vec2 vec_1 = Vec2(-26.7f, 5.8f);
@@ -301,9 +301,15 @@ TEST(Vec2UnitTest, Operator)
 	vec_4 /= vec_5;
 
 	EXPECT_EQ(vec_4, vec_6 / vec_5);
+}
 
+/**
+ * \brief Unit test for Vec2 & float operators
+*/
+TEST(Vec2UnitTest, Operator_float)
+{
 	// operator+(float)
-	vec_1 = Vec2(5.3f, 19.2f);
+	Vec2 vec_1 = Vec2(5.3f, 19.2f);
 	float scale = static_cast<float>(Math::Random(1, 100));
 
 	EXPECT_EQ(vec_1 + scale, Vec2(vec_1.X + scale, vec_1.Y + scale));
@@ -319,7 +325,7 @@ TEST(Vec2UnitTest, Operator)
 
 	// operator+=(float)
 	vec_1 = Vec2(-20.6f, 18.6f);
-	vec_2 = vec_1;
+	Vec2 vec_2 = vec_1;
 	vec_1 += scale;
 
 	EXPECT_EQ(vec_1, vec_2 + scale);

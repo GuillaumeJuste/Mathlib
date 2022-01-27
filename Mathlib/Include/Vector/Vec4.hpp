@@ -209,14 +209,14 @@ namespace Mathlib
 		//Operator
 
 		/**
-		*	\brief \e Default move assignement.
+		*	\brief Default move assignement.
 		*
 		*	\return self vector assigned.
 		*/
 		Vec4& operator=(Vec4&&) = default;
 
 		/**
-		*	\brief \e Default copy assignement.
+		*	\brief Default copy assignement.
 		*
 		*	\return self vector assigned.
 		*/

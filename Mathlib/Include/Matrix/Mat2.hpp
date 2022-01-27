@@ -202,14 +202,14 @@ namespace Mathlib
 		//Operators
 
 		/**
-		*	\brief \e Default move assignement.
+		*	\brief Default move assignement.
 		*
 		*	\return self vector assigned.
 		*/
 		Mat2& operator=(Mat2&&) = default;
 
 		/**
-		*	\brief \e Default copy assignement.
+		*	\brief Default copy assignement.
 		*
 		*	\return self matrix assigned.
 		*/

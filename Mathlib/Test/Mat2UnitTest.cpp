@@ -5,18 +5,6 @@
 using namespace Mathlib;
 
 /**
-*	\brief Generate a random Mat2
-*/
-Mat2 GenerateMat2()
-{
-	float mat_m00 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m01 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m10 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m11 = static_cast<float>(Math::Random(-100, 100));
-	return Mat2(mat_m00, mat_m01, mat_m10, mat_m11);
-}
-
-/**
 *	\brief Unit test for constants values
 */
 TEST(Mat2UnitTest, Constant)
@@ -68,7 +56,7 @@ TEST(Mat2UnitTest, Scale_matrix)
 */
 TEST(Mat2UnitTest, Accessors)
 {
-	Mat2 mat_1 = GenerateMat2();
+	Mat2 mat_1 = Mat2(3.2f, 8.4f, -1.8f, 6.8f);
 
 	const float* mat_1_data = mat_1.Data();
 
@@ -77,7 +65,7 @@ TEST(Mat2UnitTest, Accessors)
 	EXPECT_FLOAT_EQ(mat_1_data[2], mat_1.e10);
 	EXPECT_FLOAT_EQ(mat_1_data[3], mat_1.e11);
 
-	Mat2 mat_2 = GenerateMat2();
+	Mat2 mat_2 = Mat2(5.9f, 7.6f, -5.8f, -3.4f);
 	const float* mat_2_data = mat_2.Data();
 
 	EXPECT_FLOAT_EQ(mat_2_data[0], mat_2[0]);
@@ -92,7 +80,7 @@ TEST(Mat2UnitTest, Accessors)
 TEST(Mat2UnitTest, Equality)
 {
 	Mat2 mat_1 = Mat2::Zero;
-	Mat2 mat_2 = GenerateMat2();
+	Mat2 mat_2 = Mat2(5.9f, 7.6f, -5.8f, -3.4f);
 	Mat2 mat_3 = Mat2::Identity;
 
 	// isZero()
@@ -113,7 +101,7 @@ TEST(Mat2UnitTest, Equality)
 */
 TEST(Mat2UnitTest, Transpose)
 {
-	Mat2 mat_1 = GenerateMat2();
+	Mat2 mat_1 = Mat2(5.9f, 7.6f, -5.8f, -3.4f);
 	Mat2 mat_1_transposed = Mat2(mat_1[0], mat_1[2], mat_1[1], mat_1[3]);
 	
 	EXPECT_EQ(mat_1.GetTranspose(), mat_1_transposed);
@@ -129,10 +117,10 @@ TEST(Mat2UnitTest, Transpose)
 TEST(Mat2UnitTest, Determinant)
 {
 	Mat2 mat_1 = Mat2(-8.f, 5.f, 3.f, -5.f);
-	EXPECT_FLOAT_EQ(mat_1.Determinant(), mat_1[0] * mat_1[3] - mat_1[1] * mat_1[2]);
+	EXPECT_FLOAT_EQ(mat_1.Determinant(), 25.f);
 
-	Mat2 mat_2 = GenerateMat2();
-	EXPECT_FLOAT_EQ(mat_2.Determinant(), mat_2[0] * mat_2[3] - mat_2[1] * mat_2[2]);
+	Mat2 mat_2 = Mat2(6.4f, -6.5f, 4.9f, 11.8f);
+	EXPECT_FLOAT_EQ(mat_2.Determinant(), 107.37);
 }
 
 /**
@@ -158,8 +146,8 @@ TEST(Mat2UnitTest, Inverse)
 */
 TEST(Mat2UnitTest, scalar_operator)
 {
-	Mat2 mat_1 = GenerateMat2();
-	Mat2 mat_2 = GenerateMat2();
+	Mat2 mat_1 = Mat2(4.5f, 8.6f, -2.7f, 9.7f);
+	Mat2 mat_2 = Mat2(2.8f, -7.3f, 8.6f, 13.5f);
 	float scalar = Math::Random(1.f, 100.f);
 
 	//operator+(scalar)
@@ -180,28 +168,28 @@ TEST(Mat2UnitTest, scalar_operator)
 
 
 	//operator+=(scalar)
-	mat_1 = GenerateMat2();
+	mat_1 = Mat2(8.7f, -11.5f, 6.4f, 8.3f);
 	mat_2 = mat_1;
 	mat_1 += scalar;
 
 	EXPECT_EQ(mat_1, mat_2 + scalar);
 
 	//operator-=(scalar)
-	mat_1 = GenerateMat2();
+	mat_1 = Mat2(8.7f, -11.5f, 6.4f, 8.3f);
 	mat_2 = mat_1;
 	mat_1 -= scalar;
 
 	EXPECT_EQ(mat_1, mat_2 - scalar);
 
 	//operator*=(scalar)
-	mat_1 = GenerateMat2();
+	mat_1 = Mat2(8.7f, -11.5f, 6.4f, 8.3f);
 	mat_2 = mat_1;
 	mat_1 *= scalar;
 
 	EXPECT_EQ(mat_1, mat_2 * scalar);
 
 	//operator/=(scalar)
-	mat_1 = GenerateMat2();
+	mat_1 = Mat2(8.7f, -11.5f, 6.4f, 8.3f);
 	mat_2 = mat_1;
 	mat_1 /= scalar;
 
@@ -213,8 +201,8 @@ TEST(Mat2UnitTest, scalar_operator)
 */
 TEST(Mat2UnitTest, vec2_operator)
 {
-	Mat2 mat_1 = GenerateMat2();
-	Vec2 vec_1 = Vec2(Math::Random(1.f, 100.f), Math::Random(1.f, 100.f));
+	Mat2 mat_1 = Mat2(-8.f, 5.f, 3.f, -5.f);
+	Vec2 vec_1 = Vec2(5.4f, 11.8f);
 	
 	EXPECT_EQ(mat_1 * vec_1 ,Vec2(mat_1[0] * vec_1.X + mat_1[1] * vec_1.Y, mat_1[2] * vec_1.X + mat_1[3] * vec_1.Y));
 }

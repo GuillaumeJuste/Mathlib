@@ -5,25 +5,6 @@
 using namespace Mathlib;
 
 /**
-*	\brief Generate a random Mat3
-*/
-Mat3 GenerateMat3()
-{
-	float mat_m00 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m01 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m02 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m10 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m11 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m12 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m20 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m21 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m22 = static_cast<float>(Math::Random(-100, 100));
-	return Mat3(mat_m00, mat_m01, mat_m02, 
-		mat_m10, mat_m11, mat_m12, 
-		mat_m20, mat_m21, mat_m22);
-}
-
-/**
 *	\brief Unit test for constants values
 */
 TEST(Mat3UnitTest, Constant)
@@ -123,7 +104,9 @@ TEST(Mat3UnitTest, Translation_matrix)
 */
 TEST(Mat3UnitTest, Accessors)
 {
-	Mat3 mat_1 = GenerateMat3();
+	Mat3 mat_1 = Mat3(3.2f, 8.4f, -1.8f, 
+					6.8f, 5.3f, 4.7f,
+					-4.6f, 7.4f, 6.8f);
 
 	const float* mat_1_data = mat_1.Data();
 
@@ -137,7 +120,9 @@ TEST(Mat3UnitTest, Accessors)
 	EXPECT_FLOAT_EQ(mat_1_data[7], mat_1.e21);
 	EXPECT_FLOAT_EQ(mat_1_data[8], mat_1.e22);
 
-	Mat3 mat_2 = GenerateMat3();
+	Mat3 mat_2 = Mat3(5.9f, 7.6f, -5.8f, 
+					-3.4f, 8.4f, -9.6f,
+					7.6f, 5.2f, -7.6f);
 	const float* mat_2_data = mat_2.Data();
 
 	EXPECT_FLOAT_EQ(mat_2_data[0], mat_2[0]);
@@ -157,7 +142,9 @@ TEST(Mat3UnitTest, Accessors)
 TEST(Mat3UnitTest, Equality)
 {
 	Mat3 mat_1 = Mat3::Zero;
-	Mat3 mat_2 = GenerateMat3();
+	Mat3 mat_2 = Mat3(5.9f, 7.6f, -5.8f, 
+				-3.4f, 4.8f, 5.2f,
+				-7.6f, -8.4f, 8.2f);
 	Mat3 mat_3 = Mat3::Identity;
 
 	// isZero()
@@ -178,7 +165,9 @@ TEST(Mat3UnitTest, Equality)
 */
 TEST(Mat3UnitTest, Transpose)
 {
-	Mat3 mat_1 = GenerateMat3();
+	Mat3 mat_1 = Mat3(3.2f, 8.4f, -1.8f,
+		6.8f, 5.3f, 4.7f,
+		-4.6f, 7.4f, 6.8f);
 	Mat3 mat_1_transposed = Mat3(mat_1[0], mat_1[3], mat_1[6], 
 							mat_1[1], mat_1[4], mat_1[7], 
 							mat_1[2], mat_1[5], mat_1[8]);
@@ -227,8 +216,12 @@ TEST(Mat3UnitTest, Inverse)
 */
 TEST(Mat3UnitTest, scalar_operator)
 {
-	Mat3 mat_1 = GenerateMat3();
-	Mat3 mat_2 = GenerateMat3();
+	Mat3 mat_1 = Mat3(3.2f, 8.4f, -1.8f,
+		6.8f, 5.3f, 4.7f,
+		-4.6f, 7.4f, 6.8f);;
+	Mat3 mat_2 = Mat3(5.9f, 7.6f, -5.8f,
+		-3.4f, 4.8f, 5.2f,
+		-7.6f, -8.4f, 8.2f);;
 	float scalar = Math::Random(1.f, 100.f);
 
 	//operator+(scalar)
@@ -265,28 +258,36 @@ TEST(Mat3UnitTest, scalar_operator)
 		mat_2[6] / scalar, mat_2[7] / scalar, mat_2[8] / scalar));
 
 	//operator+=(scalar)
-	mat_1 = GenerateMat3();
+	mat_1 = Mat3(8.7f, -11.5f, 6.4f, 
+		8.3f, 5.6f, 7.9f,
+		2.5f, 12.8f, -7.6f);
 	mat_2 = mat_1;
 	mat_1 += scalar;
 
 	EXPECT_EQ(mat_1, mat_2 + scalar);
 
 	//operator-=(scalar)
-	mat_1 = GenerateMat3();
+	mat_1 = Mat3(8.7f, -11.5f, 6.4f,
+		8.3f, 5.6f, 7.9f,
+		2.5f, 12.8f, -7.6f);
 	mat_2 = mat_1;
 	mat_1 -= scalar;
 
 	EXPECT_EQ(mat_1, mat_2 - scalar);
 
 	//operator*=(scalar)
-	mat_1 = GenerateMat3();
+	mat_1 = Mat3(5.9f, 7.6f, -5.8f,
+		-3.4f, 8.4f, -9.6f,
+		7.6f, 5.2f, -7.6f);
 	mat_2 = mat_1;
 	mat_1 *= scalar;
 
 	EXPECT_EQ(mat_1, mat_2 * scalar);
 
 	//operator/=(scalar)
-	mat_1 = GenerateMat3();
+	mat_1 = Mat3(5.9f, 7.6f, -5.8f,
+		-3.4f, 8.4f, -9.6f,
+		7.6f, 5.2f, -7.6f);
 	mat_2 = mat_1;
 	mat_1 /= scalar;
 
@@ -298,7 +299,9 @@ TEST(Mat3UnitTest, scalar_operator)
 */
 TEST(Mat3UnitTest, vec3_operator)
 {
-	Mat3 mat_1 = GenerateMat3();
+	Mat3 mat_1 = Mat3(3.2f, 8.4f, -1.8f,
+		6.8f, 5.3f, 4.7f,
+		-4.6f, 7.4f, 6.8f);
 	Vec3 vec_1 = Vec3(Math::Random(1.f, 100.f), Math::Random(1.f, 100.f), Math::Random(1.f, 100.f));
 
 	Vec3 result = Vec3(mat_1.e00 * vec_1.X + mat_1.e01 * vec_1.Y + mat_1.e02 * vec_1.Z, 
