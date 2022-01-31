@@ -319,33 +319,38 @@ TEST(Mat3UnitTest, mat3_operator)
 	Mat3 mat_1 = Mat3(-8.f, 5.f, 3.f,
 					-5.f, 6.2f, 7.7f,
 					-9.2f, 6.4f, 12.8f);
-	Mat3 mat_2 = Mat3::Identity;
+	Mat3 mat_2 = Mat3(3.2f, 8.4f, -1.8f,
+		6.8f, 5.3f, 4.7f,
+		-4.6f, 7.4f, 6.8f);
 
-	EXPECT_EQ(mat_1 + mat_2, Mat3(-7.f, 5.f, 3.f,
-								-5.f, 7.2f, 7.7f,
-								-9.2f, 6.4f, 13.8f));
+	Mat3 addition_result = Mat3(-4.8f, 13.4f, 1.2f,
+		1.8f, 11.5f, 12.4f,
+		-13.8f, 13.8f, 19.6f);
+	Mat3 substraction_result = Mat3(-11.2f, -3.4f, 4.8f,
+		-11.8f, 0.9f, 3.f,
+		-4.6f, -1.f, 6.f);
+	Mat3 multiplication_result = Mat3(-5.4f, -18.5f, 58.3f,
+		-9.26f, 47.84f, 90.5f,
+		-44.8f, 51.36f, 133.68f);
 
-	EXPECT_EQ(mat_1 - mat_2, Mat3(-9.f, 5.f, 3.f,
-								-5.f, 5.2f, 7.7f,
-								-9.2f, 6.4f, 11.8f));
+	EXPECT_TRUE(addition_result.Equals(mat_1 + mat_2, 0.001f));
 
-	EXPECT_EQ(mat_1 * mat_2, mat_1);
+	EXPECT_TRUE(substraction_result.Equals(mat_1 - mat_2, 0.001f));
 
-	mat_1 += mat_2;
+	EXPECT_TRUE(multiplication_result.Equals(mat_1 * mat_2, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat3(-7.f, 5.f, 3.f,
-						-5.f, 7.2f, 7.7f,
-						-9.2f, 6.4f, 13.8f));
+	Mat3 tmp = mat_1;
+	tmp += mat_2;
 
-	mat_1 -= mat_2;
+	EXPECT_TRUE(tmp.Equals(addition_result, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat3(-8.f, 5.f, 3.f,
-						-5.f, 6.2f, 7.7f,
-						-9.2f, 6.4f, 12.8f));
+	tmp = mat_1;
+	tmp -= mat_2;
 
-	mat_1 *= mat_2;
+	EXPECT_TRUE(tmp.Equals(substraction_result, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat3(-8.f, 5.f, 3.f,
-						-5.f, 6.2f, 7.7f,
-						-9.2f, 6.4f, 12.8f));
+	tmp = mat_1;
+	tmp *= mat_2;
+
+	EXPECT_TRUE(tmp.Equals(multiplication_result, 0.001f));
 }

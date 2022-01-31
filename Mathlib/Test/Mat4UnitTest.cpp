@@ -4,36 +4,6 @@
 
 using namespace Mathlib;
 
-
-/**
-*	\brief Generate a random Mat4
-*/
-Mat4 GenerateMat4()
-{
-	float mat_m00 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m01 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m02 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m03 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m10 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m11 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m12 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m13 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m20 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m21 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m22 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m23 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m30 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m31 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m32 = static_cast<float>(Math::Random(-100, 100));
-	float mat_m33 = static_cast<float>(Math::Random(-100, 100));
-	return Mat4(mat_m00, mat_m01, mat_m02, mat_m03,
-		mat_m10, mat_m11, mat_m12, mat_m13,
-		mat_m20, mat_m21, mat_m22, mat_m23, 
-		mat_m30, mat_m31, mat_m32, mat_m33);
-}
-
-
-
 /**
 *	\brief Unit test for constants values
 */
@@ -133,7 +103,10 @@ TEST(Mat4UnitTest, Scale_matrix)
 */
 TEST(Mat4UnitTest, Accessors)
 {
-	Mat4 mat_1 = GenerateMat4();
+	Mat4 mat_1 = Mat4(3.2f, 8.4f, -1.8f, 2.1f,
+		6.8f, 5.3f, 4.7f, -4.5f,
+		-4.6f, 7.4f, 6.8f, 8.6f,
+		-11.3f, 8.6f, 1.2f, 6.4f);
 
 	const float* mat_1_data = mat_1.Data();
 
@@ -154,7 +127,10 @@ TEST(Mat4UnitTest, Accessors)
 	EXPECT_FLOAT_EQ(mat_1_data[14], mat_1.e32);
 	EXPECT_FLOAT_EQ(mat_1_data[15], mat_1.e33);
 
-	Mat4 mat_2 = GenerateMat4();
+	Mat4 mat_2 = Mat4(5.9f, 7.6f, -5.8f, 8.2f,
+		-3.4f, 8.4f, -9.6f, 7.6f,
+		7.6f, 5.2f, -7.6f, 1.5f,
+		-9.8f, -4.2f, 7.4f, 8.3f);
 	const float* mat_2_data = mat_2.Data();
 
 	EXPECT_FLOAT_EQ(mat_2_data[0], mat_2[0]);
@@ -181,7 +157,9 @@ TEST(Mat4UnitTest, Accessors)
 TEST(Mat4UnitTest, Equality)
 {
 	Mat4 mat_1 = Mat4::Zero;
-	Mat4 mat_2 = GenerateMat4();
+	Mat4 mat_2 = Mat3(5.9f, 7.6f, -5.8f,
+		-3.4f, 4.8f, 5.2f,
+		-7.6f, -8.4f, 8.2f);
 	Mat4 mat_3 = Mat4::Identity;
 
 	// isZero()
@@ -202,7 +180,10 @@ TEST(Mat4UnitTest, Equality)
 */
 TEST(Mat4UnitTest, Transpose)
 {
-	Mat4 mat_1 = GenerateMat4();
+	Mat4 mat_1 = Mat4(5.9f, 7.6f, -5.8f, 4.6f,
+		-3.4f, 4.8f, 5.2f, 3.5f, 
+		-7.6f, -8.4f, 8.2f, 6.8f,
+		-4.8f, 7.3f, -8.2f, 1.3f);
 	Mat4 mat_1_transposed = Mat4(mat_1[0], mat_1[4], mat_1[8], mat_1[12],
 		mat_1[1], mat_1[5], mat_1[9], mat_1[13],
 		mat_1[2], mat_1[6], mat_1[10], mat_1[14],
@@ -262,8 +243,14 @@ TEST(Mat4UnitTest, Inverse)
 */
 TEST(Mat4UnitTest, scalar_operator)
 {
-	Mat4 mat_1 = GenerateMat4();
-	Mat4 mat_2 = GenerateMat4();
+	Mat4 mat_1 = Mat4(5.9f, 7.6f, -5.8f, 8.2f,
+		-3.4f, 8.4f, -9.6f, 7.6f,
+		7.6f, 5.2f, -7.6f, 1.5f,
+		-9.8f, -4.2f, 7.4f, 8.3f);
+	Mat4 mat_2 = Mat4(-8.f, 5.f, 3.f, 4.2f,
+		-5.f, 6.2f, 7.7f, 5.7f,
+		-9.2f, 6.4f, 12.8f, 5.7f,
+		-7.9f, 1.2f, 5.2f, 8.5f);
 	float scalar = Math::Random(1.f, 100.f);
 
 	//operator+(scalar)
@@ -310,28 +297,40 @@ TEST(Mat4UnitTest, scalar_operator)
 		mat_2[12] / scalar, mat_2[13] / scalar, mat_2[14] / scalar, mat_2[15] / scalar));
 
 	//operator+=(scalar)
-	mat_1 = GenerateMat4();
+	mat_1 = Mat4(-8.f, 5.f, 3.f, 4.2f,
+		-5.f, 6.2f, 7.7f, 5.7f,
+		-9.2f, 6.4f, 12.8f, 5.7f,
+		-7.9f, 1.2f, 5.2f, 8.5f);
 	mat_2 = mat_1;
 	mat_1 += scalar;
 
 	EXPECT_EQ(mat_1, mat_2 + scalar);
 
 	//operator-=(scalar)
-	mat_1 = GenerateMat4();
+	mat_1 = Mat4(-8.f, 5.f, 3.f, 4.2f,
+		-5.f, 6.2f, 7.7f, 5.7f,
+		-9.2f, 6.4f, 12.8f, 5.7f,
+		-7.9f, 1.2f, 5.2f, 8.5f);
 	mat_2 = mat_1;
 	mat_1 -= scalar;
 
 	EXPECT_EQ(mat_1, mat_2 - scalar);
 
 	//operator*=(scalar)
-	mat_1 = GenerateMat4();
+	mat_1 = Mat4(-8.f, 5.f, 3.f, 4.2f,
+		-5.f, 6.2f, 7.7f, 5.7f,
+		-9.2f, 6.4f, 12.8f, 5.7f,
+		-7.9f, 1.2f, 5.2f, 8.5f);
 	mat_2 = mat_1;
 	mat_1 *= scalar;
 
 	EXPECT_EQ(mat_1, mat_2 * scalar);
 
 	//operator/=(scalar)
-	mat_1 = GenerateMat4();
+	mat_1 = Mat4(-8.f, 5.f, 3.f, 4.2f,
+		-5.f, 6.2f, 7.7f, 5.7f,
+		-9.2f, 6.4f, 12.8f, 5.7f,
+		-7.9f, 1.2f, 5.2f, 8.5f);
 	mat_2 = mat_1;
 	mat_1 /= scalar;
 
@@ -343,7 +342,10 @@ TEST(Mat4UnitTest, scalar_operator)
 */
 TEST(Mat4UnitTest, vec4_operator)
 {
-	Mat4 mat_1 = GenerateMat4();
+	Mat4 mat_1 = Mat4(3.2f, 8.4f, -1.8f, 3.4f,
+		6.8f, 5.3f, 4.7f, 7.1f,
+		-4.6f, 7.4f, 6.8f, -2.5f,
+		5.2f, 8.6f, -4.7f, 6.8);
 	Vec4 vec_1 = Vec3(Math::Random(1.f, 100.f), Math::Random(1.f, 100.f), Math::Random(1.f, 100.f));
 
 	Vec4 result = Vec4(mat_1.e00 * vec_1.X + mat_1.e01 * vec_1.Y + mat_1.e02 * vec_1.Z + mat_1.e03 * vec_1.W,
@@ -363,38 +365,44 @@ TEST(Mat4UnitTest, mat4_operator)
 		-5.f, 6.2f, 7.7f, 5.7f,
 		-9.2f, 6.4f, 12.8f, 5.7f,
 		-7.9f, 1.2f, 5.2f, 8.5f);
-	Mat4 mat_2 = Mat4::Identity;
+	Mat4 mat_2 = Mat4(5.9f, 7.6f, -5.8f, 8.2f,
+		-3.4f, 8.4f, -9.6f, 7.6f,
+		6.6f, 5.2f, -7.2f, 1.5f,
+		-9.8f, -4.2f, 7.4f, 8.3f);
 
-	EXPECT_EQ(mat_1 + mat_2, Mat4(-7.f, 5.f, 3.f, 4.2f,
-		-5.f, 7.2f, 7.7f, 5.7f,
-		-9.2f, 6.4f, 13.8f, 5.7f,
-		-7.9f, 1.2f, 5.2f, 9.5f));
+	Mat4 addition_result = Mat4(-2.1f, 12.6f, -2.8f, 12.4f,
+		-8.4f, 14.6f, -1.9f, 13.3f,
+		-2.6f, 11.6f, 5.6f, 7.2f,
+		-17.7f, -3.f, 12.6f, 16.8f);
 
-	EXPECT_EQ(mat_1 - mat_2, Mat4(-9.f, 5.f, 3.f, 4.2f,
-		-5.f, 5.2f, 7.7f, 5.7f,
-		-9.2f, 6.4f, 11.8f, 5.7f,
-		-7.9f, 1.2f, 5.2f, 7.5f));
+	Mat4 substraction_result = Mat4(-13.9f, -2.6f, 8.8f, - 4.f,
+		-1.6f, -2.2f, 17.3f, - 1.9f,
+		-15.8f, 1.2f, 20.f, 4.2f,
+		1.9f, 5.4f, -2.2f, 0.2f);
 
-	EXPECT_EQ(mat_1 * mat_2, mat_1);
+	Mat4 multiplication_result = Mat4(-85.56f, -20.84f, 7.88f, 11.76f,
+		-55.62f, 30.18f, -43.78f, 64.98f,
+		-47.42f, 26.46f, -58.06f, 39.71f,
+		-99.67f, -58.62f, 59.76f, 22.69f);
 
-	mat_1 += mat_2;
+	EXPECT_TRUE(addition_result.Equals(mat_1 + mat_2, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat4(-7.f, 5.f, 3.f, 4.2f,
-		-5.f, 7.2f, 7.7f, 5.7f,
-		-9.2f, 6.4f, 13.8f, 5.7f,
-		-7.9f, 1.2f, 5.2f, 9.5f));
+	EXPECT_TRUE(substraction_result.Equals(mat_1 - mat_2, 0.001f));
 
-	mat_1 -= mat_2;
+	EXPECT_TRUE(multiplication_result.Equals(mat_1 * mat_2, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat4(-8.f, 5.f, 3.f, 4.2f,
-		-5.f, 6.2f, 7.7f, 5.7f,
-		-9.2f, 6.4f, 12.8f, 5.7f,
-		-7.9f, 1.2f, 5.2f, 8.5f));
+	Mat4 tmp = mat_1;
+	tmp += mat_2;
 
-	mat_1 *= mat_2;
+	EXPECT_TRUE(tmp.Equals(addition_result, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat4(-8.f, 5.f, 3.f, 4.2f,
-		-5.f, 6.2f, 7.7f, 5.7f,
-		-9.2f, 6.4f, 12.8f, 5.7f,
-		-7.9f, 1.2f, 5.2f, 8.5f));
+	tmp = mat_1;
+	tmp -= mat_2;
+
+	EXPECT_TRUE(tmp.Equals(substraction_result, 0.001f));
+
+	tmp = mat_1;
+	tmp *= mat_2;
+
+	EXPECT_TRUE(tmp.Equals(multiplication_result, 0.001f));
 }

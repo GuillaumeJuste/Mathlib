@@ -212,24 +212,33 @@ TEST(Mat2UnitTest, vec2_operator)
 */
 TEST(Mat2UnitTest, mat2_operator)
 {
-	Mat2 mat_1 = Mat2(-8.f, 5.f, 3.f, -5.f);
-	Mat2 mat_2 = Mat2::Identity;
+	Mat2 mat_1 = Mat2(-8.f, 5.f, 
+		3.f, -5.f);
+	Mat2 mat_2 = Mat2(5.4f, 6.2f, 
+		1.4f, -5.6f);
 
-	EXPECT_EQ(mat_1 + mat_2, Mat2(-7.f, 5.f, 3.f, -4.f));
+	Mat2 addition_result = Mat2(-2.6f, 11.2f, 4.4f, -10.6f);
+	Mat2 substraction_result = Mat2(-13.4f, -1.2f, 1.6f, 0.6f);
+	Mat2 multiplication_result = Mat2(-36.2f, -77.6f, 9.2f, 46.6f);
 
-	EXPECT_EQ(mat_1 - mat_2, Mat2(-9.f, 5.f, 3.f, -6.f));
+	EXPECT_TRUE(addition_result.Equals(mat_1 + mat_2, 0.001f));
 
-	EXPECT_EQ(mat_1 * mat_2, mat_1);
+	EXPECT_TRUE(substraction_result.Equals(mat_1 - mat_2, 0.001f));
 
-	mat_1 += mat_2;
+	EXPECT_TRUE(multiplication_result.Equals(mat_1 * mat_2, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat2(-7.f, 5.f, 3.f, -4.f));
+	Mat2 tmp = mat_1; 
+	tmp += mat_2;
 
-	mat_1 -= mat_2;
+	EXPECT_TRUE(tmp.Equals(addition_result, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat2(-8.f, 5.f, 3.f, -5.f));
+	tmp = mat_1;
+	tmp -= mat_2;
 
-	mat_1 *= mat_2;
+	EXPECT_TRUE(tmp.Equals(substraction_result, 0.001f));
 
-	EXPECT_EQ(mat_1, Mat2(-8.f, 5.f, 3.f, -5.f));
+	tmp = mat_1;
+	tmp *= mat_2;
+
+	EXPECT_TRUE(tmp.Equals(multiplication_result, 0.001f));
 }
