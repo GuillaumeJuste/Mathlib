@@ -67,19 +67,6 @@ TEST(Mat4UnitTest, Rotation_matrix)
 }
 
 /**
-*	\brief Unit test for transform matrix constructor
-*/
-TEST(Mat4UnitTest, Transform_matrix)
-{
-	Mat4 mat_1 = Mat4::TransformMatrix(Vec3(Math::Pi, Math::Pi / 2.f, 3 * Math::Pi / 2.f), Vec3(2.4f, 3.6f, 6.4f), Vec3(5.f, 1.f, -3.f));
-
-	Mat4 result = Mat4(0.f, -5.f, 0.f, 2.4f,
-		0.f, 0.f, 1.f, 3.6f,
-		3.f, 0.f, 0.f, 6.4f,
-		0.f, 0.f, 0.f, 1.f);
-}
-
-/**
 *	\brief Unit test for scale matrix constructor
 */
 TEST(Mat4UnitTest, Scale_matrix)
@@ -96,6 +83,70 @@ TEST(Mat4UnitTest, Scale_matrix)
 		0.f, 8.6f, 0.f, 0.f,
 		0.f, 0.f, 5.9f, 0.f,
 		0.f, 0.f, 0.f, 1.f)));
+}
+
+
+/**
+*	\brief Unit test for transform matrix constructor
+*/
+TEST(Mat4UnitTest, Transform_matrix)
+{
+	Mat4 mat_1 = Mat4::TransformMatrix(Vec3(Math::Pi, Math::Pi / 2.f, 3 * Math::Pi / 2.f), Vec3(2.4f, 3.6f, 6.4f), Vec3(5.f, 1.f, -3.f));
+
+	Mat4 result = Mat4(0.f, -5.f, 0.f, 2.4f,
+		0.f, 0.f, 1.f, 3.6f,
+		3.f, 0.f, 0.f, 6.4f,
+		0.f, 0.f, 0.f, 1.f);
+
+	EXPECT_TRUE(mat_1.Equals(result, 0.01f));
+}
+
+/**
+*	\brief Unit test for view matrix computation function
+*/
+TEST(Mat4UnitTest, View_matrix)
+{
+	Mat4 mat_1 = Mat4::ViewMatrix(COORDINATE_SYSTEM::LEFT_HAND, Vec3(0.f, 0.f, -1.f), Vec3(0.f, 0.f, 0.f), Vec3(0.f, 1.f, 0.f));
+
+	Mat4 result_1 = Mat4(1.f, 0.f, 0.f, 0.f,
+		0.f, -1.f, 0.f, 0.f,
+		0.f, 0.f, 1.f, 0.f,
+		0.f, 0.f, 1.f, 1.f);
+
+	EXPECT_TRUE(mat_1.Equals(result_1, 0.01f));
+
+	Mat4 mat_2 = Mat4::ViewMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Vec3(0.f, 0.f, -1.f), Vec3(0.f, 0.f, 0.f), Vec3(0.f, -1.f, 0.f));
+
+	Mat4 result_2 = Mat4(1.f, 0.f, 0.f, 0.f,
+		0.f, 1.f, 0.f, 0.f,
+		0.f, 0.f, -1.f, 0.f,
+		0.f, 0.f, 1.f, 1.f);
+
+	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));
+}
+
+/**
+*	\brief Unit test for perspective matrix computation function
+*/
+TEST(Mat4UnitTest, Perspective_matrix)
+{
+	Mat4 mat_1 = Mat4::PerspectiveMatrix(COORDINATE_SYSTEM::LEFT_HAND, Math::Radians(45.0f), 4.f / 3.f, 0.1f, 100.0f);
+
+	Mat4 result_1 = Mat4(1.81066012f, 0.f, 0.f, 0.f,
+		0.f, 2.41421342f, 0.f, 0.f,
+		0.f, 0.f, 1.002002f, 0.2002002f,
+		0.f, 0.f, 1.f, 0.f);
+
+	EXPECT_TRUE(mat_1.Equals(result_1, Math::FloatEpsilon));
+
+	Mat4 mat_2 = Mat4::PerspectiveMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Math::Radians(45.0f), 4.f / 3.f, 0.1f, 100.0f);
+
+	Mat4 result_2 = Mat4(1.81066012f, 0.f, 0.f, 0.f,
+		0.f, 2.41421342f, 0.f, 0.f,
+		0.f, 0.f, -1.002002f, -0.2002002f,
+		0.f, 0.f, -1.f, 0.f);
+
+	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));
 }
 
 /**

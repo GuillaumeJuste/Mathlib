@@ -120,7 +120,7 @@ TEST(Mat2UnitTest, Determinant)
 	EXPECT_FLOAT_EQ(mat_1.Determinant(), 25.f);
 
 	Mat2 mat_2 = Mat2(6.4f, -6.5f, 4.9f, 11.8f);
-	EXPECT_FLOAT_EQ(mat_2.Determinant(), 107.37);
+	EXPECT_FLOAT_EQ(mat_2.Determinant(), 107.37f);
 }
 
 /**
@@ -148,7 +148,7 @@ TEST(Mat2UnitTest, scalar_operator)
 {
 	Mat2 mat_1 = Mat2(4.5f, 8.6f, -2.7f, 9.7f);
 	Mat2 mat_2 = Mat2(2.8f, -7.3f, 8.6f, 13.5f);
-	float scalar = Math::Random(1.f, 100.f);
+	float scalar = (float)Math::Random(1, 100);
 
 	//operator+(scalar)
 	EXPECT_EQ(mat_1 + scalar, Mat2(mat_1[0] + scalar, mat_1[1] + scalar, mat_1[2] + scalar, mat_1[3] + scalar));

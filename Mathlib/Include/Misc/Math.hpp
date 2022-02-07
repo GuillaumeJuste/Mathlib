@@ -193,6 +193,20 @@ namespace Mathlib
 		* 	\param[in] _max random max value.
 		*/
 		MATHLIBRARY_API int Random(int _min, int _max) noexcept;
+
+		/**
+		*	\brief compute angle value as radians
+		*
+		*	\param[in] _angle angle to compute radians value from.
+		*/
+		MATHLIBRARY_API float Radians(float _angle) noexcept;
+
+		/**
+		*	\brief compute angle value as degree
+		* 
+		*	\param[in] _angle angle to compute degree value from.
+		*/
+		MATHLIBRARY_API float Degree(float _angle) noexcept;
 	}
 }
 

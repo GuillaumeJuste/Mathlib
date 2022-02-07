@@ -140,6 +140,80 @@ Mat4 Mat4::TransformMatrix(Vec3 _rotation, Vec3 _position, Vec3 _scale) noexcept
 	return transform;
 }
 
+Mat4 Mat4::ViewMatrixLH(Vec3 _eye, Vec3 _center, Vec3 _up)
+{
+	Vec3 look = (_center - _eye).Normalize();
+	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
+	Vec3 up = Vec3::CrossProduct(right, look).Normalize();
+
+	return Mat4(right.X, up.X, look.X, 0.f,
+		right.Y, up.Y, look.Y, 0.f,
+		right.Z, up.Z, look.Z, 0.f, 
+		-Vec3::DotProduct(right, _eye), -Vec3::DotProduct(up, _eye), -Vec3::DotProduct(look, _eye) , 1.f);
+}
+
+Mat4 Mat4::ViewMatrixRH(Vec3 _eye, Vec3 _center, Vec3 _up)
+{
+	Vec3 look = (_eye - _center).Normalize();
+	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
+	Vec3 up = Vec3::CrossProduct(right, look).Normalize();
+
+	return Mat4(right.X, up.X, look.X, 0.f,
+		right.Y, up.Y, look.Y, 0.f,
+		right.Z, up.Z, look.Z, 0.f,
+		Vec3::DotProduct(right, _eye), Vec3::DotProduct(up, _eye), Vec3::DotProduct(look, _eye), 1.f);
+}
+
+Mat4 Mat4::ViewMatrix(COORDINATE_SYSTEM _coordinate_system, Vec3 _eye, Vec3 _center, Vec3 _up)
+{
+	if (_coordinate_system == COORDINATE_SYSTEM::LEFT_HAND)
+		return ViewMatrixLH(_eye, _center, _up);
+	else
+		return ViewMatrixRH(_eye, _center, _up);
+}
+
+Mat4 Mat4::PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _far)
+{
+	if (Math::Equals(_aspect, 0.f))
+		Callback::CallErrorCallback(CLASS_NAME, "PerspectiveMatrixLH", "render window aspect is 0");
+
+	float tan_half_fov = Math::Tan(_fovy / 2.f);
+
+	Mat4 result = Mat4::Zero;
+	result.e00 = 1.f / (_aspect * tan_half_fov);
+	result.e11 = 1.f / (tan_half_fov);
+	result.e22 = (_far + _near) / (_far - _near);
+	result.e23 = (2 * _far * _near) / (_far - _near);
+	result.e32 = 1.f;
+
+	return result;
+}
+
+Mat4 Mat4::PerspectiveMatrixRH(float _fovy, float _aspect, float _near, float _far)
+{
+	if (Math::Equals(_aspect, 0.f))
+		Callback::CallErrorCallback(CLASS_NAME, "PerspectiveMatrixRH", "render window aspect is 0");
+
+	float tan_half_fov = Math::Tan(_fovy / 2.f);
+
+	Mat4 result = Mat4::Zero;
+	result.e00 = 1.f / (_aspect * tan_half_fov);
+	result.e11 = 1.f / (tan_half_fov);
+	result.e22 = - (_far + _near) / (_far - _near);
+	result.e23 = -(2 * _far * _near) / (_far - _near);
+	result.e32 = - 1.f;
+
+	return result;
+}
+
+Mat4 Mat4::PerspectiveMatrix(COORDINATE_SYSTEM _coordinate_system, float _fovy, float _aspect, float _near, float _far)
+{
+	if (_coordinate_system == COORDINATE_SYSTEM::LEFT_HAND)
+		return PerspectiveMatrixLH(_fovy, _aspect, _near, _far);
+	else
+		return PerspectiveMatrixRH(_fovy, _aspect, _near, _far);
+}
+
 //Accessors
 
 const float* Mat4::Data() const noexcept

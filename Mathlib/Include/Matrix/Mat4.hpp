@@ -4,6 +4,7 @@
 #define MATHLIB_MAT4
 
 #include "Misc/Includes.hpp"
+#include "Misc/Common.hpp"
 
 /**
 *	\file Mat4.hpp
@@ -20,6 +21,49 @@ namespace Mathlib
 
 	struct MATHLIBRARY_API Mat4
 	{
+	private:
+		/**
+		*	\brief left handed world to view matrix.
+		*
+		*	\param[in] _eye camera position.
+		*	\param[in] _center camera look at target.
+		*	\param[in] _up camera up vector.
+		*/
+		static Mat4 ViewMatrixLH(Vec3 _eye, Vec3 _center, Vec3 _up);
+
+		/**
+		*	\brief Right handed world to view matrix.
+		*
+		*	\param[in] _eye camera position.
+		*	\param[in] _center camera look at target.
+		*	\param[in] _up camera up vector.
+		*/
+		static Mat4 ViewMatrixRH(Vec3 _eye, Vec3 _center, Vec3 _up);
+
+		/**
+		*	\brief Create left handed perspective projection matrix.
+		*
+		*	\param[in] _fovy Y axis field of view in radian.
+		*	\param[in] _aspect aspect ratio of the render window.
+		*	\param[in] _near near depth clipping plane.
+		*	\param[in] _far far depth clipping plane.
+		*
+		*/
+		static Mat4 PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _far);
+
+		/**
+		*	\brief Create right handed perspective projection matrix.
+		*
+		*	\param[in] _fovy Y axis field of view in radian.
+		*	\param[in] _aspect aspect ratio of the render window.
+		*	\param[in] _near near depth clipping plane.
+		*	\param[in] _far far depth clipping plane.
+		*
+		*/
+		static Mat4 PerspectiveMatrixRH(float _fovy, float _aspect, float _near, float _far);
+
+	public:
+
 		/// Matrix components.
 		float e00{ 0.f }; float e01{ 0.f }; float e02{ 0.f }; float e03{ 0.f };
 		float e10{ 0.f }; float e11{ 0.f }; float e12{ 0.f }; float e13{ 0.f };
@@ -174,6 +218,27 @@ namespace Mathlib
 		*/
 		static Mat4 TransformMatrix(Vec3 _rotation, Vec3 _position, Vec3 _scale) noexcept;
 
+		/**
+		*	\brief world to view matrix.
+		*
+		*	\param[in] _coordinate_system coordinate system to use to compute the view matrix.
+		*	\param[in] _eye camera position.
+		*	\param[in] _center camera look at target.
+		*	\param[in] _up camera up vector.
+		*/
+		static Mat4 ViewMatrix(COORDINATE_SYSTEM _coordinate_system,Vec3 _eye, Vec3 _center, Vec3 _up);
+
+		/**
+		*	\brief Create perspective projection matrix.
+		*
+		*	\param[in] _coordinate_system coordinate system to use to compute the projection matrix.
+		*	\param[in] _fovy Y axis field of view in radian.
+		*	\param[in] _aspect aspect ratio of the render window.
+		*	\param[in] _near near depth clipping plane.
+		*	\param[in] _far far depth clipping plane.
+		*
+		*/
+		static Mat4 PerspectiveMatrix(COORDINATE_SYSTEM _coordinate_system, float _fovy, float _aspect, float _near, float _far);
 		//Accessors
 
 		/**

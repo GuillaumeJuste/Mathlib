@@ -7,6 +7,7 @@
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>
 #include <Misc/Constants.hpp>
+#include <Misc/Common.hpp>
 
 #include <Vector/Vec2.hpp>
 #include <Vector/Vec3.hpp>

@@ -133,17 +133,20 @@ TEST(MathUnitTest, Random)
 	EXPECT_EQ(Math::Random() == Math::Random(), false);
 }
 
-void ErrorCallbackFunc(const char* _class, const char* _function, const char* _errorMessage)
+/**
+*	\brief Unit test for radian value computation
+*/
+TEST(MathUnitTest, Radian)
 {
-	std::cout << _class << ", function: " << _function << ", error message :" << _errorMessage << std::endl;
+	EXPECT_FLOAT_EQ(Math::Radians(90.f), Math::Pi / 2.f);
+	EXPECT_FLOAT_EQ(Math::Radians(180.f) , Math::Pi);
 }
 
 /**
-*	\brief Unit test for setting up error callback function
+*	\brief Unit test for degree value computation
 */
-TEST(MathUnitTest, Callback)
+TEST(MathUnitTest, degree)
 {
-	Math::Sqrt(-3);
-	Callback::SetErrorCallback(ErrorCallbackFunc);
-	Math::Sqrt(-3);
+	EXPECT_FLOAT_EQ(Math::Degree(Math::Pi / 2.f), 90.f);
+	EXPECT_FLOAT_EQ(Math::Degree(Math::Pi), 180.f);
 }

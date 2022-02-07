@@ -109,5 +109,15 @@ namespace Mathlib
 		{
 			return rand() % (_max - _min) + _min;
 		}
+
+		float Radians(float _angle) noexcept
+		{
+			return _angle * DegToRad;
+		}
+
+		float Degree(float _angle) noexcept
+		{
+			return _angle * RadToDeg;
+		}
 	}
 }
