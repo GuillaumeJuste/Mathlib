@@ -9,9 +9,9 @@
 #include <Misc/Constants.hpp>
 #include <Misc/Common.hpp>
 
-#include <Vector/Vec2.hpp>
-#include <Vector/Vec3.hpp>
-#include <Vector/Vec4.hpp>
+#include <Space/Vec2.hpp>
+#include <Space/Vec3.hpp>
+#include <Space/Vec4.hpp>
 
 #include <Matrix/Mat2.hpp>
 #include <Matrix/Mat3.hpp>

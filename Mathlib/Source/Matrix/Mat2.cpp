@@ -1,4 +1,4 @@
-#include <Vector/Vec2.hpp>
+#include <Space/Vec2.hpp>
 #include <Misc/Math.hpp>
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>

@@ -1,5 +1,5 @@
-#include <Vector/Vec3.hpp>
-#include <Vector/Vec4.hpp>
+#include <Space/Vec3.hpp>
+#include <Space/Vec4.hpp>
 #include <Misc/Math.hpp>
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>
