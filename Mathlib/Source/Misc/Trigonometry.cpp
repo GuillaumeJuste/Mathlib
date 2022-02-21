@@ -35,5 +35,10 @@ namespace Mathlib
 		{
 			return std::atanf(_value);
 		}
+
+		float ATan2(float _x, float _y) noexcept
+		{
+			return std::atan2(_x, _y);
+		}
 	}
 }

@@ -119,5 +119,10 @@ namespace Mathlib
 		{
 			return _angle * RadToDeg;
 		}
+
+		float Copysign(float _value, float _sign) noexcept
+		{
+			return std::copysignf(_value, _sign);
+		}
 	}
 }

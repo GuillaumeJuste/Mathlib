@@ -34,7 +34,7 @@ namespace Mathlib
 		/**
 		*	\brief Compute the arc sine of the value.
 		*
-		* 	\param[in] _value value to compute arc cosine from.
+		* 	\param[in] _value value to compute arc sine from.
 		*/
 		MATHLIBRARY_API float ASin(float _value) noexcept;
 
@@ -48,9 +48,18 @@ namespace Mathlib
 		/**
 		*	\brief Compute the arc tangent of the value.
 		*
-		* 	\param[in] _value value to compute arc cosine from.
+		* 	\param[in] _value value to compute arc tangent from.
 		*/
 		MATHLIBRARY_API float ATan(float _value) noexcept;
+
+		/**
+		*	\brief Computes the arc tangent of y/x 
+		*	using the signs of arguments to determine the correct quadrant.
+		*
+		* 	\param[in] _x value to compute arc cosine from.
+		* 	\param[in] _x value to compute arc cosine from.
+		*/
+		MATHLIBRARY_API float ATan2(float _x, float _y) noexcept;
 	}
 }
 

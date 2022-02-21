@@ -207,6 +207,15 @@ namespace Mathlib
 		*	\param[in] _angle angle to compute degree value from.
 		*/
 		MATHLIBRARY_API float Degree(float _angle) noexcept;
+
+		/**
+		*	\brief Composes a floating point value with the 
+		*	magnitude of _value and the _sign of sgn.
+		*
+		*	\param[in] _value value to apply the signe to.
+		*	\param[in] _sign sign to aplly on the value.
+		*/
+		MATHLIBRARY_API float Copysign(float _value, float _sign) noexcept;
 	}
 }
 
