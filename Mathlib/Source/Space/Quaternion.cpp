@@ -1,5 +1,6 @@
 #include <Space/Quaternion.hpp>
 #include <Space/Vec3.hpp>
+#include <Matrix/Mat4.hpp>
 
 #include <Misc/Math.hpp>
 #include <Misc/Constants.hpp>
@@ -178,6 +179,35 @@ Vec3 Quat::GetAxis() const noexcept
 	return Vec3(X, Y, Z) / Math::Sqrt(1.f - (W * W));
 }
 
+//Matrix
+
+Mat4 Quat::ToMatrix() const noexcept
+{
+	if (!IsNormalized())
+		Callback::CallErrorCallback(CLASS_NAME, "ToMatrix", "Quat should be normalized");
+
+	return Mat4(1.f - 2.f * Y * Y - 2.f * Z * Z,
+		2.f * X * Y - 2.f * Z * W,
+		2.f * X * Z + 2.f * Y * W,
+		0.f,
+
+		2.f * X * Y + 2.f * Z * W,
+		1.f - 2.f * X * X - 2.f * Z * Z,
+		2.f * Y * Z - 2.f * X * W, 
+		0.f,
+
+		2.f * X * Z - 2.f * Y * W,
+		2.f * Y * Z + 2.f * X * W,
+		1.f - 2.f * X * X - 2.f * Y * Y,
+		0.f,
+
+		0.f,
+		0.f,
+		0.f,
+		1.f
+	);
+}
+
 // Rotate
 
 Quat Quat::Rotate(Quat _quat) const noexcept
@@ -189,6 +219,8 @@ Quat Quat::Rotate(Quat _quat) const noexcept
 	float result_X = W * _quat.X + X * _quat.W + Y * _quat.Z - Z * _quat.Y ;
 	float result_Y = W * _quat.Y - X * _quat.Z + Y * _quat.W + Z * _quat.X;
 	float result_Z = W * _quat.Z + X * _quat.Y - Y * _quat.X + Z * _quat.W;
+
+	return Quat(result_W, result_X, result_Y, result_Z);
 }
 
 Vec3 Quat::Rotate(Vec3 _vec) const noexcept

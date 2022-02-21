@@ -4,6 +4,7 @@
 #define MATHLIB_MAT4
 
 #include "Misc/Includes.hpp"
+#include "Misc//Constants.hpp"
 #include "Misc/Common.hpp"
 
 /**

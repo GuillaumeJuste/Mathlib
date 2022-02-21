@@ -15,6 +15,7 @@
 namespace Mathlib
 {
 	struct Vec3;
+	struct Mat4;
 
 	struct MATHLIBRARY_API Quat
 	{
@@ -139,10 +140,14 @@ namespace Mathlib
 		*/
 		float GetAngle() const noexcept;
 
+		//Matrix
+
+		Mat4 ToMatrix() const noexcept;
+
 		/**
 		*	\brief return the quaternions axis.
 		*/
-		Vec3 GetAxis() const;
+		Vec3 GetAxis() const noexcept;
 
 		//TODO
 
