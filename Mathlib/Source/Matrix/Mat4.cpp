@@ -1,5 +1,6 @@
 #include <Space/Vec3.hpp>
 #include <Space/Vec4.hpp>
+#include <Space/Quaternion.hpp>
 #include <Misc/Math.hpp>
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>
@@ -7,6 +8,7 @@
 #include <Matrix/Mat2.hpp>
 #include <Matrix/Mat3.hpp>
 #include <Matrix/Mat4.hpp>
+
 
 using namespace Mathlib;
 
@@ -94,6 +96,35 @@ Mat4 Mat4::RotationMatrix(Vec3 _rotation) noexcept
 	return Mat4::RotationMatrix(_rotation.X, _rotation.Y, _rotation.Z);
 }
 
+Mat4 Mat4::RotationMatrix(const Quat& _rotation) noexcept
+{
+	if (!_rotation.IsNormalized())
+		Callback::CallErrorCallback(CLASS_NAME, "ToMatrix", "Quat should be normalized");
+
+
+
+	return Mat4(1.f - 2.f * _rotation.Y * _rotation.Y - 2.f * _rotation.Z * _rotation.Z,
+		2.f * _rotation.X * _rotation.Y - 2.f * _rotation.Z * _rotation.W,
+		2.f * _rotation.X * _rotation.Z + 2.f * _rotation.Y * _rotation.W,
+		0.f,
+
+		2.f * _rotation.X * _rotation.Y + 2.f * _rotation.Z * _rotation.W,
+		1.f - 2.f * _rotation.X * _rotation.X - 2.f * _rotation.Z * _rotation.Z,
+		2.f * _rotation.Y * _rotation.Z - 2.f * _rotation.X * _rotation.W,
+		0.f,
+
+		2.f * _rotation.X * _rotation.Z - 2.f * _rotation.Y * _rotation.W,
+		2.f * _rotation.Y * _rotation.Z + 2.f * _rotation.X * _rotation.W,
+		1.f - 2.f * _rotation.X * _rotation.X - 2.f * _rotation.Y * _rotation.Y,
+		0.f,
+
+		0.f,
+		0.f,
+		0.f,
+		1.f
+	);
+}
+
 Mat4 Mat4::ScaleMatrix(float _scale) noexcept
 {
 	return Mat4(_scale, 0.f, 0.f, 0.f,
@@ -116,28 +147,6 @@ Mat4 Mat4::TranslationMatrix(Vec3 _vec) noexcept
 		0.f, 1.f, 0.f, _vec.Y,
 		0.f, 0.f, 1.f, _vec.Z,
 		0.f, 0.f, 0.f, 1.f);
-}
-
-Mat4 Mat4::TransformMatrix(Vec3 _rotation, Vec3 _position, Vec3 _scale) noexcept
-{
-	Mat4 transform = Mat4::RotationMatrix(_rotation);
-	transform.e00 *= _scale.X;
-	transform.e01 *= _scale.X;
-	transform.e02 *= _scale.X;
-
-	transform.e10 *= _scale.Y;
-	transform.e11 *= _scale.Y;
-	transform.e12 *= _scale.Y;
-
-	transform.e20 *= _scale.Z;
-	transform.e21 *= _scale.Z;
-	transform.e22 *= _scale.Z;
-
-	transform.e03 = _position.X;
-	transform.e13 = _position.Y;
-	transform.e23 = _position.Z;
-
-	return transform;
 }
 
 Mat4 Mat4::ViewMatrixLH(Vec3 _eye, Vec3 _center, Vec3 _up)

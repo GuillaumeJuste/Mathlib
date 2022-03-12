@@ -179,35 +179,6 @@ Vec3 Quat::GetAxis() const noexcept
 	return Vec3(X, Y, Z) / Math::Sqrt(1.f - (W * W));
 }
 
-//Matrix
-
-Mat4 Quat::ToMatrix() const noexcept
-{
-	if (!IsNormalized())
-		Callback::CallErrorCallback(CLASS_NAME, "ToMatrix", "Quat should be normalized");
-
-	return Mat4(1.f - 2.f * Y * Y - 2.f * Z * Z,
-		2.f * X * Y - 2.f * Z * W,
-		2.f * X * Z + 2.f * Y * W,
-		0.f,
-
-		2.f * X * Y + 2.f * Z * W,
-		1.f - 2.f * X * X - 2.f * Z * Z,
-		2.f * Y * Z - 2.f * X * W, 
-		0.f,
-
-		2.f * X * Z - 2.f * Y * W,
-		2.f * Y * Z + 2.f * X * W,
-		1.f - 2.f * X * X - 2.f * Y * Y,
-		0.f,
-
-		0.f,
-		0.f,
-		0.f,
-		1.f
-	);
-}
-
 // Rotate
 
 Quat Quat::Rotate(Quat _quat) const noexcept

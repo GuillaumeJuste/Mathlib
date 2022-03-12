@@ -140,16 +140,10 @@ namespace Mathlib
 		*/
 		float GetAngle() const noexcept;
 
-		//Matrix
-
-		Mat4 ToMatrix() const noexcept;
-
 		/**
 		*	\brief return the quaternions axis.
 		*/
 		Vec3 GetAxis() const noexcept;
-
-		//TODO
 
 		// Rotate
 

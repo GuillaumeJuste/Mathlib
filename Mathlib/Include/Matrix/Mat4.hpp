@@ -19,6 +19,7 @@ namespace Mathlib
 	struct Vec4;
 	struct Mat2;
 	struct Mat3;
+	struct Quat;
 
 	struct MATHLIBRARY_API Mat4
 	{
@@ -184,6 +185,14 @@ namespace Mathlib
 		*/
 		static Mat4 RotationMatrix(Vec3 _rotation) noexcept;
 
+		/**
+		*	\brief Create rotation matrix from specified angle.
+		*
+		*	\param[in] _rotation quaternion.
+		*
+		*/
+		static Mat4 RotationMatrix(const Quat& _rotation) noexcept;
+
 
 		/**
 		*	\brief Create scale matrix from specified scale.
@@ -208,16 +217,6 @@ namespace Mathlib
 		*
 		*/
 		static Mat4 TranslationMatrix(Vec3 _vec) noexcept;
-
-		/**
-		*	\brief Create transform matrix.
-		*
-		*	\param[in] _rotation transform's rotations.
-		*	\param[in] _position transform's position.
-		*	\param[in] _scale transform's scale.
-		*
-		*/
-		static Mat4 TransformMatrix(Vec3 _rotation, Vec3 _position, Vec3 _scale) noexcept;
 
 		/**
 		*	\brief world to view matrix.

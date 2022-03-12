@@ -85,22 +85,6 @@ TEST(Mat4UnitTest, Scale_matrix)
 		0.f, 0.f, 0.f, 1.f)));
 }
 
-
-/**
-*	\brief Unit test for transform matrix constructor
-*/
-TEST(Mat4UnitTest, Transform_matrix)
-{
-	Mat4 mat_1 = Mat4::TransformMatrix(Vec3(Math::Pi, Math::Pi / 2.f, 3 * Math::Pi / 2.f), Vec3(2.4f, 3.6f, 6.4f), Vec3(5.f, 1.f, -3.f));
-
-	Mat4 result = Mat4(0.f, -5.f, 0.f, 2.4f,
-		0.f, 0.f, 1.f, 3.6f,
-		3.f, 0.f, 0.f, 6.4f,
-		0.f, 0.f, 0.f, 1.f);
-
-	EXPECT_TRUE(mat_1.Equals(result, 0.01f));
-}
-
 /**
 *	\brief Unit test for view matrix computation function
 */
