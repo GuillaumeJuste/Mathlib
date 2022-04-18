@@ -81,21 +81,21 @@ namespace Mathlib
 		*	\param[in] _row1 to initialise matix second row from.
 		*	\param[in] _row2 to initialise matix third row from.
 		*/
-		Mat3(Vec3 _row0, Vec3 _row1, Vec3 _row2) noexcept;
+		Mat3(const Vec3& _row0, const Vec3& _row1, const Vec3& _row2) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _mat matrix to create matrix from.
 		*/
-		Mat3(Mat2 _mat) noexcept;
+		Mat3(const Mat2& _mat) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _mat matrix to create matrix from.
 		*/
-		Mat3(Mat4 _mat) noexcept;
+		Mat3(const Mat4& _mat) noexcept;
 
 		/**
 		*	\brief Default copy constructor
@@ -123,7 +123,7 @@ namespace Mathlib
 		*	\param[in] _rotation vec3 containing rotation value around X, Y and Z axis.
 		*
 		*/
-		static Mat3 RotationMatrix(Vec3 _rotation) noexcept;
+		static Mat3 RotationMatrix(const Vec3& _rotation) noexcept;
 
 		/**
 		*	\brief Create rotation matrix from specified angle.
@@ -147,7 +147,7 @@ namespace Mathlib
 		*	\param[in] _scale vector containg scale value for each axis.
 		*
 		*/
-		static Mat3 ScaleMatrix(Vec2 _scale) noexcept;
+		static Mat3 ScaleMatrix(const Vec2& _scale) noexcept;
 
 		/**
 		*	\brief Create translation matrix from specified vector.
@@ -155,7 +155,7 @@ namespace Mathlib
 		*	\param[in] _vec vector to create matrix from.
 		*
 		*/
-		static Mat3 TranslationMatrix(Vec2 _vec) noexcept;
+		static Mat3 TranslationMatrix(const Vec2& _vec) noexcept;
 
 		/**
 		*	\brief Create 2D transform matrix.
@@ -165,7 +165,7 @@ namespace Mathlib
 		*	\param[in] _scale transform's scale.
 		*
 		*/
-		static Mat3 TransformMatrix2D(float _rotation, Vec2 _position, Vec2 _scale) noexcept;
+		static Mat3 TransformMatrix2D(float _rotation, const Vec2& _position, const Vec2& _scale) noexcept;
 
 		//Accessors
 
@@ -357,7 +357,7 @@ namespace Mathlib
 		*
 		*	\return new matrix.
 		*/
-		Mat3 operator+(const Mat3 & _rhs) const noexcept;
+		Mat3 operator+(const Mat3& _rhs) const noexcept;
 
 		/**
 		*	\brief Substract two Mat3.
@@ -366,7 +366,7 @@ namespace Mathlib
 		*
 		*	\return new matrix.
 		*/
-		Mat3 operator-(const Mat3 & _rhs) const noexcept;
+		Mat3 operator-(const Mat3& _rhs) const noexcept;
 
 		/**
 		*	\brief Multiply two Mat3.

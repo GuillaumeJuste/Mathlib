@@ -31,7 +31,7 @@ namespace Mathlib
 		*	\param[in] _center camera look at target.
 		*	\param[in] _up camera up vector.
 		*/
-		static Mat4 ViewMatrixLH(Vec3 _eye, Vec3 _center, Vec3 _up);
+		static Mat4 ViewMatrixLH(const Vec3& _eye, const Vec3& _center, const Vec3& _up);
 
 		/**
 		*	\brief Right handed world to view matrix.
@@ -40,7 +40,7 @@ namespace Mathlib
 		*	\param[in] _center camera look at target.
 		*	\param[in] _up camera up vector.
 		*/
-		static Mat4 ViewMatrixRH(Vec3 _eye, Vec3 _center, Vec3 _up);
+		static Mat4 ViewMatrixRH(const Vec3& _eye, const Vec3& _center, const Vec3& _up);
 
 		/**
 		*	\brief Create left handed perspective projection matrix.
@@ -139,21 +139,21 @@ namespace Mathlib
 		*	\param[in] _row2 to initialise matix third row from.
 		*	\param[in] _row3 to initialise matix fourth row from.
 		*/
-		Mat4(Vec4 _row0, Vec4 _row1, Vec4 _row2, Vec4 _row3) noexcept;
+		Mat4(const Vec4& _row0, const Vec4& _row1, const Vec4& _row2, const Vec4& _row3) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _mat matrix to create matrix from.
 		*/
-		Mat4(Mat2 _mat) noexcept;
+		Mat4(const Mat2& _mat) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _mat matrix to create matrix from.
 		*/
-		Mat4(Mat3 _mat) noexcept;
+		Mat4(const Mat3& _mat) noexcept;
 
 		/**
 		*	\brief Default copy constructor
@@ -183,7 +183,7 @@ namespace Mathlib
 		*	\param[in] _rotation vec3 containing rotation value around X, Y and Z axis.
 		*
 		*/
-		static Mat4 RotationMatrix(Vec3 _rotation) noexcept;
+		static Mat4 RotationMatrix(const Vec3& _rotation) noexcept;
 
 		/**
 		*	\brief Create rotation matrix from specified angle.
@@ -192,7 +192,6 @@ namespace Mathlib
 		*
 		*/
 		static Mat4 RotationMatrix(const Quat& _rotation) noexcept;
-
 
 		/**
 		*	\brief Create scale matrix from specified scale.
@@ -208,7 +207,7 @@ namespace Mathlib
 		*	\param[in] _scale vector containg scale value for each axis.
 		*
 		*/
-		static Mat4 ScaleMatrix(Vec3 _scale) noexcept;
+		static Mat4 ScaleMatrix(const Vec3& _scale) noexcept;
 
 		/**
 		*	\brief Create translation matrix from specified vector.
@@ -216,7 +215,7 @@ namespace Mathlib
 		*	\param[in] _vec vector to create matrix from.
 		*
 		*/
-		static Mat4 TranslationMatrix(Vec3 _vec) noexcept;
+		static Mat4 TranslationMatrix(const Vec3& _vec) noexcept;
 
 		/**
 		*	\brief world to view matrix.
@@ -226,7 +225,7 @@ namespace Mathlib
 		*	\param[in] _center camera look at target.
 		*	\param[in] _up camera up vector.
 		*/
-		static Mat4 ViewMatrix(COORDINATE_SYSTEM _coordinate_system,Vec3 _eye, Vec3 _center, Vec3 _up);
+		static Mat4 ViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up);
 
 		/**
 		*	\brief Create perspective projection matrix.

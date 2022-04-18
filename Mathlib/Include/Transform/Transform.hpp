@@ -91,7 +91,7 @@ namespace Mathlib
 		/**
 		*	\brief Compare this Transform with with _other
 		*
-		*	\param[in] _other other quaternion to do the comparison with.
+		*	\param[in] _other other Transform to do the comparison with.
 		* 	\param[in] _epsilon threshold to accept equality.
 		*
 		*	\return if this and _other are equal.
@@ -145,6 +145,17 @@ namespace Mathlib
 		*	\return transform matrix inverted.
 		*/
 		Mat4 ToInverseMatrixNoScale();
+
+		//GetWorldTransfrom
+		/**
+		*	\brief compute child object world transform based on parent transform.
+		*
+		*	\param[in] _parent parent object transfrom.
+		*	\param[in] _child child object transfrom.
+		*
+		*	\return return new world transform of the child object.
+		*/
+		static Transform GetWorldTransfrom(const Transform& _parent, const Transform& _child);
 	};
 }
 

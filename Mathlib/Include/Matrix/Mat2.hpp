@@ -69,21 +69,21 @@ namespace Mathlib
 		*	\param[in] _row0 to initialise matix first row from.
 		*	\param[in] _row1 to initialise matix second row from.
 		*/
-		Mat2(Vec2 _row0, Vec2 _row1) noexcept;
+		Mat2(const Vec2& _row0, const Vec2& _row1) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _mat matrix to create matrix from.
 		*/
-		Mat2(Mat3 _mat) noexcept;
+		Mat2(const Mat3& _mat) noexcept;
 
 		/**
 		*	\brief Value constructor
 		*
 		*	\param[in] _mat matrix to create matrix from.
 		*/
-		Mat2(Mat4 _mat) noexcept;
+		Mat2(const Mat4& _mat) noexcept;
 
 		/**
 		*	\brief Default copy constructor

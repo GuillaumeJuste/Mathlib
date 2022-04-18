@@ -32,17 +32,17 @@ Mat2::Mat2(float _value) noexcept :
 {
 }
 
-Mat2::Mat2(Vec2 _row0, Vec2 _row1) noexcept:
+Mat2::Mat2(const Vec2& _row0, const Vec2& _row1) noexcept:
 	e00{ _row0.X }, e01{ _row0.Y }, e10{ _row1.X }, e11{ _row1.Y }
 {
 }
 
-Mat2::Mat2(Mat3 _mat) noexcept :
+Mat2::Mat2(const Mat3& _mat) noexcept :
 	e00{ _mat.e00 }, e01{ _mat.e01 }, e10{ _mat.e10 }, e11{ _mat.e11 }
 {
 }
 
-Mat2::Mat2(Mat4 _mat) noexcept :
+Mat2::Mat2(const Mat4& _mat) noexcept :
 	e00{ _mat.e00 }, e01{ _mat.e01 }, e10{ _mat.e10 }, e11{ _mat.e11 }
 {
 }

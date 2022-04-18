@@ -42,12 +42,12 @@ Vec4::Vec4(float _xyzw) noexcept :
 {
 }
 
-Vec4::Vec4(Vec2 _vec2, float _z, float _w) noexcept :
+Vec4::Vec4(const Vec2& _vec2, float _z, float _w) noexcept :
 	X{ _vec2.X }, Y{ _vec2.Y }, Z{ _z }, W{ _w}
 {
 }
 
-Vec4::Vec4(Vec3 _vec3, float _w) noexcept :
+Vec4::Vec4(const Vec3& _vec3, float _w) noexcept :
 	X{ _vec3.X }, Y{ _vec3.Y }, Z{ _vec3.Z }, W{ _w }
 {
 }

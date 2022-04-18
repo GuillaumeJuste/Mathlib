@@ -1,4 +1,4 @@
-#include <Transform/Transform.h>
+#include <Transform/Transform.hpp>
 #include <Matrix/Mat4.hpp>
 
 using namespace Mathlib;
@@ -108,4 +108,15 @@ Mat4 Transform::ToMatrixNoScale()
 Mat4 Transform::ToInverseMatrixNoScale()
 {
 	return ToMatrixNoScale().Inverse();
+}
+
+//Add
+Transform Transform::GetWorldTransfrom(const Transform& _parent, const Transform& _child)
+{
+	Transform result = Transform();
+	result.rotation = _child.rotation;
+	result.position = _parent.rotation.Rotate(_child.position) + _parent.position;
+	result.scale = _parent.scale * _child.scale;
+
+	return result;
 }

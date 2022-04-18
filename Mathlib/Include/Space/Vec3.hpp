@@ -81,14 +81,14 @@ namespace Mathlib
 		*	\param[in] _vec2 Vec2 to copy axis values from.
 		*	\param[in] _z Z axis value.
 		*/
-		Vec3(Vec2 _vec2, float _z = 0.f) noexcept;
+		Vec3(const Vec2& _vec2, float _z = 0.f) noexcept;
 
 		/**
 		*	\brief Constructor from a Vec4
 		*
 		*	\param[in] _vec4 Vec4 to copy axis values from.
 		*/
-		Vec3(Vec4 _vec4) noexcept;
+		Vec3(const Vec4& _vec4) noexcept;
 
 		/**
 		*	\brief Default copy constructor

@@ -48,7 +48,7 @@ Mat4::Mat4(float _value) noexcept :
 {
 }
 
-Mat4::Mat4(Vec4 _row0, Vec4 _row1, Vec4 _row2, Vec4 _row3) noexcept :
+Mat4::Mat4(const Vec4& _row0, const Vec4& _row1, const Vec4& _row2, const Vec4& _row3) noexcept :
 	e00{ _row0.X }, e01{ _row0.Y }, e02{ _row0.Z }, e03{ _row0.W },
 	e10{ _row1.X }, e11{ _row1.Y }, e12{ _row1.Z }, e13{ _row1.W },
 	e20{ _row2.X }, e21{ _row2.Y }, e22{ _row2.Z }, e23{ _row2.W },
@@ -56,7 +56,7 @@ Mat4::Mat4(Vec4 _row0, Vec4 _row1, Vec4 _row2, Vec4 _row3) noexcept :
 {
 }
 
-Mat4::Mat4(Mat2 _mat) noexcept :
+Mat4::Mat4(const Mat2& _mat) noexcept :
 	e00{ _mat.e00 }, e01{ _mat.e01 }, e02{ 0.f }, e03{ 0.f },
 	e10{ _mat.e10 }, e11{ _mat.e11 }, e12{ 0.f }, e13{ 0.f },
 	e20{ 0.f }, e21{ 0.f }, e22{ 1.f }, e23{ 0.f },
@@ -64,7 +64,7 @@ Mat4::Mat4(Mat2 _mat) noexcept :
 {
 }
 
-Mat4::Mat4(Mat3 _mat) noexcept :
+Mat4::Mat4(const Mat3& _mat) noexcept :
 	e00{ _mat.e00 }, e01{ _mat.e01 }, e02{ _mat.e02 }, e03{ 0.f },
 	e10{ _mat.e10 }, e11{ _mat.e11 }, e12{ _mat.e12 }, e13{ 0.f },
 	e20{ _mat.e20 }, e21{ _mat.e21 }, e22{ _mat.e22 }, e23{ 0.f },
@@ -91,7 +91,7 @@ Mat4 Mat4::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexce
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::RotationMatrix(Vec3 _rotation) noexcept
+Mat4 Mat4::RotationMatrix(const Vec3& _rotation) noexcept
 {
 	return Mat4::RotationMatrix(_rotation.X, _rotation.Y, _rotation.Z);
 }
@@ -133,7 +133,7 @@ Mat4 Mat4::ScaleMatrix(float _scale) noexcept
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::ScaleMatrix(Vec3 _scale) noexcept
+Mat4 Mat4::ScaleMatrix(const Vec3& _scale) noexcept
 {
 	return Mat4(_scale.X, 0.f, 0.f, 0.f,
 		0.f, _scale.Y, 0.f, 0.f,
@@ -141,7 +141,7 @@ Mat4 Mat4::ScaleMatrix(Vec3 _scale) noexcept
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::TranslationMatrix(Vec3 _vec) noexcept
+Mat4 Mat4::TranslationMatrix(const Vec3& _vec) noexcept
 {
 	return Mat4(1.f, 0.f, 0.f, _vec.X,
 		0.f, 1.f, 0.f, _vec.Y,
@@ -149,7 +149,7 @@ Mat4 Mat4::TranslationMatrix(Vec3 _vec) noexcept
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::ViewMatrixLH(Vec3 _eye, Vec3 _center, Vec3 _up)
+Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
 {
 	Vec3 look = (_center - _eye).Normalize();
 	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
@@ -161,7 +161,7 @@ Mat4 Mat4::ViewMatrixLH(Vec3 _eye, Vec3 _center, Vec3 _up)
 		-Vec3::DotProduct(right, _eye), -Vec3::DotProduct(up, _eye), -Vec3::DotProduct(look, _eye) , 1.f);
 }
 
-Mat4 Mat4::ViewMatrixRH(Vec3 _eye, Vec3 _center, Vec3 _up)
+Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
 {
 	Vec3 look = (_eye - _center).Normalize();
 	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
@@ -173,7 +173,7 @@ Mat4 Mat4::ViewMatrixRH(Vec3 _eye, Vec3 _center, Vec3 _up)
 		Vec3::DotProduct(right, _eye), Vec3::DotProduct(up, _eye), Vec3::DotProduct(look, _eye), 1.f);
 }
 
-Mat4 Mat4::ViewMatrix(COORDINATE_SYSTEM _coordinate_system, Vec3 _eye, Vec3 _center, Vec3 _up)
+Mat4 Mat4::ViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up)
 {
 	if (_coordinate_system == COORDINATE_SYSTEM::LEFT_HAND)
 		return ViewMatrixLH(_eye, _center, _up);

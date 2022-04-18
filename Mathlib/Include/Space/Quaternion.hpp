@@ -59,7 +59,7 @@ namespace Mathlib
 		* 	\param[in] _angle quaternion rotation in degree.
 		*	\param[in] _axis Z value.
 		*/
-		Quat(float _angle, Vec3 _axis) noexcept;
+		Quat(float _angle, const Vec3& _axis) noexcept;
 
 		/**
 		*	\brief Default copy constructor
@@ -154,7 +154,7 @@ namespace Mathlib
 		*
 		*	\return new quaternion result of the input quaternion rotated by this quaternion.
 		*/
-		Quat Rotate(Quat _quat) const noexcept;
+		Quat Rotate(const Quat& _quat) const noexcept;
 
 		/**
 		*	\brief Rotate input vector by this quaternion;
@@ -163,7 +163,7 @@ namespace Mathlib
 		*
 		*	\return new vector result of the input vector rotated by this quaternion.
 		*/
-		Vec3 Rotate(Vec3 _vec) const noexcept;
+		Vec3 Rotate(const Vec3& _vec) const noexcept;
 
 		/**
 		*	\brief Get the Right vector (X axis) rotated by this quaternion.

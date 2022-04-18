@@ -38,12 +38,12 @@ Vec2::Vec2(float _xy) noexcept :
 {
 }
 
-Vec2::Vec2(Vec3 _vec3) noexcept :
+Vec2::Vec2(const Vec3& _vec3) noexcept :
 	X{ _vec3.X }, Y{ _vec3.Y }
 {
 }
 
-Vec2::Vec2(Vec4 _vec4) noexcept :
+Vec2::Vec2(const Vec4& _vec4) noexcept :
 	X{ _vec4.X }, Y{ _vec4.Y }
 {
 }

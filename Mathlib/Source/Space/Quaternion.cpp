@@ -23,7 +23,7 @@ Quat::Quat(float _w, float _x, float _y, float _z) noexcept :
 {
 }
 
-Quat::Quat(float _angle, Vec3 _axis) noexcept 
+Quat::Quat(float _angle, const Vec3& _axis) noexcept
 {
 	float half_angle_rad = _angle * Math::DegToRad / 2.f;
 	W = Math::Cos(half_angle_rad / 2.f);
@@ -181,7 +181,7 @@ Vec3 Quat::GetAxis() const noexcept
 
 // Rotate
 
-Quat Quat::Rotate(Quat _quat) const noexcept
+Quat Quat::Rotate(const Quat& _quat) const noexcept
 {
 	if (!IsNormalized() || !_quat.IsNormalized())
 		Callback::CallErrorCallback(CLASS_NAME, "Rotate", "Quat should be normalized");
@@ -194,7 +194,7 @@ Quat Quat::Rotate(Quat _quat) const noexcept
 	return Quat(result_W, result_X, result_Y, result_Z);
 }
 
-Vec3 Quat::Rotate(Vec3 _vec) const noexcept
+Vec3 Quat::Rotate(const Vec3& _vec) const noexcept
 {
 	if (!IsNormalized())
 		Callback::CallErrorCallback(CLASS_NAME, "Rotate", "Quat should be normalized");

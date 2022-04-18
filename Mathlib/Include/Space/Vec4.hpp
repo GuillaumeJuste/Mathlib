@@ -84,7 +84,7 @@ namespace Mathlib
 		*	\param[in] _z Z axis value.
 		*	\param[in] _w W axis value.
 		*/
-		Vec4(Vec2 _vec2, float _z = 0.f, float _w = 0.f) noexcept;
+		Vec4(const Vec2& _vec2, float _z = 0.f, float _w = 0.f) noexcept;
 
 		/**
 		*	\brief Constructor from a Vec3
@@ -92,7 +92,7 @@ namespace Mathlib
 		*	\param[in] _vec3 Vec3 to copy axis values from.
 		*	\param[in] _w W axis value.
 		*/
-		Vec4(Vec3 _vec3, float _w = 0.f) noexcept;
+		Vec4(const Vec3& _vec3, float _w = 0.f) noexcept;
 
 		/**
 		*	\brief Default copy constructor
@@ -375,9 +375,9 @@ namespace Mathlib
 
 		//Debug
 
-				/**
-				*	\brief return vector values as string.
-				*/
+		/**
+		*	\brief return vector values as string.
+		*/
 		std::string ToString()const noexcept;
 	};
 }
