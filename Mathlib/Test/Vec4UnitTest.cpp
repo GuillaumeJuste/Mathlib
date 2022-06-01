@@ -119,7 +119,7 @@ TEST(Vec4UnitTest, Length)
 	float sqrLen = 120.36;
 	float len = 10.9708705f;
 
-	Vec3 vec_1_normalized = vec_1 / len;
+	Vec4 vec_1_normalized = vec_1 / len;
 
 	EXPECT_FLOAT_EQ(vec_1.Length(), len);
 	EXPECT_FLOAT_EQ(vec_2.Length(), 1.f);

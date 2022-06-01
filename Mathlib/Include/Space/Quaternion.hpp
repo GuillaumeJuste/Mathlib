@@ -101,18 +101,18 @@ namespace Mathlib
 		//Euler
 
 		/**
-		*	\brief Convert a Quaternion into floating-point Euler angles (in radians).
-		*/
-		Vec3 Euler() const noexcept;
-
-		/**
 		*	\brief Create quaternion from euler rotations
 		*
-		*	\param[in] _angles	vector containing euler rotation around all 3 axis.
+		*	\param[in] _angles	vector containing euler rotation around all 3 axis in degrees.
 		*
 		*	\return new quaternions created from euler angles;
 		*/
 		static Quat FromEuler(const Vec3& _angles) noexcept;
+
+		/**
+		*	\brief Convert a Quaternion into floating-point Euler angles (in degrees).
+		*/
+		Vec3 Euler() const noexcept;
 
 		//Invert
 

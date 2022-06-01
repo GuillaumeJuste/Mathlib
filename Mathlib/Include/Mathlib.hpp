@@ -12,6 +12,7 @@
 #include <Space/Vec2.hpp>
 #include <Space/Vec3.hpp>
 #include <Space/Vec4.hpp>
+#include <Space/Quaternion.hpp>
 
 #include <Matrix/Mat2.hpp>
 #include <Matrix/Mat3.hpp>

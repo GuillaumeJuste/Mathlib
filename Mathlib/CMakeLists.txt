@@ -46,6 +46,10 @@ add_executable(Mat4UnitTest Test/Mat4UnitTest.cpp)
 target_link_libraries(Mat4UnitTest gtest_main)
 target_link_libraries(Mat4UnitTest Mathlib)
 
+add_executable(QuaternionUnitTest Test/QuaternionUnitTest.cpp)
+target_link_libraries(QuaternionUnitTest gtest_main)
+target_link_libraries(QuaternionUnitTest Mathlib)
+
 
 include(GoogleTest)
 gtest_discover_tests(Vector3UnitTest)

@@ -26,13 +26,15 @@ Quat::Quat(float _w, float _x, float _y, float _z) noexcept :
 Quat::Quat(float _angle, const Vec3& _axis) noexcept
 {
 	float half_angle_rad = _angle * Math::DegToRad / 2.f;
-	W = Math::Cos(half_angle_rad / 2.f);
+	W = Math::Cos(half_angle_rad);
 	
 	float angle_sin = Math::Sin(half_angle_rad);
 
-	X = _axis.X * angle_sin;
-	Y = _axis.Y * angle_sin;
-	Z = _axis.Z * angle_sin;
+	Vec3 normalized_axis = _axis.GetNormalized();
+
+	X = normalized_axis.X * angle_sin;
+	Y = normalized_axis.Y * angle_sin;
+	Z = normalized_axis.Z * angle_sin;
 
 	Normalize();
 }
@@ -81,18 +83,20 @@ bool  Quat::IsNormalized() const noexcept
 
 Quat Quat::FromEuler(const Vec3& _angles) noexcept
 {
-	float cos_half_X = Math::Cos(_angles.X * 0.5f);
-	float sin_half_X = Math::Sin(_angles.X * 0.5f);
-	float cos_half_Y = Math::Cos(_angles.Y * 0.5f);
-	float sin_half_Y = Math::Sin(_angles.Y * 0.5f);
-	float cos_half_Z = Math::Cos(_angles.Z * 0.5f);
-	float sin_half_Z = Math::Sin(_angles.Z * 0.5f);
+	Vec3 half_rad_angles = _angles * 0.5f * Math::DegToRad;
+
+	float cos_half_X = Math::Cos(half_rad_angles.X);
+	float sin_half_X = Math::Sin(half_rad_angles.X);
+	float cos_half_Y = Math::Cos(half_rad_angles.Y);
+	float sin_half_Y = Math::Sin(half_rad_angles.Y);
+	float cos_half_Z = Math::Cos(half_rad_angles.Z);
+	float sin_half_Z = Math::Sin(half_rad_angles.Z);
 
 	Quat result = Quat();
-	result.W = cos_half_Z * cos_half_Y * cos_half_X + sin_half_Z * sin_half_Y * sin_half_X;
-	result.X = sin_half_Z * cos_half_Y * cos_half_X - cos_half_Z * sin_half_Y * sin_half_X;
-	result.Y = cos_half_Z * sin_half_Y * cos_half_X + cos_half_Z * cos_half_Y * sin_half_X;
-	result.Z = cos_half_Z * cos_half_Y * sin_half_X - cos_half_Z * sin_half_Y * cos_half_X;
+	result.W = cos_half_X * cos_half_Y * cos_half_Z + sin_half_X * sin_half_Y * sin_half_Z;
+	result.X = sin_half_X * cos_half_Y * cos_half_Z - cos_half_X * sin_half_Y * sin_half_Z;
+	result.Y = cos_half_X * sin_half_Y * cos_half_Z + sin_half_X * cos_half_Y * sin_half_Z;
+	result.Z = cos_half_X * cos_half_Y * sin_half_Z - sin_half_X * sin_half_Y * cos_half_Z;
 
 	return result;
 }
@@ -116,7 +120,7 @@ Vec3 Quat::Euler() const noexcept
 	float cosZ = 1 - 2 * (Y * Y + Z * Z);
 	result.Z = Math::ATan2(sinZ, cosZ);
 
-	return result;
+	return result * Math::RadToDeg;
 }
 
 //Invert
@@ -136,10 +140,10 @@ Quat& Quat::Inverse() noexcept
 	}
 	else
 	{
-		W *= squared_length;
-		X *= -squared_length;
-		Y *= -squared_length;
-		Z *= -squared_length;
+		W /= squared_length;
+		X /= -squared_length;
+		Y /= -squared_length;
+		Z /= -squared_length;
 	}
 
 	return *this;
