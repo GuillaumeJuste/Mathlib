@@ -161,7 +161,7 @@ namespace Mathlib
 		*
 		*	\param[in] _vec vector to rotate.
 		*
-		*	\return new vector result of the input vector rotated by this quaternion.
+		*	\return new Quaternion result of the input vector rotated by this quaternion.
 		*/
 		Vec3 Rotate(const Vec3& _vec) const noexcept;
 

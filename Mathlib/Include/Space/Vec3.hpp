@@ -4,6 +4,7 @@
 #define MATHLIB_VEC3
 
 #include "Misc/Includes.hpp"
+#include "Misc/Constants.hpp"
 #include <string>
 
 /**
@@ -190,7 +191,7 @@ namespace Mathlib
 		* 
 		*	\return if this and _other are equal.
 		*/
-		bool Equals(const Vec3& _other, float _epsilon = 0.f) const noexcept;
+		bool Equals(const Vec3& _other, float _epsilon = Math::FloatEpsilon) const noexcept;
 
 		/**
 		*	\brief Operator to compare this vector with with _rhs

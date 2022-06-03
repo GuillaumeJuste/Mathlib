@@ -175,11 +175,15 @@ Quat Quat::GetConjugate() const noexcept
 
 float Quat::GetAngle() const noexcept
 {
+	if (!IsNormalized() )
+		Callback::CallErrorCallback(CLASS_NAME, "GetAngle", "Quat should be normalized");
 	return Math::ACos(W) * 2.f;
 }
 
 Vec3 Quat::GetAxis() const noexcept
 {
+	if (!IsNormalized())
+		Callback::CallErrorCallback(CLASS_NAME, "GetAngle", "Quat should be normalized");
 	return Vec3(X, Y, Z) / Math::Sqrt(1.f - (W * W));
 }
 

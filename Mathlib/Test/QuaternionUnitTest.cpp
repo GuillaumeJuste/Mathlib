@@ -181,3 +181,128 @@ TEST(QuaternionUnitTest, Inverse)
 	EXPECT_FLOAT_EQ(quat_2_inverse.Y, -0.059820544f);
 	EXPECT_FLOAT_EQ(quat_2_inverse.Z, -0.043203726f);
 }
+
+TEST(QuaternionUnitTest, Conjugate)
+{
+	Quat quat_1 = Quat(2.8f, -6.8f, 4.5f, 8.4f);
+	Quat quat_1_conjugate = quat_1.GetConjugate();
+
+	EXPECT_FLOAT_EQ(quat_1_conjugate.W, 2.8f);
+	EXPECT_FLOAT_EQ(quat_1_conjugate.X, 6.8f);
+	EXPECT_FLOAT_EQ(quat_1_conjugate.Y, -4.5f);
+	EXPECT_FLOAT_EQ(quat_1_conjugate.Z, -8.4f);
+
+	Quat quat_2 = Quat(3.8f, -5.2f, 7.2f, 5.2f);
+	Quat quat_2_conjugate = quat_2.GetConjugate();
+
+	EXPECT_FLOAT_EQ(quat_2_conjugate.W, 3.8f);
+	EXPECT_FLOAT_EQ(quat_2_conjugate.X, 5.2f);
+	EXPECT_FLOAT_EQ(quat_2_conjugate.Y, -7.2f);
+	EXPECT_FLOAT_EQ(quat_2_conjugate.Z, -5.2f);
+}
+
+TEST(QuaternionUnitTest, GetAngle)
+{
+	Quat quat_1 = Quat(2.8f, -6.8f, 4.5f, 8.4f).Normalize();
+	float quat_1_angle = quat_1.GetAngle();
+
+	EXPECT_FLOAT_EQ(quat_1_angle, 2.6720602771680357f);
+
+	Quat quat_2 = Quat(3.8f, -5.2f, 7.2f, 5.2f).Normalize();
+	float quat_2_angle = quat_2.GetAngle();
+
+	EXPECT_FLOAT_EQ(quat_2_angle, 2.4341912612720122f);
+
+}
+
+TEST(QuaternionUnitTest, GetAxis)
+{
+	Quat quat_1 = Quat(2.8f, -6.8f, 4.5f, 8.4f).Normalize();
+	Vec3 quat_1_axis = quat_1.GetAxis();
+
+	EXPECT_FLOAT_EQ(quat_1_axis.X, -0.580857221073525f);
+	EXPECT_FLOAT_EQ(quat_1_axis.Y, 0.3843908080633621f);
+	EXPECT_FLOAT_EQ(quat_1_axis.Z, 0.7175295083849428f);
+
+	Quat quat_2 = Quat(3.8f, -5.2f, 7.2f, 5.2f).Normalize();
+	Vec3 quat_2_axis = quat_2.GetAxis();
+
+	EXPECT_FLOAT_EQ(quat_2_axis.X, -0.5052593483187066f);
+	EXPECT_FLOAT_EQ(quat_2_axis.Y, 0.6995898669028244f);
+	EXPECT_FLOAT_EQ(quat_2_axis.Z, 0.5052593483187066f);
+}
+
+TEST(QuaternionUnitTest, Rotate_vector)
+{
+	Vec3 start = Vec3::Right;
+	Quat rotation = Quat::FromEuler(Vec3(0.f, 0.f, 90.f));
+	Vec3 end = rotation.Rotate(start);
+
+	EXPECT_TRUE(Math::Equals(end.X, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Y, 1.f));
+	EXPECT_TRUE(Math::Equals(end.Z, 0.f));
+
+	start = Vec3::Up;
+	rotation = Quat::FromEuler(Vec3(90.f, 0.f, 90.f));
+	end = rotation.Rotate(start);
+
+	EXPECT_TRUE(Math::Equals(end.X, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Y, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Z, 1.f));
+}
+
+TEST(QuaternionUnitTest, Rotate_quaternion)
+{
+	Quat quat1(0.65379899684951437f ,
+				0.49198400932684733f ,
+				-0.57343602132006610f ,
+				-0.040862400050191698f);
+
+	Quat quat2(0.28456911695921927f,
+				0.055287819843885436f,
+				-0.16261099422502870f,
+				-0.94314438937370981f);
+
+	Quat expected_result(0.027064135033571496f,
+							0.71033886691834713f ,
+							0.19225567792515003f ,
+							-0.67655301421661274f);
+
+	Quat rotation = quat1.Rotate(quat2);
+
+	EXPECT_TRUE(Math::Equals(rotation.W, expected_result.W));
+	EXPECT_TRUE(Math::Equals(rotation.X, expected_result.X));
+	EXPECT_TRUE(Math::Equals(rotation.Y, expected_result.Y));
+	EXPECT_TRUE(Math::Equals(rotation.Z, expected_result.Z));
+}
+
+TEST(QuaternionUnitTest, Rotation_vectors)
+{
+	Quat quat1(0.65379899684951437f,
+		0.49198400932684733f,
+		-0.57343602132006610f,
+		-0.040862400050191698f);
+
+	const Vec3 quat1_right_axis(
+		0.33900278742950163f ,
+		-0.61767429804632101f,
+		0.70961649617805012f );
+
+	EXPECT_TRUE(quat1_right_axis.Equals(quat1.GetRightVector(), Math::FloatEpsilon));
+
+	/// Precomputed values.
+	const Vec3 quat1_up_axis(
+		-0.51081111339960539f,
+		0.51256399765763738f,
+		0.69018124774053136f);
+
+	EXPECT_TRUE(quat1_up_axis.Equals(quat1.GetUpVector(), Math::FloatEpsilon));
+
+	/// Precomputed values.
+	const Vec3 quat1_forward_axis(
+		-0.79003108580769366f,
+		-0.59645335931504828f,
+		-0.14175427196141333f);
+
+	EXPECT_TRUE(quat1_forward_axis.Equals(quat1.GetForwardVector(), Math::FloatEpsilon));
+}
