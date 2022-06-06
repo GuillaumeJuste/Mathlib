@@ -242,7 +242,6 @@ Quat Quat::Lerp(const Quat& _start, const Quat& _end, float _alpha)
 {
 	float alpha = Math::Clamp(_alpha, 0.f, 1.f);
 
-	Quat temp = _end - _start;
 	return _start + (_end - _start) * alpha;
 }
 

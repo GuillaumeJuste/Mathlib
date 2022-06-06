@@ -4,6 +4,7 @@
 #define MATHLIB_QUATERNION
 
 #include "Misc/Includes.hpp"
+#include "Misc/Constants.hpp"
 #include <string>
 
 /**
@@ -236,7 +237,7 @@ namespace Mathlib
 		*
 		*	\return if this and _other are equal.
 		*/
-		bool Equals(const Quat& _other, float _epsilon = 0.f) const noexcept;
+		bool Equals(const Quat& _other, float _epsilon = Math::FloatEpsilon) const noexcept;
 
 		/**
 		*	\brief Operator to compare this Quaternion with with _rhs

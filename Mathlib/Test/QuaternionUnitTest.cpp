@@ -242,6 +242,16 @@ TEST(QuaternionUnitTest, Rotate_vector)
 	EXPECT_TRUE(Math::Equals(end.Y, 1.f));
 	EXPECT_TRUE(Math::Equals(end.Z, 0.f));
 
+	end = rotation * start;
+	EXPECT_TRUE(Math::Equals(end.X, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Y, 1.f));
+	EXPECT_TRUE(Math::Equals(end.Z, 0.f));
+
+	end = rotation / start;
+	EXPECT_TRUE(Math::Equals(end.X, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Y, -1.f));
+	EXPECT_TRUE(Math::Equals(end.Z, 0.f));
+
 	start = Vec3::Up;
 	rotation = Quat::FromEuler(Vec3(90.f, 0.f, 90.f));
 	end = rotation.Rotate(start);
@@ -249,16 +259,26 @@ TEST(QuaternionUnitTest, Rotate_vector)
 	EXPECT_TRUE(Math::Equals(end.X, 0.f));
 	EXPECT_TRUE(Math::Equals(end.Y, 0.f));
 	EXPECT_TRUE(Math::Equals(end.Z, 1.f));
+
+	end = rotation * start;
+	EXPECT_TRUE(Math::Equals(end.X, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Y, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Z, 1.f));
+
+	end = rotation / start;
+	EXPECT_TRUE(Math::Equals(end.X, 1.f));
+	EXPECT_TRUE(Math::Equals(end.Y, 0.f));
+	EXPECT_TRUE(Math::Equals(end.Z, 0.f));
 }
 
 TEST(QuaternionUnitTest, Rotate_quaternion)
 {
-	Quat quat1(0.65379899684951437f ,
+	Quat quat_1(0.65379899684951437f ,
 				0.49198400932684733f ,
 				-0.57343602132006610f ,
 				-0.040862400050191698f);
 
-	Quat quat2(0.28456911695921927f,
+	Quat quat_2(0.28456911695921927f,
 				0.055287819843885436f,
 				-0.16261099422502870f,
 				-0.94314438937370981f);
@@ -268,7 +288,7 @@ TEST(QuaternionUnitTest, Rotate_quaternion)
 							0.19225567792515003f ,
 							-0.67655301421661274f);
 
-	Quat rotation = quat1.Rotate(quat2);
+	Quat rotation = quat_1.Rotate(quat_2);
 
 	EXPECT_TRUE(Math::Equals(rotation.W, expected_result.W));
 	EXPECT_TRUE(Math::Equals(rotation.X, expected_result.X));
@@ -278,7 +298,7 @@ TEST(QuaternionUnitTest, Rotate_quaternion)
 
 TEST(QuaternionUnitTest, Rotation_vectors)
 {
-	Quat quat1(0.65379899684951437f,
+	Quat quat_1(0.65379899684951437f,
 		0.49198400932684733f,
 		-0.57343602132006610f,
 		-0.040862400050191698f);
@@ -288,7 +308,7 @@ TEST(QuaternionUnitTest, Rotation_vectors)
 		-0.61767429804632101f,
 		0.70961649617805012f );
 
-	EXPECT_TRUE(quat1_right_axis.Equals(quat1.GetRightVector(), Math::FloatEpsilon));
+	EXPECT_TRUE(quat1_right_axis.Equals(quat_1.GetRightVector(), Math::FloatEpsilon));
 
 	/// Precomputed values.
 	const Vec3 quat1_up_axis(
@@ -296,7 +316,7 @@ TEST(QuaternionUnitTest, Rotation_vectors)
 		0.51256399765763738f,
 		0.69018124774053136f);
 
-	EXPECT_TRUE(quat1_up_axis.Equals(quat1.GetUpVector(), Math::FloatEpsilon));
+	EXPECT_TRUE(quat1_up_axis.Equals(quat_1.GetUpVector(), Math::FloatEpsilon));
 
 	/// Precomputed values.
 	const Vec3 quat1_forward_axis(
@@ -304,5 +324,193 @@ TEST(QuaternionUnitTest, Rotation_vectors)
 		-0.59645335931504828f,
 		-0.14175427196141333f);
 
-	EXPECT_TRUE(quat1_forward_axis.Equals(quat1.GetForwardVector(), Math::FloatEpsilon));
+	EXPECT_TRUE(quat1_forward_axis.Equals(quat_1.GetForwardVector(), Math::FloatEpsilon));
+}
+
+TEST(QuaternionUnitTest, Dot_product)
+{
+	Quat quat_1(2.8f, -6.8f, 4.5f, 8.4f);
+	Quat quat_2(3.7f, 9.1f, -4.1f, -5.6f);
+
+	float dot_product = quat_1.W * quat_2.W + quat_1.X * quat_2.X + quat_1.Y * quat_2.Y + quat_1.Z * quat_2.Z;
+
+	EXPECT_FLOAT_EQ(Quat::DotProduct(quat_1, quat_2), dot_product);
+}
+
+TEST(QuaternionUnitTest, Lerp)
+{
+	Quat quat_1(2.8f, -6.8f, 4.5f, 8.4f);
+	Quat quat_2(3.7f, 9.1f, -4.1f, -5.6f);
+
+	Quat lerp_05alpha(3.25f, 1.15f, 0.2f, 1.4f);
+
+	EXPECT_TRUE(lerp_05alpha.Equals(Quat::Lerp(quat_1, quat_2, 0.5f), 0.000001f));
+	EXPECT_EQ(Quat::Lerp(quat_1, quat_2, -1.f), quat_1);
+}
+
+TEST(QuaternionUnitTest, SLerp)
+{
+	const Quat quat_1(0.653799f, 0.491984f, -0.573436f, -0.0408624f);
+	const Quat quat_2(0.2845691f, 0.05528782f, -0.162611f,  -0.9431444f);
+	const Quat slerp_res05alpha(0.5721251f, 0.3336728f, -0.4487695f, -0.5999511f);
+
+	EXPECT_TRUE(slerp_res05alpha.Equals(Quat::SLerp(quat_1, quat_2, 0.5f), 0.000001f));
+}
+
+TEST(QuaternionUnitTest, float_operator)
+{
+	/*multiplication*/
+
+	Quat quat_1(2.8f, -6.8f, 4.5f, 8.4f);
+	Quat quat_2 = quat_1 * 2.f;
+	
+	EXPECT_TRUE(Math::Equals(quat_2.W, 5.6f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_2.X, -13.6f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_2.Y, 9.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_2.Z, 16.8f, 0.001f));
+
+	quat_1 *= 2.f;
+
+	EXPECT_TRUE(Math::Equals(quat_1.W, 5.6f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_1.X, -13.6f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_1.Y, 9.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_1.Z, 16.8f, 0.001f));
+
+	Quat quat_3(3.7f, 9.1f, -4.1f, -5.6f);
+	Quat quat_4 = quat_3 * -3.f;
+
+	EXPECT_TRUE(Math::Equals(quat_4.W, -11.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_4.X, -27.3f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_4.Y, 12.3f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_4.Z, 16.8f, 0.001f));
+
+	quat_3 *= -3.f;
+
+	EXPECT_TRUE(Math::Equals(quat_3.W, -11.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.X, -27.3f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Y, 12.3f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Z, 16.8f, 0.001f));
+
+
+	/*division*/
+	Quat quat_5(5.f, -7.f, 6.f, 8.f);
+	Quat quat_6 = quat_5 / 2.f;
+
+	EXPECT_TRUE(Math::Equals(quat_6.W, 2.5f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_6.X, -3.5f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_6.Y, 3.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_6.Z, 4.f, 0.001f));
+
+	quat_5 /= 2.f;
+
+	EXPECT_TRUE(Math::Equals(quat_5.W, 2.5f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_5.X, -3.5f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_5.Y, 3.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_5.Z, 4.f, 0.001f));
+
+	Quat quat_7(6.f, 9.f, -3.f, -12.f);
+	Quat quat_8 = quat_7 / -3.f;
+
+	EXPECT_TRUE(Math::Equals(quat_8.W, -2.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_8.X, -3.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_8.Y, 1.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_8.Z, 4.f, 0.001f));
+
+	quat_7 /= -3.f;
+
+	EXPECT_TRUE(Math::Equals(quat_7.W, -2.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_7.X, -3.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_7.Y, 1.f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_7.Z, 4.f, 0.001f));
+}
+
+TEST(QuaternionUnitTest, quaternions_operator)
+{
+	/*operator+*/
+	Quat quat_1(5.f, -7.f, 6.f, 8.f);
+	Quat quat_2(3.7f, 9.1f, -4.1f, -5.6f);
+
+	Quat quat_3 = quat_1 + quat_2;
+
+	EXPECT_TRUE(Math::Equals(quat_3.W, 8.7f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.X, 2.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Y, 1.9f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Z, 2.4f, 0.001f));
+
+	quat_3 = quat_1;
+	quat_3 += quat_2;
+	EXPECT_TRUE(Math::Equals(quat_3.W, 8.7f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.X, 2.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Y, 1.9f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Z, 2.4f, 0.001f));
+
+	/*operator-*/
+
+	quat_3 = quat_1 - quat_2;
+
+	EXPECT_TRUE(Math::Equals(quat_3.W, 1.3f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.X, -16.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Y, 10.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Z, 13.6f, 0.001f));
+
+	quat_3 = quat_1;
+	quat_3 -= quat_2;
+	EXPECT_TRUE(Math::Equals(quat_3.W, 1.3f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.X, -16.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Y, 10.1f, 0.001f));
+	EXPECT_TRUE(Math::Equals(quat_3.Z, 13.6f, 0.001f));
+
+	/*operator**/
+
+	quat_1 = Quat(0.65379899684951437f,
+		0.49198400932684733f,
+		-0.57343602132006610f,
+		-0.040862400050191698f);
+
+	quat_2 = Quat(0.28456911695921927f,
+		0.055287819843885436f,
+		-0.16261099422502870f,
+		-0.94314438937370981f);
+
+	Quat expected_result(0.027064135033571496f,
+		0.71033886691834713f,
+		0.19225567792515003f,
+		-0.67655301421661274f);
+
+	Quat rotation = quat_1 * quat_2;
+
+	EXPECT_TRUE(Math::Equals(rotation.W, expected_result.W));
+	EXPECT_TRUE(Math::Equals(rotation.X, expected_result.X));
+	EXPECT_TRUE(Math::Equals(rotation.Y, expected_result.Y));
+	EXPECT_TRUE(Math::Equals(rotation.Z, expected_result.Z));
+
+	rotation = quat_1;
+	rotation *= quat_2;
+
+	EXPECT_TRUE(Math::Equals(rotation.W, expected_result.W));
+	EXPECT_TRUE(Math::Equals(rotation.X, expected_result.X));
+	EXPECT_TRUE(Math::Equals(rotation.Y, expected_result.Y));
+	EXPECT_TRUE(Math::Equals(rotation.Z, expected_result.Z));
+
+	/*operator/*/
+
+	expected_result = Quat(0.34503787137100783f,
+		-0.63804462461448919f,
+		-0.40488548772720184f,
+		-0.55670069709694570f);
+
+	rotation = quat_1 / quat_2;
+
+	EXPECT_TRUE(Math::Equals(rotation.W, expected_result.W));
+	EXPECT_TRUE(Math::Equals(rotation.X, expected_result.X));
+	EXPECT_TRUE(Math::Equals(rotation.Y, expected_result.Y));
+	EXPECT_TRUE(Math::Equals(rotation.Z, expected_result.Z));
+
+	rotation = quat_1;
+	rotation /= quat_2;
+
+	EXPECT_TRUE(Math::Equals(rotation.W, expected_result.W));
+	EXPECT_TRUE(Math::Equals(rotation.X, expected_result.X));
+	EXPECT_TRUE(Math::Equals(rotation.Y, expected_result.Y));
+	EXPECT_TRUE(Math::Equals(rotation.Z, expected_result.Z));
 }
