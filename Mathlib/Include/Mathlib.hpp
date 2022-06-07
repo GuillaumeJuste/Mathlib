@@ -18,4 +18,6 @@
 #include <Matrix/Mat3.hpp>
 #include <Matrix/Mat4.hpp>
 
+#include <Transform/Transform.hpp>
+
 #endif

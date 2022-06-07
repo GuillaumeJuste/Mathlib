@@ -363,3 +363,6 @@ FodyWeavers.xsd
 
 # CMake out folder
 out/*
+
+# Third Party
+ThirdParty/*

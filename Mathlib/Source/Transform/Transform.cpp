@@ -18,13 +18,13 @@ Transform::Transform(const Vec3& _rotation, const Vec3& _position, const Vec3& _
 }
 
 Transform::Transform(const Quat& _rotation) noexcept :
-	rotation{ _rotation }
+	rotation{ _rotation }, position{ Vec3::Zero }, scale{ Vec3::One }
 {
 
 }
 
 Transform::Transform(const Vec3& _position) noexcept :
-	position{ _position }
+	rotation{ Quat::Identity }, position{ _position }, scale{ Vec3::One }
 {
 
 }
@@ -33,7 +33,7 @@ Transform::Transform(const Vec3& _position) noexcept :
 
 Transform Transform::Lerp(const Transform& _start, const Transform& _end, float _alpha)
 {
-	Transform result = Transform();
+	Transform result;
 	result.rotation = Quat::Lerp(_start.rotation, _end.rotation, _alpha);
 	result.position = Vec3::Lerp(_start.position, _end.position, _alpha);
 	result.scale = Vec3::Lerp(_start.scale, _end.scale,_alpha);
@@ -45,9 +45,9 @@ Transform Transform::Lerp(const Transform& _start, const Transform& _end, float 
 
 bool Transform::Equals(const Transform& _other, float _epsilon) const noexcept
 {
-	return rotation == _other.rotation &&
-		position == _other.position &&
-		scale == _other.scale;
+	return rotation.Equals(_other.rotation, _epsilon) &&
+		position.Equals(_other.position, _epsilon) &&
+		scale.Equals(_other.scale, _epsilon);
 }
 
 bool Transform::operator==(const Transform& _rhs) const noexcept
@@ -110,10 +110,9 @@ Mat4 Transform::ToInverseMatrixNoScale()
 	return ToMatrixNoScale().Inverse();
 }
 
-//Add
 Transform Transform::GetWorldTransfrom(const Transform& _parent, const Transform& _child)
 {
-	Transform result = Transform();
+	Transform result;
 	result.rotation = _child.rotation;
 	result.position = _parent.rotation.Rotate(_child.position) + _parent.position;
 	result.scale = _parent.scale * _child.scale;
