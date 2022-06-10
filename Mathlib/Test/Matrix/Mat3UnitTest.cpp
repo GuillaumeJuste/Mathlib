@@ -34,7 +34,7 @@ TEST(Mat3UnitTest, Constructor)
 	EXPECT_EQ(Mat3(Vec3(5.f, 48.f, 65.2f), Vec3(12.f, 7.f, 34.9f), Vec3(85.2f, 97.54f, 98.9f)), 
 		Mat3(5.f, 48.f, 65.2f,
 			12.f, 7.f, 34.9f,
-			85.2f, 97.54f, 98.9));
+			85.2f, 97.54f, 98.9f));
 
 	EXPECT_EQ(Mat3(Mat2::Identity), Mat3::Identity);
 	EXPECT_EQ(Mat3(Mat4::Identity), Mat3::Identity);
@@ -222,7 +222,7 @@ TEST(Mat3UnitTest, scalar_operator)
 	Mat3 mat_2 = Mat3(5.9f, 7.6f, -5.8f,
 		-3.4f, 4.8f, 5.2f,
 		-7.6f, -8.4f, 8.2f);;
-	float scalar = Math::Random(1.f, 100.f);
+	float scalar = (float)Math::Random(1, 100);
 
 	//operator+(scalar)
 	EXPECT_EQ(mat_1 + scalar, Mat3(mat_1[0] + scalar, mat_1[1] + scalar, mat_1[2] + scalar, 
@@ -302,7 +302,7 @@ TEST(Mat3UnitTest, vec3_operator)
 	Mat3 mat_1 = Mat3(3.2f, 8.4f, -1.8f,
 		6.8f, 5.3f, 4.7f,
 		-4.6f, 7.4f, 6.8f);
-	Vec3 vec_1 = Vec3(Math::Random(1.f, 100.f), Math::Random(1.f, 100.f), Math::Random(1.f, 100.f));
+	Vec3 vec_1 = Vec3((float)Math::Random(1, 100), (float)Math::Random(1, 100), (float)Math::Random(1, 100));
 
 	Vec3 result = Vec3(mat_1.e00 * vec_1.X + mat_1.e01 * vec_1.Y + mat_1.e02 * vec_1.Z, 
 		mat_1.e10 * vec_1.X + mat_1.e11 * vec_1.Y + mat_1.e12 * vec_1.Z, 

@@ -90,7 +90,7 @@ TEST(QuaternionUnitTest, Length)
 	Quat quat_1 = Quat(3.8f, -5.2f, 7.2f, 5.2f);
 	Quat quat_2 = Quat::Identity;
 
-	float sqrLen = 120.36;
+	float sqrLen = 120.36f;
 	float len = 10.9708705f;
 
 	Quat quat_1_normalized = quat_1 / len;

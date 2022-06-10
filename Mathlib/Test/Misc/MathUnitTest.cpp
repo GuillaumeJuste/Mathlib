@@ -112,7 +112,7 @@ TEST(MathUnitTest, Trigonometry)
 
 	//ATan
 	EXPECT_TRUE(Math::Equals0(Math::ATan(0.f)));
-	EXPECT_TRUE(Math::Equals(Math::ATan(Math::Sqrt(3.f)), Math::Pi / 3.f), Math::FloatEpsilon);
+	EXPECT_TRUE(Math::Equals(Math::ATan(Math::Sqrt(3.f)), Math::Pi / 3.f, Math::FloatEpsilon));
 }
 
 /**

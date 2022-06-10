@@ -286,7 +286,7 @@ TEST(Mat4UnitTest, scalar_operator)
 		-5.f, 6.2f, 7.7f, 5.7f,
 		-9.2f, 6.4f, 12.8f, 5.7f,
 		-7.9f, 1.2f, 5.2f, 8.5f);
-	float scalar = Math::Random(1.f, 100.f);
+	float scalar = (float)Math::Random(1, 100);
 
 	//operator+(scalar)
 	EXPECT_EQ(mat_1 + scalar, Mat4(mat_1[0] + scalar, mat_1[1] + scalar, mat_1[2] + scalar, mat_1[3] + scalar,
@@ -380,8 +380,8 @@ TEST(Mat4UnitTest, vec4_operator)
 	Mat4 mat_1 = Mat4(3.2f, 8.4f, -1.8f, 3.4f,
 		6.8f, 5.3f, 4.7f, 7.1f,
 		-4.6f, 7.4f, 6.8f, -2.5f,
-		5.2f, 8.6f, -4.7f, 6.8);
-	Vec4 vec_1 = Vec3(Math::Random(1.f, 100.f), Math::Random(1.f, 100.f), Math::Random(1.f, 100.f));
+		5.2f, 8.6f, -4.7f, 6.8f);
+	Vec4 vec_1 = Vec3((float)Math::Random(1, 100), (float)Math::Random(1, 100), (float)Math::Random(1, 100));
 
 	Vec4 result = Vec4(mat_1.e00 * vec_1.X + mat_1.e01 * vec_1.Y + mat_1.e02 * vec_1.Z + mat_1.e03 * vec_1.W,
 		mat_1.e10 * vec_1.X + mat_1.e11 * vec_1.Y + mat_1.e12 * vec_1.Z + mat_1.e13 * vec_1.W,

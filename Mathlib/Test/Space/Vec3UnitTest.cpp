@@ -231,10 +231,10 @@ TEST(Vec3UnitTest, Operator_Vec3)
 {
 	// operator- (invert vector)
 	Vec3 vec_1 = Vec3(-26.7f, 5.8f, 15.4f);
-	Vec3 vec_2 = Vec3(5.1, 18.6f, -9.3f);
+	Vec3 vec_2 = Vec3(5.1f, 18.6f, -9.3f);
 
 	EXPECT_EQ(-vec_1, Vec3(26.7f, -5.8f, -15.4f));
-	EXPECT_EQ(-vec_2, Vec3(-5.1, -18.6f, 9.3f));
+	EXPECT_EQ(-vec_2, Vec3(-5.1f, -18.6f, 9.3f));
 
 	// operator+(Vec3)
 	EXPECT_EQ(vec_1 + vec_2, Vec3(vec_1.X + vec_2.X, vec_1.Y + vec_2.Y, vec_1.Z + vec_2.Z));

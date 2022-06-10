@@ -116,7 +116,7 @@ TEST(Vec4UnitTest, Length)
 	Vec4 vec_1 = Vec4(3.8f, -5.2f, 7.2f, 5.2f);
 	Vec4 vec_2 = Vec4::Backward;
 
-	float sqrLen = 120.36;
+	float sqrLen = 120.36f;
 	float len = 10.9708705f;
 
 	Vec4 vec_1_normalized = vec_1 / len;
@@ -177,10 +177,10 @@ TEST(Vec4UnitTest, Operator)
 {
 	// operator- (invert vector)
 	Vec4 vec_1 = Vec4(-26.7f, 5.8f, 15.4f, 6.8f);
-	Vec4 vec_2 = Vec4(5.1, 18.6f, -9.3f, -4.2f);
+	Vec4 vec_2 = Vec4(5.1f, 18.6f, -9.3f, -4.2f);
 
 	EXPECT_EQ(-vec_1, Vec4(26.7f, -5.8f, -15.4f, -6.8f));
-	EXPECT_EQ(-vec_2, Vec4(-5.1, -18.6f, 9.3f, 4.2f));
+	EXPECT_EQ(-vec_2, Vec4(-5.1f, -18.6f, 9.3f, 4.2f));
 
 	// operator+(Vec4)
 	EXPECT_EQ(vec_1 + vec_2, Vec4(vec_1.X + vec_2.X, vec_1.Y + vec_2.Y, vec_1.Z + vec_2.Z, vec_1.W + vec_2.W));
