@@ -6,7 +6,7 @@ This library can be used to construct geometry for graphics libraries or perform
 
 ## Authors
 
-**Guillaume "gJuste" JUSTE** - main developer
+**Guillaume JUSTE** - main developer
 
 [matrix]: http://en.wikipedia.org/wiki/Matrix_(mathematics)
 [quaternion]: http://en.wikipedia.org/wiki/Quaternion
