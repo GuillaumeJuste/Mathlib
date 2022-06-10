@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <Mathlib.hpp>
+#include <Collections/Mathlib.hpp>
 
 
 using namespace Mathlib;
