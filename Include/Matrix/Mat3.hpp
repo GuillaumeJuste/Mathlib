@@ -3,7 +3,7 @@
 #ifndef MATHLIB_MAT3
 #define MATHLIB_MAT3
 
-#include "Misc/Includes.hpp"
+#include "Misc/DllExport.hpp"
 
 /**
 *	\file Mat3.hpp
