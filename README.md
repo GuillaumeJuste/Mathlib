@@ -1,7 +1,6 @@
 # Mathlib Version 1.0.0
 
-Mathlib is a C++ math library developed
-It provides a suite of [vector][], [matrix][], [quaternion][] and [transform][] to perform basic geometry suitable for game developers.
+Mathlib is a C++ math library developed to provides a suite of [vector][], [matrix][], [quaternion][] and [transform][] to perform basic geometry suitable for game developers.
 This library can be used to construct geometry for graphics libraries or perform calculations for animation or physics systems.
 
 ## Authors
