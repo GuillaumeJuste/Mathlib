@@ -21,6 +21,9 @@ namespace Mathlib
 	struct Mat3;
 	struct Quat;
 
+	/**
+	*	\brief Matrix 4X4 struct.
+	*/
 	struct MATHLIBRARY_API Mat4
 	{
 	private:
@@ -66,7 +69,7 @@ namespace Mathlib
 
 	public:
 
-		/// Matrix components.
+		// Matrix components.
 		float e00{ 0.f }; float e01{ 0.f }; float e02{ 0.f }; float e03{ 0.f };
 		float e10{ 0.f }; float e11{ 0.f }; float e12{ 0.f }; float e13{ 0.f };
 		float e20{ 0.f }; float e21{ 0.f }; float e22{ 0.f }; float e23{ 0.f };
@@ -415,7 +418,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply Mat4 and Vec4.
 		*
-		*	\param[in] _vec	vector to add to the matrix.
+		*	\param[in] _rhs	vector to add to the matrix.
 		*
 		*	\return new vector.
 		*/
@@ -424,7 +427,7 @@ namespace Mathlib
 		/**
 		*	\brief Add two Mat4.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return new matrix.
 		*/
@@ -433,7 +436,7 @@ namespace Mathlib
 		/**
 		*	\brief Substract two Mat4.
 		*
-		*	\param[in] _mat	matrix to substract to the matrix.
+		*	\param[in] _rhs	matrix to substract to the matrix.
 		*
 		*	\return new matrix.
 		*/
@@ -442,7 +445,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply two Mat4.
 		*
-		*	\param[in] _mat	matrix to multiply to the matrix.
+		*	\param[in] _rhs	matrix to multiply to the matrix.
 		*
 		*	\return new matrix.
 		*/
@@ -451,7 +454,7 @@ namespace Mathlib
 		/**
 		*	\brief Add two Mat4.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return self matrix result.
 		*/
@@ -460,7 +463,7 @@ namespace Mathlib
 		/**
 		*	\brief Substract two Mat4.
 		*
-		*	\param[in] _mat	matrix to substract to the matrix.
+		*	\param[in] _rhs	matrix to substract to the matrix.
 		*
 		*	\return self matrix result.
 		*/
@@ -469,7 +472,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply two Mat4.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return self matrix result.
 		*/

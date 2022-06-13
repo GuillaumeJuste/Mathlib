@@ -17,6 +17,9 @@ namespace Mathlib
 	struct Vec2;
 	struct Vec3;
 
+	/**
+	*	\brief Vector 2 struct.
+	*/
 	struct MATHLIBRARY_API Vec4
 	{
 		/// Vector's X component
@@ -63,7 +66,7 @@ namespace Mathlib
 		/**
 		*	\brief Value constructor
 		*
-		*	\param[in] _xyz Value applied on all vector axis.
+		*	\param[in] _xyzw Value applied on all vector axis.
 		*/
 		Vec4(float _xyzw) noexcept;
 

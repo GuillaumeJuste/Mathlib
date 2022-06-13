@@ -214,54 +214,54 @@ Mat2& Mat2::operator/=(float _scale)
 	return *this;
 }
 
-Vec2 Mat2::operator*(const Vec2& _vec) const noexcept
+Vec2 Mat2::operator*(const Vec2& _rhs) const noexcept
 {
-	return Vec2(e00 * _vec.X + e01 * _vec.Y,
-		e10 * _vec.X + e11 * _vec.Y);
+	return Vec2(e00 * _rhs.X + e01 * _rhs.Y,
+		e10 * _rhs.X + e11 * _rhs.Y);
 }
 
-Mat2 Mat2::operator+(const Mat2& _mat) const noexcept
+Mat2 Mat2::operator+(const Mat2& _rhs) const noexcept
 {
-	return Mat2(e00 + _mat.e00, e01 + _mat.e01,
-		e10 + _mat.e10, e11 + _mat.e11);
+	return Mat2(e00 + _rhs.e00, e01 + _rhs.e01,
+		e10 + _rhs.e10, e11 + _rhs.e11);
 }
 
-Mat2 Mat2::operator-(const Mat2& _mat) const noexcept
+Mat2 Mat2::operator-(const Mat2& _rhs) const noexcept
 {
-	return Mat2(e00 - _mat.e00, e01 - _mat.e01,
-		e10 - _mat.e10, e11 - _mat.e11);
+	return Mat2(e00 - _rhs.e00, e01 - _rhs.e01,
+		e10 - _rhs.e10, e11 - _rhs.e11);
 }
 
-Mat2 Mat2::operator*(const Mat2& _mat) const noexcept
+Mat2 Mat2::operator*(const Mat2& _rhs) const noexcept
 {
-	return Mat2(e00 * _mat.e00 + e01 * _mat.e10, e00 * _mat.e01 + e01 * _mat.e11,
-		e10 * _mat.e00 + e11 * _mat.e10, e10 * _mat.e01 + e11 * _mat.e11);
+	return Mat2(e00 * _rhs.e00 + e01 * _rhs.e10, e00 * _rhs.e01 + e01 * _rhs.e11,
+		e10 * _rhs.e00 + e11 * _rhs.e10, e10 * _rhs.e01 + e11 * _rhs.e11);
 }
 
-Mat2& Mat2::operator+=(const Mat2& _mat) noexcept
+Mat2& Mat2::operator+=(const Mat2& _rhs) noexcept
 {
-	e00 += _mat.e00;
-	e01 += _mat.e01;
-	e10 += _mat.e10;
-	e11 += _mat.e11;
+	e00 += _rhs.e00;
+	e01 += _rhs.e01;
+	e10 += _rhs.e10;
+	e11 += _rhs.e11;
 	return *this;
 }
 
-Mat2& Mat2::operator-=(const Mat2& _mat) noexcept
+Mat2& Mat2::operator-=(const Mat2& _rhs) noexcept
 {
-	e00 -= _mat.e00;
-	e01 -= _mat.e01;
-	e10 -= _mat.e10;
-	e11 -= _mat.e11;
+	e00 -= _rhs.e00;
+	e01 -= _rhs.e01;
+	e10 -= _rhs.e10;
+	e11 -= _rhs.e11;
 	return *this;
 }
 
-Mat2& Mat2::operator*=(const Mat2& _mat) noexcept
+Mat2& Mat2::operator*=(const Mat2& _rhs) noexcept
 {
 	Mat2 tmp = *this;
-	e00 = tmp.e00 * _mat.e00 + tmp.e01 * _mat.e10;
-	e01 = tmp.e00 * _mat.e01 + tmp.e01 * _mat.e11;
-	e10 = tmp.e10 * _mat.e00 + tmp.e11 * _mat.e10;
-	e11 = tmp.e10 * _mat.e01 + tmp.e11 * _mat.e11;
+	e00 = tmp.e00 * _rhs.e00 + tmp.e01 * _rhs.e10;
+	e01 = tmp.e00 * _rhs.e01 + tmp.e01 * _rhs.e11;
+	e10 = tmp.e10 * _rhs.e00 + tmp.e11 * _rhs.e10;
+	e11 = tmp.e10 * _rhs.e01 + tmp.e11 * _rhs.e11;
 	return *this;
 }

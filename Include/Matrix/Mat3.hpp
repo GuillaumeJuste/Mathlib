@@ -18,9 +18,12 @@ namespace Mathlib
 	struct Mat2;
 	struct mat4;
 
+	/**
+	*	\brief Matrix 3X3 struct.
+	*/
 	struct MATHLIBRARY_API Mat3
 	{
-		/// Matrix components.
+		// Matrix components.
 		float e00{ 0.f }; float e01{ 0.f }; float e02{ 0.f };
 		float e10{ 0.f }; float e11{ 0.f }; float e12{ 0.f };
 		float e20{ 0.f }; float e21{ 0.f }; float e22{ 0.f };
@@ -112,7 +115,9 @@ namespace Mathlib
 		/**
 		*	\brief Create rotation matrix from specified angle.
 		*
-		*	\param[in] _angle angle in radian to create matrix from.
+		*	\param[in] _x_angle around X axis in degree to create matrix from.
+		*	\param[in] _y_angle around Y axis in degree to create matrix from.
+		*	\param[in] _z_angle around Z axis in degree to create matrix from.
 		*
 		*/
 		static Mat3 RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept;
@@ -344,7 +349,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply Mat3 and Vec3.
 		*
-		*	\param[in] _vec	vector to add to the matrix.
+		*	\param[in] _rhs	vector to add to the matrix.
 		*
 		*	\return new vector.
 		*/
@@ -353,7 +358,7 @@ namespace Mathlib
 		/**
 		*	\brief Add two Mat3.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return new matrix.
 		*/
@@ -362,7 +367,7 @@ namespace Mathlib
 		/**
 		*	\brief Substract two Mat3.
 		*
-		*	\param[in] _mat	matrix to substract to the matrix.
+		*	\param[in] _rhs	matrix to substract to the matrix.
 		*
 		*	\return new matrix.
 		*/
@@ -371,7 +376,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply two Mat3.
 		*
-		*	\param[in] _mat	matrix to multiply to the matrix.
+		*	\param[in] _rhs	matrix to multiply to the matrix.
 		*
 		*	\return new matrix.
 		*/
@@ -380,7 +385,7 @@ namespace Mathlib
 		/**
 		*	\brief Add two Mat3.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return self matrix result.
 		*/
@@ -389,7 +394,7 @@ namespace Mathlib
 		/**
 		*	\brief Substract two Mat3.
 		*
-		*	\param[in] _mat	matrix to substract to the matrix.
+		*	\param[in] _rhs	matrix to substract to the matrix.
 		*
 		*	\return self matrix result.
 		*/
@@ -398,7 +403,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply two Mat3.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return self matrix result.
 		*/

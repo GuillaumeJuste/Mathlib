@@ -17,9 +17,12 @@ namespace Mathlib
 	struct Mat3;
 	struct Mat4;
 
+	/**
+	*	\brief Matrix 2X2 struct.
+	*/
 	struct MATHLIBRARY_API Mat2
 	{
-		/// Matrix components.
+		// Matrix components.
 		float e00{ 0.f }; float e01{ 0.f }; 
 		float e10{ 0.f }; float e11{ 0.f };
 
@@ -48,10 +51,10 @@ namespace Mathlib
 		/**
 		*	\brief Value constructor
 		*
-		*	\param[in] _m00 matrix first row first column value.
-		* 	\param[in] _m01 matrix first row second column value.
-		*	\param[in] _m10 matrix second row first column value.
-		*	\param[in] _m11 matrix second row second column value.
+		*	\param[in] _e00 matrix first row first column value.
+		* 	\param[in] _e01 matrix first row second column value.
+		*	\param[in] _e10 matrix second row first column value.
+		*	\param[in] _e11 matrix second row second column value.
 		*/
 		Mat2(float _e00, float _e01, float _e10, float _e11) noexcept;
 
@@ -290,7 +293,7 @@ namespace Mathlib
 		/**
 		*	\brief Multiply Mat2 and Vec2.
 		*
-		*	\param[in] _vec	vector to add to the matrix.
+		*	\param[in] _rhs	vector to add to the matrix.
 		*
 		*	\return new vector.
 		*/
@@ -299,56 +302,56 @@ namespace Mathlib
 		/**
 		*	\brief Add two Mat2.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return new matrix.
 		*/
-		Mat2 operator+(const Mat2& _mat) const noexcept;
+		Mat2 operator+(const Mat2& _rhs) const noexcept;
 
 		/**
 		*	\brief Substract two Mat2.
 		*
-		*	\param[in] _mat	matrix to substract to the matrix.
+		*	\param[in] _rhs	matrix to substract to the matrix.
 		*
 		*	\return new matrix.
 		*/
-		Mat2 operator-(const Mat2 & _mat) const noexcept;
+		Mat2 operator-(const Mat2& _rhs) const noexcept;
 
 		/**
 		*	\brief Multiply two Mat2.
 		*
-		*	\param[in] _mat	matrix to multiply to the matrix.
+		*	\param[in] _rhs	matrix to multiply to the matrix.
 		*
 		*	\return new matrix.
 		*/
-		Mat2 operator*(const Mat2& _mat) const noexcept;
+		Mat2 operator*(const Mat2& _rhs) const noexcept;
 
 		/**
 		*	\brief Add two Mat2.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return self matrix result.
 		*/
-		Mat2& operator+=(const Mat2& _mat) noexcept;
+		Mat2& operator+=(const Mat2& _rhs) noexcept;
 
 		/**
 		*	\brief Substract two Mat2.
 		*
-		*	\param[in] _mat	matrix to substract to the matrix.
+		*	\param[in] _rhs	matrix to substract to the matrix.
 		*
 		*	\return self matrix result.
 		*/
-		Mat2& operator-=(const Mat2& _mat) noexcept;
+		Mat2& operator-=(const Mat2& _rhs) noexcept;
 
 		/**
 		*	\brief Multiply two Mat2.
 		*
-		*	\param[in] _mat	matrix to add to the matrix.
+		*	\param[in] _rhs	matrix to add to the matrix.
 		*
 		*	\return self matrix result.
 		*/
-		Mat2& operator*=(const Mat2& _mat) noexcept;
+		Mat2& operator*=(const Mat2& _rhs) noexcept;
 	};
 }
 

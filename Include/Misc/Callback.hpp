@@ -10,6 +10,10 @@ typedef void (*errorCallbackFunction)(const char*, const char*, const char*);
 
 namespace Mathlib
 {
+
+	/**
+	*	\brief error callback class. 
+	*/
 	class MATHLIBRARY_API Callback
 	{
 	private:

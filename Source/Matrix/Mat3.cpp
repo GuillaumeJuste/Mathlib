@@ -67,14 +67,18 @@ Mat3::Mat3(const Mat4& _mat) noexcept :
 
 Mat3 Mat3::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept
 {
-	float cos_x = Math::Cos(_x_angle);
-	float sin_x = Math::Sin(_x_angle);
+	float _x_angle_rad = _x_angle * Math::DegToRad;
+	float _y_angle_rad = _y_angle * Math::DegToRad;
+	float _z_angle_rad = _z_angle * Math::DegToRad;
 
-	float cos_y = Math::Cos(_y_angle);
-	float sin_y = Math::Sin(_y_angle);
+	float cos_x = Math::Cos(_x_angle_rad);
+	float sin_x = Math::Sin(_x_angle_rad);
 
-	float cos_z = Math::Cos(_z_angle);
-	float sin_z = Math::Sin(_z_angle);
+	float cos_y = Math::Cos(_y_angle_rad);
+	float sin_y = Math::Sin(_y_angle_rad);
+
+	float cos_z = Math::Cos(_z_angle_rad);
+	float sin_z = Math::Sin(_z_angle_rad);
 
 	return Mat3(cos_z * cos_y, cos_z * sin_y * sin_x - sin_z * cos_x, cos_z * sin_y * cos_x + sin_z * sin_x,
 				sin_z * cos_y, sin_z * sin_y * sin_x + cos_z * cos_y, sin_z * sin_y * cos_x - cos_z * sin_x,

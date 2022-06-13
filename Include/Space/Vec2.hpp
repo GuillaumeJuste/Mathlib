@@ -17,6 +17,9 @@ namespace Mathlib
 	struct Vec3;
 	struct Vec4;
 
+	/**
+	*	\brief Vector 2 struct.
+	*/
 	struct MATHLIBRARY_API Vec2
 	{
 		/// Vector's X component

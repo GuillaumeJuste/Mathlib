@@ -45,17 +45,13 @@ TEST(Mat3UnitTest, Constructor)
 */
 TEST(Mat3UnitTest, Rotation_matrix)
 {
-	Mat3 mat_1 = Mat3::RotationMatrix(Math::Pi, Math::Pi/2.f, 3* Math::Pi / 2.f);
+	Mat3 mat_1 = Mat3::RotationMatrix(180.f, 90.f, 270.f);
 
 	Mat3 result = Mat3(0.f, -1.f, 0.f,
 						0.f, 0.f, 1.f,
 						-1.f, 0.f, 0.f);
 
 	EXPECT_TRUE(result.Equals(mat_1));
-
-	Mat3 mat_2 = Mat3::RotationMatrix(Vec3(Math::Pi, Math::Pi / 2.f, 3 * Math::Pi / 2.f));
-
-	EXPECT_TRUE(result.Equals(mat_2));
 }
 
 /**

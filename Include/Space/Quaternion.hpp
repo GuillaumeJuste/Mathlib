@@ -18,6 +18,9 @@ namespace Mathlib
 	struct Vec3;
 	struct Mat4;
 
+	/**
+	*	\brief quaternion struct.
+	*/
 	struct MATHLIBRARY_API Quat
 	{
 		/// Quaternion's rotation component

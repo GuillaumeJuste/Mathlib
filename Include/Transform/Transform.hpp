@@ -19,10 +19,18 @@ namespace Mathlib
 {
 	struct Mat4;
 
+	/**
+	*	\brief transform struct.
+	*/
 	struct MATHLIBRARY_API Transform
 	{
+		///  Transform rotation quaternion
 		Quat rotation;
+		
+		///  Transform position vector 3
 		Vec3 position;
+		
+		/// Transform position vector 3
 		Vec3 scale;
 
 		//Constructor
