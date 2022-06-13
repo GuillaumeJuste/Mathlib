@@ -3,8 +3,14 @@
 #ifndef MATHLIB_MATH
 #define MATHLIB_MATH
 
-#include <Misc/Includes.hpp>
+#include <Misc/DllExport.hpp>
 #include<Misc/Constants.hpp>
+
+/**
+*	\file Math.hpp
+*
+*	\brief implementation of various common math functions.
+*/
 
 namespace Mathlib
 {

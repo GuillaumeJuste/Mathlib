@@ -297,7 +297,7 @@ namespace Mathlib
 		*
 		*	\return new vector.
 		*/
-		Vec2 operator*(const Vec2& _vec) const noexcept;
+		Vec2 operator*(const Vec2& _rhs) const noexcept;
 
 		/**
 		*	\brief Add two Mat2.

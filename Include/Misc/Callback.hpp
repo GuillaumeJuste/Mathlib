@@ -3,8 +3,13 @@
 #ifndef MATHLIB_CALLBACK
 #define MATHLIB_CALLBACK
 
-#include "Includes.hpp"
+#include "DllExport.hpp"
 
+/**
+*	\file Callback.hpp
+*
+*	\brief implementation of callback class for errors.
+*/
 
 typedef void (*errorCallbackFunction)(const char*, const char*, const char*);
 

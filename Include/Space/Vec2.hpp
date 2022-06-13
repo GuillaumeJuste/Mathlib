@@ -4,7 +4,7 @@
 #define MATHLIB_VEC2
 
 #include <string>
-#include "Misc/Includes.hpp"
+#include "Misc/DllExport.hpp"
 
 /**
 *	\file Vec2.hpp

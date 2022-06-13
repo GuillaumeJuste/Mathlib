@@ -3,12 +3,13 @@
 #ifndef MATHLIB_TRANSFORM
 #define MATHLIB_TRANSFORM
 
-#include "Misc/Includes.hpp"
+#include "Misc/DllExport.hpp"
 #include "Misc//Constants.hpp"
 #include "Misc/Common.hpp"
 
 #include <Space/Quaternion.hpp>
 #include <Space/Vec3.hpp>
+
 /**
 *	\file Transform.hpp
 *

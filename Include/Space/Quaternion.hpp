@@ -3,7 +3,7 @@
 #ifndef MATHLIB_QUATERNION
 #define MATHLIB_QUATERNION
 
-#include "Misc/Includes.hpp"
+#include "Misc/DllExport.hpp"
 #include "Misc/Constants.hpp"
 #include <string>
 

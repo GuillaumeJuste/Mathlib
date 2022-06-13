@@ -3,7 +3,13 @@
 #ifndef MATHLIB_CONSTANTS
 #define MATHLIB_CONSTANTS
 
-#include "Includes.hpp"
+#include "DllExport.hpp"
+
+/**
+*	\file Constants.hpp
+*
+*	\brief Implementation of math constants.
+*/
 
 namespace Mathlib
 {

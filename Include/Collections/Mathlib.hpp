@@ -3,6 +3,12 @@
 #ifndef MATHLIB_MATHLIB
 #define MATHLIB_MATHLIB
 
+/**
+*	\file Mathlib.hpp
+*
+*	\brief Collection including all headers from the library.
+*/
+
 #include <Misc/Math.hpp>
 #include <Misc/Callback.hpp>
 #include <Misc/Trigonometry.hpp>

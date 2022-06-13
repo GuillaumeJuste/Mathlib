@@ -3,8 +3,14 @@
 #ifndef MATHLIB_TRIGONOMETRY
 #define MATHLIB_TRIGONOMETRY
 
-#include <Misc/Includes.hpp>
+#include <Misc/DllExport.hpp>
 #include<Misc/Constants.hpp>
+
+/**
+*	\file Trigonometry.hpp
+*
+*	\brief implementation of trigonometry functions.
+*/
 
 namespace Mathlib
 {

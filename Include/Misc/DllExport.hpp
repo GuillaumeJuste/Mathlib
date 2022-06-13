@@ -1,7 +1,13 @@
 #pragma once
 
-#ifndef MATHLIB_INCLUDES
-#define MATHLIB_INCLUDES
+#ifndef MATHLIB_DLLEXPORT
+#define MATHLIB_DLLEXPORT
+
+/**
+*	\file DllExport.hpp
+*
+*	\brief implementation of dll macro.
+*/
 
 #ifdef MATHLIB_EXPORTS
 #define MATHLIBRARY_API __declspec(dllexport)

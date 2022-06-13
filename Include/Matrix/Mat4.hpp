@@ -3,7 +3,7 @@
 #ifndef MATHLIB_MAT4
 #define MATHLIB_MAT4
 
-#include "Misc/Includes.hpp"
+#include "Misc/DllExport.hpp"
 #include "Misc//Constants.hpp"
 #include "Misc/Common.hpp"
 

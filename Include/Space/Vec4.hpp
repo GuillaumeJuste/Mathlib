@@ -3,7 +3,7 @@
 #ifndef MATHLIB_VEC4
 #define MATHLIB_VEC4
 
-#include "Misc/Includes.hpp"
+#include "Misc/DllExport.hpp"
 #include <string>
 
 /**
