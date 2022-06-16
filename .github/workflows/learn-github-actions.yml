@@ -1,12 +1,34 @@
 name: learn-github-actions
-on: [push]
+on: 
+    push:
+        branches:
+            - main
+            - develop
+            - github-actions
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
+  windows_msvc:
+    name: Windows | MSVC
+    runs-on: windows-2019
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_config: [Release, Debug]
+        msvc_toolset: [v141, v142]
+        target_architecture: [x64]
+        cpp_version: [17, 20]
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          submodules: 'recursive'
+
+      - name: Generate Project
+        run: cmake --preset="MSVC" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
+
+      - name: Build crk
+        run: cmake --build --preset="MSVC ${{ matrix.build_config }}"
+
+      - name: Run Tests
+        run: ctest --preset="MSVC ${{ matrix.build_config }}"
