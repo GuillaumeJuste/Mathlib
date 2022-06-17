@@ -1,0 +1,119 @@
+﻿{
+	"version": 3,
+	"configurePresets": [
+		{
+			"name": "Base",
+			"hidden": true,
+			"generator": "Ninja Multi-Config",
+			"binaryDir": "${sourceDir}/Build/${presetName}"
+		},
+		{
+			"name": "Windows",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		},
+		{
+			"name": "VS_2019",
+			"inherits": [
+
+				"Base",
+				"Windows"
+			],
+			"generator":"Visual Studio 16 2019"
+		},
+		{
+			"name": "VS_2022",
+			"inherits": [
+
+				"Base",
+				"Windows"
+			],
+			"generator": "Visual Studio 17 2022"
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "Base",
+			"hidden": true,
+			"verbose": true
+		},
+		{
+			"name": "Debug",
+			"hidden": true,
+			"inherits": "Base",
+			"configuration": "Debug"
+		},
+		{
+			"name": "Release",
+			"hidden": true,
+			"inherits": "Base",
+			"configuration": "Release"
+		},
+		{
+			"name": "VS_2019 Debug",
+			"inherits": "Debug",
+			"configurePreset": "VS_2019"
+		},
+		{
+			"name": "VS_2019 Release",
+			"inherits": "Release",
+			"configurePreset": "VS_2019"
+		},
+		{
+			"name": "VS_2022 Debug",
+			"inherits": "Debug",
+			"configurePreset": "VS_2022"
+		},
+		{
+			"name": "VS_2022 Release",
+			"inherits": "Release",
+			"configurePreset": "VS_2022"
+		}
+	],
+	"testPresets": [
+		{
+			"name": "Base",
+			"hidden": true,
+			"output": {
+				"verbosity": "verbose"
+			}
+		},
+		{
+			"name": "Debug",
+			"hidden": true,
+			"inherits": "Base",
+			"configuration": "Debug"
+		},
+		{
+			"name": "Release",
+			"hidden": true,
+			"inherits": "Base",
+			"configuration": "Release"
+		},
+		{
+			"name": "VS_2019 Debug",
+			"inherits": "Debug",
+			"configurePreset": "VS_2019"
+		},
+		{
+			"name": "VS_2019 Release",
+			"inherits": "Release",
+			"configurePreset": "VS_2019"
+		},
+		{
+			"name": "VS_2022 Debug",
+			"inherits": "Debug",
+			"configurePreset": "VS_2022"
+		},
+		{
+			"name": "VS_2022 Release",
+			"inherits": "Release",
+			"configurePreset": "VS_2022"
+		}
+	]
+}
+  
