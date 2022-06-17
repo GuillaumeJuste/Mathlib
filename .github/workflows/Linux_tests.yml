@@ -26,10 +26,10 @@ jobs:
         run: sudo apt-get install clang++-${{ matrix.clang_version }}
 
       - name: Generate Project
-        run: cmake --preset="Clang ${{ matrix.config }}"
+        run: cmake --preset="Clang"
 
       - name: Build Project
-        run: cmake --build --preset="Clang ${{ matrix.config }}" --verbose
+        run: cmake --build --preset="Clang ${{ matrix.build_config }}" --verbose
 
       - name: Run CTests
-        run: ctest --preset="Clang ${{ matrix.config }}" -V
+        run: ctest --preset="Clang ${{ matrix.build_config }}" -V
