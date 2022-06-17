@@ -1,6 +1,11 @@
 name: Windows
 
-on: [push]
+# Trigger the action.
+on:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
   VS_2019:

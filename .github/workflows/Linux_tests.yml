@@ -1,6 +1,11 @@
 name: Linux
 
-on: [push]
+# Trigger the action.
+on:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
   Clang:
