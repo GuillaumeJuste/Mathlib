@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.20)
 
 # Project
-project ("Mathlib" VERSION 1.0.0)
+project ("Mathlib")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)    # .lib / .a
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)    # .dll / .so / .dylib

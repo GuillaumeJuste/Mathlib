@@ -12,7 +12,6 @@ jobs:
       matrix:
         build_config: [Release, Debug]
         target_architecture: [x64]
-        cpp_version: [17, 20]
 
     steps:
       - name: Checkout repository
@@ -21,9 +20,9 @@ jobs:
           submodules: 'recursive'
 
       - name: Generate Project
-        run: cmake --preset="VS_2019" -A ${{ matrix.target_architecture }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
+        run: cmake --preset="VS_2019" -A ${{ matrix.target_architecture }} 
 
-      - name: Build crk
+      - name: Build Project
         run: cmake --build --preset="VS_2019 ${{ matrix.build_config }}"
 
       - name: Run Tests
@@ -38,7 +37,6 @@ jobs:
       matrix:
         build_config: [Release, Debug]
         target_architecture: [x64]
-        cpp_version: [17, 20]
 
     steps:
       - name: Checkout repository
@@ -47,9 +45,9 @@ jobs:
           submodules: 'recursive'
 
       - name: Generate Project
-        run: cmake --preset="VS_2022" -A ${{ matrix.target_architecture }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
+        run: cmake --preset="VS_2022" -A ${{ matrix.target_architecture }}
 
-      - name: Build crk
+      - name: Build Project
         run: cmake --build --preset="VS_2022 ${{ matrix.build_config }}"
 
       - name: Run Tests
