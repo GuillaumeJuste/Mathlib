@@ -1,0 +1,33 @@
+name: Linux
+
+on: [push]
+
+jobs:
+  Clang:
+    name: Linux | Clang
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_config: [Release, Debug]
+        clang_version: [9, 10, 11 ,12]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      
+      - name: Install ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: "[Package] Install Clang"
+        run: sudo apt-get install clang++
+
+      - name: Generate Project
+        run: cmake --preset="Clang ${{ matrix.config }}"
+      - name: Build Project
+        run: cmake --build --preset="Clang ${{ matrix.config }}" --verbose
+      - name: Run CTests
+        run: ctest --preset="Clang ${{ matrix.config }}" -V

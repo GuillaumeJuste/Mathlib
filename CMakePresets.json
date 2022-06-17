@@ -8,6 +8,22 @@
 			"binaryDir": "${sourceDir}/Build/${presetName}"
 		},
 		{
+			"name": "Clang",
+			"inherits": "Base",
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "clang",
+				"CMAKE_CXX_COMPILER": "clang++"
+			}
+		},
+		{
+			"name": "GCC",
+			"inherits": "Base",
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "gcc",
+				"CMAKE_CXX_COMPILER": "g++"
+			}
+		},
+		{
 			"name": "Windows",
 			"hidden": true,
 			"condition": {
@@ -23,7 +39,7 @@
 				"Base",
 				"Windows"
 			],
-			"generator":"Visual Studio 16 2019"
+			"generator": "Visual Studio 16 2019"
 		},
 		{
 			"name": "VS_2022",
@@ -52,6 +68,26 @@
 			"hidden": true,
 			"inherits": "Base",
 			"configuration": "Release"
+		},
+		{
+			"name": "Clang Debug",
+			"inherits": "Debug",
+			"configurePreset": "Clang"
+		},
+		{
+			"name": "Clang Release",
+			"inherits": "Release",
+			"configurePreset": "Clang"
+		},
+		{
+			"name": "GCC Debug",
+			"inherits": "Debug",
+			"configurePreset": "GCC"
+		},
+		{
+			"name": "GCC Release",
+			"inherits": "Release",
+			"configurePreset": "GCC"
 		},
 		{
 			"name": "VS_2019 Debug",
@@ -93,6 +129,26 @@
 			"hidden": true,
 			"inherits": "Base",
 			"configuration": "Release"
+		},
+		{
+			"name": "Clang Debug",
+			"inherits": "Debug",
+			"configurePreset": "Clang"
+		},
+		{
+			"name": "Clang Release",
+			"inherits": "Release",
+			"configurePreset": "Clang"
+		},
+		{
+			"name": "GCC Debug",
+			"inherits": "Debug",
+			"configurePreset": "GCC"
+		},
+		{
+			"name": "GCC Release",
+			"inherits": "Release",
+			"configurePreset": "GCC"
 		},
 		{
 			"name": "VS_2019 Debug",
