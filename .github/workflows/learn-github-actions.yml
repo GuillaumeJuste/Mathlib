@@ -1,12 +1,25 @@
-name: learn-github-actions
+name: Windows
+
 on: [push]
+
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
+  windows_msvc:
+    name: Windows | MSVC
+    runs-on: windows-2019
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_config: [Release, Debug]
+        msvc_toolset: [v141, v142]
+        target_architecture: [x64] #x86
+        cpp_version: [17, 20]
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          submodules: 'recursive'
+
+      - name: Generate Project
+      - run: cmake --build="${sourceDir}/Build/${presetName}" -G="Visual Studio 16 2019" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
