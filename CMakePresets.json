@@ -17,7 +17,7 @@
 			}
 		},
 		{
-			"name": "VS_2019",
+			"name": "VS 2019",
 			"inherits": [
 
 				"Base",
@@ -26,7 +26,7 @@
 			"generator":"Visual Studio 16 2019"
 		},
 		{
-			"name": "VS_2022",
+			"name": "VS 2022",
 			"inherits": [
 
 				"Base",
@@ -54,24 +54,24 @@
 			"configuration": "Release"
 		},
 		{
-			"name": "VS_2019 Debug",
+			"name": "VS 2019 Debug",
 			"inherits": "Debug",
-			"configurePreset": "VS_2019"
+			"configurePreset": "VS 2019"
 		},
 		{
-			"name": "VS_2019 Release",
+			"name": "VS 2019 Release",
 			"inherits": "Release",
-			"configurePreset": "VS_2019"
+			"configurePreset": "VS 2019"
 		},
 		{
-			"name": "VS_2022 Debug",
+			"name": "VS 2022 Debug",
 			"inherits": "Debug",
-			"configurePreset": "VS_2022"
+			"configurePreset": "VS 2022"
 		},
 		{
-			"name": "VS_2022 Release",
+			"name": "VS 2022 Release",
 			"inherits": "Release",
-			"configurePreset": "VS_2022"
+			"configurePreset": "VS 2022"
 		}
 	],
 	"testPresets": [
@@ -95,24 +95,24 @@
 			"configuration": "Release"
 		},
 		{
-			"name": "VS_2019 Debug",
+			"name": "VS 2019 Debug",
 			"inherits": "Debug",
-			"configurePreset": "VS_2019"
+			"configurePreset": "VS 2019"
 		},
 		{
-			"name": "VS_2019 Release",
+			"name": "VS 2019 Release",
 			"inherits": "Release",
-			"configurePreset": "VS_2019"
+			"configurePreset": "VS 2019"
 		},
 		{
-			"name": "VS_2022 Debug",
+			"name": "VS 2022 Debug",
 			"inherits": "Debug",
-			"configurePreset": "VS_2022"
+			"configurePreset": "VS 2022"
 		},
 		{
-			"name": "VS_2022 Release",
+			"name": "VS 2022 Release",
 			"inherits": "Release",
-			"configurePreset": "VS_2022"
+			"configurePreset": "VS 2022"
 		}
 	]
 }

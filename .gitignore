@@ -362,6 +362,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # CMake out folder
+Build/*
 out/*
 
 # Third Party
