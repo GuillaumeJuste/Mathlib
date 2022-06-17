@@ -64,7 +64,7 @@ namespace Mathlib
 		}
 		float Pow(float _value, float _exp) noexcept
 		{
-			return std::powf(_value, _exp);
+			return powf(_value, _exp);
 		}
 
 		float Sqrt(int _value) noexcept
@@ -97,7 +97,7 @@ namespace Mathlib
 
 		void InitializeRandom() noexcept
 		{
-			std::srand(unsigned int(std::time(nullptr)));
+			std::srand((unsigned int)(std::time(nullptr)));
 		}
 
 		int Random() noexcept
