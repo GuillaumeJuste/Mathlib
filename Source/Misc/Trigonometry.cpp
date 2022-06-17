@@ -8,37 +8,37 @@ namespace Mathlib
 	{
 		float Cos(float _value) noexcept
 		{
-			return std::cosf(_value);
+			return cosf(_value);
 		}
 
 		float ACos(float _value) noexcept
 		{
-			return std::acosf(_value);
+			return acosf(_value);
 		}
 
 		float Sin(float _value) noexcept
 		{
-			return std::sinf(_value);
+			return sinf(_value);
 		}
 
 		float ASin(float _value) noexcept
 		{
-			return std::asinf(_value);
+			return asinf(_value);
 		}
 
 		float Tan(float _value) noexcept
 		{
-			return std::tanf(_value);
+			return tanf(_value);
 		}
 
 		float ATan(float _value) noexcept
 		{
-			return std::atanf(_value);
+			return atanf(_value);
 		}
 
 		float ATan2(float _x, float _y) noexcept
 		{
-			return std::atan2(_x, _y);
+			return atan2(_x, _y);
 		}
 	}
 }
