@@ -1,17 +1,17 @@
-name: Linux
+name: MacOS
 
 on: [push]
 
 jobs:
   Clang:
-    name: Ubuntu | Clang
-    runs-on: ubuntu-latest
+    name: MacOS | Clang
+    runs-on: macos-latest
 
     strategy:
       fail-fast: false
       matrix:
         build_config: [Release, Debug]
-        clang_version: [9, 10, 11 ,12]
+        gcc_version: [11, 12]
 
     steps:
       - name: Checkout repository
@@ -22,8 +22,8 @@ jobs:
       - name: Install ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: "Install Clang compiler"
-        run: sudo apt-get install clang++-${{ matrix.clang_version }}
+      - name: "[Package] Install Clang"
+        run: brew install llvm@${{ matrix.gcc_version }}
 
       - name: Generate Project
         run: cmake --preset="Clang"
@@ -36,14 +36,14 @@ jobs:
 
 
   GCC:
-    name: Ubuntu | GCC
-    runs-on: ubuntu-latest
+    name: MacOS | GCC
+    runs-on: macos-latest
 
     strategy:
       fail-fast: false
       matrix:
         build_config: [Release, Debug]
-        gcc_version: [9, 10, 11 ,12]
+        gcc_version: [11]
 
     steps:
       - name: Checkout repository
@@ -54,8 +54,8 @@ jobs:
       - name: Install ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Install GCC compiler
-        run: sudo apt-get install g++-${{ matrix.gcc_version }}
+      - name: Install suitable compiler
+        run: brew install gcc@${{ matrix.gcc_version }}
 
       - name: Generate Project
         run: cmake --preset="GCC"
