@@ -22,4 +22,4 @@ jobs:
           submodules: 'recursive'
 
       - name: Generate Project
-        run: cmake --build="${sourceDir}/Build/${presetName}" -G="Visual Studio 16 2019" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
+        run: cmake -G "Visual Studio 16 2019" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
