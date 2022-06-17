@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   Clang:
-    name: Linux | Clang
+    name: Ubuntu | Clang
     runs-on: ubuntu-latest
 
     strategy:
@@ -29,7 +29,39 @@ jobs:
         run: cmake --preset="Clang"
 
       - name: Build Project
-        run: cmake --build --preset="Clang ${{ matrix.build_config }}" --verbose
+        run: cmake --build --preset="Clang ${{ matrix.build_config }}"
 
       - name: Run CTests
-        run: ctest --preset="Clang ${{ matrix.build_config }}" -V
+        run: ctest --preset="Clang ${{ matrix.build_config }}"
+
+
+  GCC:
+    name: Ubuntu | GCC
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_config: [Release, Debug]
+        gcc_version: [9, 10, 11 ,12]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Install ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Install suitable compiler
+        run: sudo apt-get install g++-${{ matrix.gcc_version }}
+
+      - name: Generate Project
+        run: cmake --preset="GCC"
+
+      - name: Build Project
+        run: cmake --build --preset="GCC ${{ matrix.build_config }}"
+
+      - name: Run CTests
+        run: ctest --preset="GCC ${{ matrix.build_config }}"
