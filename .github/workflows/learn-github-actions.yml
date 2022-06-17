@@ -3,14 +3,13 @@ name: Windows
 on: [push]
 
 jobs:
-  windows_msvc:
-    name: Windows | MSVC
+  VS_2019:
+    name: Windows | VS_2019
     runs-on: windows-2019
 
     strategy:
       fail-fast: false
       matrix:
-        vs_version: [2019, 2022]
         build_config: [Release, Debug]
         msvc_toolset: [v141] #, v142
         target_architecture: [x64] #x86
@@ -23,10 +22,37 @@ jobs:
           submodules: 'recursive'
 
       - name: Generate Project
-        run: cmake --preset="VS ${{ matrix.vs_version }}" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
+        run: cmake --preset="VS_2019" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
 
       - name: Build crk
-        run: cmake --build --preset="VS ${{ matrix.vs_version }} ${{ matrix.build_config }}"
+        run: cmake --build --preset="VS_2019 ${{ matrix.build_config }}"
 
       - name: Run Tests
-        run: ctest --preset="VS ${{ matrix.vs_version }} ${{ matrix.build_config }}"
+        run: ctest --preset="VS_2019 ${{ matrix.build_config }}"
+
+  VS_2022:
+    name: Windows | VS_2022
+    runs-on: windows-2022
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_config: [Release, Debug]
+        msvc_toolset: [v141] #, v142
+        target_architecture: [x64] #x86
+        cpp_version: [17] #, 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Generate Project
+        run: cmake --preset="VS_2022" -A ${{ matrix.target_architecture }} -T ${{ matrix.msvc_toolset }} -DCRK_MIN_CXX_STD_VERSION=${{matrix.cpp_version}} -DCRK_DEV=1
+
+      - name: Build crk
+        run: cmake --build --preset="VS_2022 ${{ matrix.build_config }}"
+
+      - name: Run Tests
+        run: ctest --preset="VS_2022 ${{ matrix.build_config }}"
