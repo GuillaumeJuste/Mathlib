@@ -37,7 +37,7 @@ jobs:
         run: cmake --preset="GCC"
 
       - name: Build Project
-        run: cmake --build --preset="GCC ${{ matrix.build_config }}"
+        run: cmake --build --preset="GCC ${{ matrix.build_config }}" --target MathlibTests
 
       - name: Run CTests
         run: ctest --preset="GCC ${{ matrix.build_config }}"
