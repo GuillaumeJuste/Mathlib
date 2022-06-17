@@ -1,11 +1,15 @@
+project(MathlibUnitTests)
+
 #google test
 enable_testing()
 
 file(GLOB_RECURSE UT_SOURCES "*")
 
-add_executable(GlobalUnitTest ${UT_SOURCES})
-target_link_libraries(GlobalUnitTest gtest_main)
-target_link_libraries(GlobalUnitTest Mathlib)
+set(GlobalUnitTest MathlibTests)
+add_executable(${GlobalUnitTest} ${UT_SOURCES})
+target_link_libraries(${GlobalUnitTest} gtest_main)
+target_link_libraries(${GlobalUnitTest} Mathlib)
+add_test(NAME ${GlobalUnitTest} COMMAND ${GlobalUnitTest})
 
 add_executable(MathUnitTest Misc/MathUnitTest.cpp)
 target_link_libraries(MathUnitTest gtest_main)
