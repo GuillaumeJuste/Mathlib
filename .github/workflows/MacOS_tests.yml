@@ -29,7 +29,7 @@ jobs:
         run: cmake --preset="Clang"
 
       - name: Build Project
-        run: cmake --build --preset="Clang ${{ matrix.build_config }}" -std=c++11
+        run: cmake --build --preset="Clang ${{ matrix.build_config }}" 
 
       - name: Run CTests
         run: ctest --preset="Clang ${{ matrix.build_config }}"
@@ -61,7 +61,7 @@ jobs:
         run: cmake --preset="GCC"
 
       - name: Build Project
-        run: cmake --build --preset="GCC ${{ matrix.build_config }}" -std=c++11
+        run: cmake --build --preset="GCC ${{ matrix.build_config }}" 
 
       - name: Run CTests
         run: ctest --preset="GCC ${{ matrix.build_config }}"
