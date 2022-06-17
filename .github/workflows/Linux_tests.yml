@@ -29,7 +29,7 @@ jobs:
         run: cmake --preset="Clang"
 
       - name: Build Project
-        run: cmake --build --preset="Clang ${{ matrix.build_config }}" --verbose -fdeclspec
+        run: cmake --build --preset="Clang ${{ matrix.build_config }}" --verbose
 
       - name: Run CTests
         run: ctest --preset="Clang ${{ matrix.build_config }}" -V

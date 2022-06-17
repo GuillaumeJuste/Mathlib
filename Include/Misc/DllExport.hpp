@@ -9,10 +9,14 @@
 *	\brief implementation of dll macro.
 */
 
+#ifdef _WIN32
 #ifdef MATHLIB_EXPORTS
 #define MATHLIBRARY_API __declspec(dllexport)
-#else
+#else //MATHLIB_EXPORTS
 #define MATHLIBRARY_API __declspec(dllimport)
-#endif
+#endif //MATHLIB_EXPORTS
+#else //_WIN32
+#define MATHLIBRARY_API 
+#endif //_WIN32
 
 #endif
