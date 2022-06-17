@@ -26,10 +26,10 @@ jobs:
         run: brew install llvm@${{ matrix.gcc_version }}
 
       - name: Generate Project
-        run: cmake --preset="Clang" -std=gnu++17
+        run: cmake --preset="Clang"
 
       - name: Build Project
-        run: cmake --build --preset="Clang ${{ matrix.build_config }}"
+        run: cmake --build --preset="Clang ${{ matrix.build_config }}" -std=c++11
 
       - name: Run CTests
         run: ctest --preset="Clang ${{ matrix.build_config }}"
@@ -58,10 +58,10 @@ jobs:
         run: brew install gcc@${{ matrix.gcc_version }}
 
       - name: Generate Project
-        run: cmake --preset="GCC" -std=gnu++17
+        run: cmake --preset="GCC"
 
       - name: Build Project
-        run: cmake --build --preset="GCC ${{ matrix.build_config }}"
+        run: cmake --build --preset="GCC ${{ matrix.build_config }}" -std=c++11
 
       - name: Run CTests
         run: ctest --preset="GCC ${{ matrix.build_config }}"
