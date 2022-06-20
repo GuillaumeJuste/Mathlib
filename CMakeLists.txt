@@ -26,6 +26,9 @@ target_include_directories(Mathlib PUBLIC Include)
 # Entrypoints
 add_subdirectory(UnitTests)
 
+# Enable tests
+include(CTest)
+
 #load googletest
 include(FetchContent)
 FetchContent_Declare(
