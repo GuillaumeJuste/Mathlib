@@ -22,6 +22,12 @@ add_executable(${GlobalUnitTest} ${UT_SOURCES})
 target_link_libraries(${GlobalUnitTest} gtest_main)
 target_link_libraries(${GlobalUnitTest} Mathlib)
 add_test(NAME ${GlobalUnitTest} COMMAND ${GlobalUnitTest})
+target_compile_options(${GlobalUnitTest}
+    PUBLIC
+        "-O0"
+        "-fprofile-arcs"
+        "-ftest-coverage"
+    )
 
 
 add_executable(MathUnitTest Misc/MathUnitTest.cpp)
