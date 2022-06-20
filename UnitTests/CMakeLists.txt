@@ -22,13 +22,10 @@ add_executable(${GlobalUnitTest} ${UT_SOURCES})
 target_link_libraries(${GlobalUnitTest} gtest_main)
 target_link_libraries(${GlobalUnitTest} Mathlib)
 add_test(NAME ${GlobalUnitTest} COMMAND ${GlobalUnitTest})
-target_compile_options(${GlobalUnitTest}
-    PUBLIC
-        "-O0"
-        "-fprofile-arcs"
-        "-ftest-coverage"
-    )
-
+if (CXX_COMPILER_ID STREQUAL "GNU")
+		target_compile_options(${GlobalUnitTest} PUBLIC --coverage)
+		target_link_options(${GlobalUnitTest} PUBLIC --coverage)
+endif()
 
 add_executable(MathUnitTest Misc/MathUnitTest.cpp)
 target_link_libraries(MathUnitTest gtest_main)
