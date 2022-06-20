@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - develop
+      - github-actions
 
 jobs:
   VS_2019:
