@@ -1,11 +1,27 @@
+project(MathlibUnitTests)
+
+#load googletest
+include(FetchContent)
+FetchContent_Declare(
+			googletest
+			GIT_REPOSITORY https://github.com/google/googletest.git
+			GIT_TAG        release-1.11.0
+			SOURCE_DIR		${CMAKE_SOURCE_DIR}/ThirdParty/googletest
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
 #google test
 enable_testing()
 
 file(GLOB_RECURSE UT_SOURCES "*")
 
-add_executable(GlobalUnitTest ${UT_SOURCES})
-target_link_libraries(GlobalUnitTest gtest_main)
-target_link_libraries(GlobalUnitTest Mathlib)
+set(GlobalUnitTest MathlibUnitTests)
+add_executable(${GlobalUnitTest} ${UT_SOURCES})
+target_link_libraries(${GlobalUnitTest} gtest_main)
+target_link_libraries(${GlobalUnitTest} Mathlib)
+add_test(NAME ${GlobalUnitTest} COMMAND ${GlobalUnitTest})
 
 add_executable(MathUnitTest Misc/MathUnitTest.cpp)
 target_link_libraries(MathUnitTest gtest_main)
