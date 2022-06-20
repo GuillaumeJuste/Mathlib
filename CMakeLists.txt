@@ -1,34 +1,18 @@
-﻿# CMakeList.txt : Top-level CMake project file, do global configuration
-# and include sub-projects here.
-#
-cmake_minimum_required (VERSION 3.20)
+﻿cmake_minimum_required (VERSION 3.20)
 
 # Project
 project ("Mathlib")
 
+# Set output folders
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)    # .lib / .a
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)    # .dll / .so / .dylib
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)    # .exe
 
+# Set default C++ Version
 set (CMAKE_CXX_STANDARD 17)
 
-# Input
-file(GLOB_RECURSE SOURCES "Source/*")
-
-# Dynamic library.
-add_library (Mathlib SHARED ${SOURCES})
-target_compile_definitions(Mathlib PRIVATE MATHLIB_EXPORTS)
-set_target_properties(Mathlib PROPERTIES LINKER_LANGUAGE CXX)
-if (CMAKE_CXX_COMPILER_ID  STREQUAL "GNU")
-		target_compile_options(Mathlib PUBLIC --coverage)
-		target_link_options(Mathlib PUBLIC --coverage)
-endif()
-
-# Include directories
-target_include_directories(Mathlib PUBLIC Include)
-
 # Entrypoints
-add_subdirectory(UnitTests)
+add_subdirectory(Mathlib)
 
 # Enable tests
 include(CTest)
