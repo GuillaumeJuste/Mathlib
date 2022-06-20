@@ -17,5 +17,8 @@ endif()
 # Include directories
 target_include_directories(${MathlibTarget} PUBLIC Include)
 
+# Enable testing for the project
+enable_testing()
+
 # Entrypoints
 add_subdirectory(UnitTests)
