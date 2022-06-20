@@ -28,15 +28,3 @@ add_subdirectory(UnitTests)
 
 # Enable tests
 include(CTest)
-
-#load googletest
-include(FetchContent)
-FetchContent_Declare(
-			googletest
-			GIT_REPOSITORY https://github.com/google/googletest.git
-			GIT_TAG        release-1.11.0
-			SOURCE_DIR		${CMAKE_SOURCE_DIR}/ThirdParty/googletest
-)
-
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
