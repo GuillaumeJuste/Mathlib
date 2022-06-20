@@ -1,0 +1,54 @@
+name: Code Coverage
+
+# Trigger the action.
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - codecover
+
+jobs:
+  GCC:
+    name: Generate Code Cov Report
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_config: [Release, Debug]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Install ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Install GCC compiler
+        run: sudo apt-get install g++-10
+
+      - name: Install lcov
+        run: sudo apt-get install lcov
+
+      - name: Generate Project
+        run: cmake --preset="GCC"
+
+      - name: Build Project
+        run: cmake --build --preset="GCC ${{ matrix.build_config }}"
+
+      - name: Run CTests
+        run: ctest --preset="GCC ${{ matrix.build_config }}" -ftest-coverage
+
+      - name: Generate coverage report
+        run: lcov --capture --directory "Build/GCC" --output-file coverage.info
+        
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.info
+          fail_ci_if_error: true
+          verbose: true
