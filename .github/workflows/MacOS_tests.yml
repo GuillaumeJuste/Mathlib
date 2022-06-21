@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         build_config: [Release, Debug]
-        gcc_version: [11, 12]
+        clang_version: [11, 12]
 
     steps:
       - name: Checkout repository
@@ -28,7 +28,7 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: "[Package] Install Clang"
-        run: brew install llvm@${{ matrix.gcc_version }}
+        run: brew install llvm@${{ matrix.clang_version }}
 
       - name: Generate Project
         run: cmake --preset="Clang"
