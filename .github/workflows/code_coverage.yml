@@ -6,7 +6,7 @@ on:
     branches:
       - main
       - develop
-
+      - github-actions
 jobs:
   GCC:
     name: Generate Code Cov Report
