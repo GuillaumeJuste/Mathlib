@@ -155,8 +155,8 @@ namespace Mathlib
 		/**
 		*	\brief Compare two values.
 		*
-		* 	\param[in] _start left hand side operand to compare.
-		* 	\param[in] _end right hand side operand to compare.
+		* 	\param[in] _lhs left hand side operand to compare.
+		* 	\param[in] _rhs right hand side operand to compare.
 		* 	\param[in] _epsilon threshold to accept equality.
 		*/
 		MATHLIBRARY_API bool Equals(float _lhs, float _rhs, float _epsilon = Math::FloatEpsilon) noexcept;

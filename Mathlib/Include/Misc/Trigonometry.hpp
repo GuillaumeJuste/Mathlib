@@ -63,7 +63,7 @@ namespace Mathlib
 		*	using the signs of arguments to determine the correct quadrant.
 		*
 		* 	\param[in] _x value to compute arc cosine from.
-		* 	\param[in] _x value to compute arc cosine from.
+		* 	\param[in] _y value to compute arc cosine from.
 		*/
 		MATHLIBRARY_API float ATan2(float _x, float _y) noexcept;
 	}
