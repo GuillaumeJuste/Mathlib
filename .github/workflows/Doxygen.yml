@@ -19,7 +19,7 @@ jobs:
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@v1
 
-      - uses: mattnotmitt/doxygen-action@v1.1.0
+      - uses: mattnotmitt/doxygen-action@v1.9.4
         with:
           doxyfile-path: "Doc/Doxyfile.in"
       - uses: peaceiris/actions-gh-pages@v3
