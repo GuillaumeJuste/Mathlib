@@ -19,9 +19,6 @@ target_include_directories(${MathlibTarget} PUBLIC Include)
 
 if(MATHLIB_BUILD_TESTS_OPT)
 
-	# Enable tests
-	include(CTest)
-
 	# Enable testing for the project
 	enable_testing()
 
