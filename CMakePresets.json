@@ -5,7 +5,10 @@
 			"name": "Base",
 			"hidden": true,
 			"generator": "Ninja Multi-Config",
-			"binaryDir": "${sourceDir}/Build/${presetName}"
+			"binaryDir": "${sourceDir}/Build/${presetName}",
+			"cacheVariables": {
+				"MATHLIB_BUILD_TESTS_OPT": true
+			}
 		},
 		{
 			"name": "Clang",

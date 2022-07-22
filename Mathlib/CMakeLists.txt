@@ -17,8 +17,14 @@ endif()
 # Include directories
 target_include_directories(${MathlibTarget} PUBLIC Include)
 
-# Enable testing for the project
-enable_testing()
+if(MATHLIB_BUILD_TESTS_OPT)
 
-# Entrypoints
-add_subdirectory(UnitTests)
+	# Enable tests
+	include(CTest)
+
+	# Enable testing for the project
+	enable_testing()
+
+	# Entrypoints
+	add_subdirectory(UnitTests)
+endif()
