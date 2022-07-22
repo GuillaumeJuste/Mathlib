@@ -14,5 +14,8 @@ set (CMAKE_CXX_STANDARD 17)
 ## Add SA_Maths's tests to build tree.
 option(MATHLIB_BUILD_TESTS_OPT "Should build MATHLIB tests" OFF)
 
+# Enable tests
+include(CTest)
+
 # Entrypoints
 add_subdirectory(Mathlib)
