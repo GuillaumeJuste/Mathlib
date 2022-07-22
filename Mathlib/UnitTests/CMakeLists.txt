@@ -1,11 +1,11 @@
+cmake_minimum_required(VERSION 3.14)
 project(MathlibUnitTests)
 
 #load googletest
 include(FetchContent)
 FetchContent_Declare(
 			googletest
-			GIT_REPOSITORY https://github.com/google/googletest.git
-			GIT_TAG        release-1.11.0
+			URL https://github.com/google/googletest/archive/refs/tags/release-1.12.1.zip
 			SOURCE_DIR		${CMAKE_SOURCE_DIR}/ThirdParty/googletest
 )
 
