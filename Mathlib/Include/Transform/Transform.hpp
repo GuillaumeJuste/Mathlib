@@ -165,6 +165,22 @@ namespace Mathlib
 		*	\return return new world transform of the child object.
 		*/
 		static Transform GetWorldTransfrom(const Transform& _parent, const Transform& _child);
+
+		//Operator
+
+		/**
+		*	\brief Default move assignement.
+		*
+		*	\return self vector assigned.
+		*/
+		Transform& operator=(Transform&&) = default;
+
+		/**
+		*	\brief Default copy assignement.
+		*
+		*	\return self vector assigned.
+		*/
+		Transform& operator=(const Transform&) = default;
 	};
 }
 
