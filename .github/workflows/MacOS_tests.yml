@@ -2,6 +2,7 @@ name: MacOS
 
 # Trigger the action.
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
