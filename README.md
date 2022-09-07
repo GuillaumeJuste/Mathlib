@@ -6,10 +6,10 @@
 
 [![codecov](https://codecov.io/gh/GuillaumeJuste/Mathlib/branch/main/graph/badge.svg?token=W91ROE1SM2)](https://codecov.io/gh/GuillaumeJuste/Mathlib)
 
-Mathlib is a C++ math library developed to provides a suite of [vector][], [matrix][], [quaternion][] and [transform][] to perform basic geometry suitable for game developers.
-This library can be used to construct geometry for graphics libraries or perform calculations for animation or physics systems.
+Mathlib is a C++ math library developed to provides a suite of [vector][], [matrix][], [quaternion][] and [transform][] to perform basic mathematical operations suitable for game developpment.
+This library can be used for graphics libraries or perform calculations for animation or physics systems.
 
-Links to the official [documentation][]
+Link to the official [documentation][]
 
 ## Authors
 
