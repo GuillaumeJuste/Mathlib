@@ -153,24 +153,24 @@ Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
 {
 	Vec3 look = (_center - _eye).Normalize();
 	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
-	Vec3 up = Vec3::CrossProduct(right, look).Normalize();
-
-	return Mat4(right.X, up.X, look.X, 0.f,
-		right.Y, up.Y, look.Y, 0.f,
-		right.Z, up.Z, look.Z, 0.f, 
-		-Vec3::DotProduct(right, _eye), -Vec3::DotProduct(up, _eye), -Vec3::DotProduct(look, _eye) , 1.f);
-}
-
-Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
-{
-	Vec3 look = (_eye - _center).Normalize();
-	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
-	Vec3 up = Vec3::CrossProduct(right, look).Normalize();
+	Vec3 up = Vec3::CrossProduct(look, right).Normalize();
 
 	return Mat4(right.X, up.X, look.X, 0.f,
 		right.Y, up.Y, look.Y, 0.f,
 		right.Z, up.Z, look.Z, 0.f,
-		Vec3::DotProduct(right, _eye), Vec3::DotProduct(up, _eye), Vec3::DotProduct(look, _eye), 1.f);
+		-Vec3::DotProduct(right, _eye), -Vec3::DotProduct(up, _eye), -Vec3::DotProduct(look, _eye), 1.f);
+}
+
+Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
+{
+	Vec3 look = (_center - _eye).Normalize();
+	Vec3 right = Vec3::CrossProduct(look, _up).Normalize();
+	Vec3 up = Vec3::CrossProduct(right, look).Normalize();
+
+	return Mat4(right.X, up.X, -look.X, 0.f,
+		right.Y, up.Y, -look.Y, 0.f,
+		right.Z, up.Z, -look.Z, 0.f,
+		-Vec3::DotProduct(right, _eye), -Vec3::DotProduct(up, _eye), Vec3::DotProduct(look, _eye), 1.f);
 }
 
 Mat4 Mat4::ViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up)
@@ -191,9 +191,9 @@ Mat4 Mat4::PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _f
 	Mat4 result = Mat4::Zero;
 	result.e00 = 1.f / (_aspect * tan_half_fov);
 	result.e11 = 1.f / (tan_half_fov);
-	result.e22 = (_far + _near) / (_far - _near);
-	result.e23 = (2 * _far * _near) / (_far - _near);
-	result.e32 = 1.f;
+	result.e22 = _far / (_far - _near);
+	result.e23 = 1.f;
+	result.e32 = -(_far * _near) / (_far - _near);
 
 	return result;
 }
@@ -208,9 +208,9 @@ Mat4 Mat4::PerspectiveMatrixRH(float _fovy, float _aspect, float _near, float _f
 	Mat4 result = Mat4::Zero;
 	result.e00 = 1.f / (_aspect * tan_half_fov);
 	result.e11 = 1.f / (tan_half_fov);
-	result.e22 = - (_far + _near) / (_far - _near);
-	result.e23 = -(2 * _far * _near) / (_far - _near);
-	result.e32 = - 1.f;
+	result.e22 = _far / (_near - _far);
+	result.e23 = -1.f;
+	result.e32 = -(_far * _near) / (_far - _near);
 
 	return result;
 }
