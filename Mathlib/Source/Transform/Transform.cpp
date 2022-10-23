@@ -119,3 +119,18 @@ Transform Transform::GetWorldTransfrom(const Transform& _parent) const
 
 	return result;
 }
+
+Vec3 Transform::GetForwardVector() const
+{
+	return rotation.GetForwardVector();
+}
+
+Vec3 Transform::GetRightVector() const
+{
+	return rotation.GetUpVector();
+}
+
+Vec3 Transform::GetUpVector() const
+{
+	return rotation.GetRightVector();
+}

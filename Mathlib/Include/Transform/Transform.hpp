@@ -166,6 +166,23 @@ namespace Mathlib
 		*/
 		Transform GetWorldTransfrom(const Transform& _parent) const;
 
+		//Direction vector
+
+		/**
+		 * @brief Get transform forward Vector
+		*/
+		Vec3 GetForwardVector() const;
+
+		/**
+		 * @brief Get transform right Vector
+		*/
+		Vec3 GetRightVector() const;
+
+		/**
+		 * @brief Get transform up Vector
+		*/
+		Vec3 GetUpVector() const;
+
 		//Operator
 
 		/**
