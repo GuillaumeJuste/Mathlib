@@ -66,7 +66,7 @@ bool Transform::operator!=(const Transform& _rhs) const noexcept
 
 //ToMatrix
 
-Mat4 Transform::ToMatrixWithScale()
+Mat4 Transform::ToMatrixWithScale() const
 {
 	Mat4 transform = Mat4::RotationMatrix(rotation);
 	
@@ -89,12 +89,12 @@ Mat4 Transform::ToMatrixWithScale()
 	return transform;
 }
 
-Mat4 Transform::ToInverseMatrixWithScale()
+Mat4 Transform::ToInverseMatrixWithScale() const
 {
 	return ToMatrixWithScale().Inverse();
 }
 
-Mat4 Transform::ToMatrixNoScale()
+Mat4 Transform::ToMatrixNoScale() const
 {
 	Mat4 transform = Mat4::RotationMatrix(rotation);
 
@@ -105,17 +105,17 @@ Mat4 Transform::ToMatrixNoScale()
 	return transform;
 }
 
-Mat4 Transform::ToInverseMatrixNoScale()
+Mat4 Transform::ToInverseMatrixNoScale() const
 {
 	return ToMatrixNoScale().Inverse();
 }
 
-Transform Transform::GetWorldTransfrom(const Transform& _parent, const Transform& _child)
+Transform Transform::GetWorldTransfrom(const Transform& _parent) const
 {
 	Transform result;
-	result.rotation = _child.rotation;
-	result.position = _parent.rotation.Rotate(_child.position) + _parent.position;
-	result.scale = _parent.scale * _child.scale;
+	result.rotation = rotation;
+	result.position = _parent.rotation.Rotate(position) + _parent.position;
+	result.scale = _parent.scale * scale;
 
 	return result;
 }

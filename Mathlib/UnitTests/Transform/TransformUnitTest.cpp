@@ -146,7 +146,7 @@ TEST(TransformUnitTest, world_transform)
 	Vec3 scale_3(2.f, 2.f, 1.5f);
 	Transform transform_3(rotation_3, position_3, scale_3);
 
-	Transform world_transform = Transform::GetWorldTransfrom(transform_1, transform_2);
+	Transform world_transform = transform_2.GetWorldTransfrom(transform_1);
 
 	EXPECT_TRUE(world_transform.Equals(transform_3, 0.00001f));
 

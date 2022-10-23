@@ -132,28 +132,28 @@ namespace Mathlib
 		*
 		*	\return transform matrix.
 		*/
-		Mat4 ToMatrixWithScale();
+		Mat4 ToMatrixWithScale() const;
 
 		/**
 		*	\brief Create matrix from transform components and invert it.
 		*
 		*	\return transform matrix inverted.
 		*/
-		Mat4 ToInverseMatrixWithScale();
+		Mat4 ToInverseMatrixWithScale() const;
 
 		/**
 		*	\brief Create matrix from transform components ignoring scale.
 		*
 		*	\return transform matrix.
 		*/
-		Mat4 ToMatrixNoScale();
+		Mat4 ToMatrixNoScale() const;
 
 		/**
 		*	\brief Create matrix from transform components ignoring scale and invert it.
 		*
 		*	\return transform matrix inverted.
 		*/
-		Mat4 ToInverseMatrixNoScale();
+		Mat4 ToInverseMatrixNoScale() const;
 
 		//GetWorldTransfrom
 		/**
@@ -164,7 +164,7 @@ namespace Mathlib
 		*
 		*	\return return new world transform of the child object.
 		*/
-		static Transform GetWorldTransfrom(const Transform& _parent, const Transform& _child);
+		Transform GetWorldTransfrom(const Transform& _parent) const;
 
 		//Operator
 
