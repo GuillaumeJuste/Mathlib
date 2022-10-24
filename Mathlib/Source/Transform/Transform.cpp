@@ -127,10 +127,10 @@ Vec3 Transform::GetForwardVector() const
 
 Vec3 Transform::GetRightVector() const
 {
-	return rotation.GetUpVector();
+	return rotation.GetRightVector();
 }
 
 Vec3 Transform::GetUpVector() const
 {
-	return rotation.GetRightVector();
+	return rotation.GetUpVector();
 }

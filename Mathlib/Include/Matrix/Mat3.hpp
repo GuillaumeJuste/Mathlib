@@ -16,7 +16,7 @@ namespace Mathlib
 	struct Vec2;
 	struct Vec3;
 	struct Mat2;
-	struct mat4;
+	struct Mat4;
 
 	/**
 	*	\brief Matrix 3X3 struct.
