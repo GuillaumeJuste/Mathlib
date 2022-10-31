@@ -47,7 +47,10 @@ namespace Mathlib
 
 		/**
 		*	\brief Create left handed perspective projection matrix.
-		*
+		*	For a better distribution of the floating points values
+		*	the near and far clip planes correspond to z normalized device coordinates of +1 and 0 respectively.	
+		*		
+		* 
 		*	\param[in] _fovy Y axis field of view in radian.
 		*	\param[in] _aspect aspect ratio of the render window.
 		*	\param[in] _near near depth clipping plane.
@@ -58,7 +61,9 @@ namespace Mathlib
 
 		/**
 		*	\brief Create right handed perspective projection matrix.
-		*
+		*	For a better distribution of the floating points values
+		*	the near and far clip planes correspond to z normalized device coordinates of +1 and 0 respectively.
+		* 
 		*	\param[in] _fovy Y axis field of view in radian.
 		*	\param[in] _aspect aspect ratio of the render window.
 		*	\param[in] _near near depth clipping plane.
