@@ -149,11 +149,11 @@ Mat4 Mat4::TranslationMatrix(const Vec3& _vec) noexcept
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
+Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
-	Vec3 look = (_center - _eye).Normalize();
+	Vec3 look = _forward.GetNormalized();
 	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
-	Vec3 up = Vec3::CrossProduct(look, right).Normalize();
+	Vec3 up = _up.GetNormalized();
 
 	return Mat4(right.X, up.X, look.X, -Vec3::DotProduct(right, _eye),
 		right.Y, up.Y, look.Y, -Vec3::DotProduct(up, _eye),
@@ -161,11 +161,11 @@ Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _center, const Vec3& _up)
+Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
-	Vec3 look = (_center - _eye).Normalize();
+	Vec3 look = _forward.GetNormalized();
 	Vec3 right = Vec3::CrossProduct(look, _up).Normalize();
-	Vec3 up = Vec3::CrossProduct(right, look).Normalize();
+	Vec3 up = _up.GetNormalized();
 
 	return Mat4(right.X, up.X, -look.X, -Vec3::DotProduct(right, _eye),
 		right.Y, up.Y, -look.Y, -Vec3::DotProduct(up, _eye),

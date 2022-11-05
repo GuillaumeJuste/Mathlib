@@ -31,19 +31,19 @@ namespace Mathlib
 		*	\brief left handed world to view matrix.
 		*
 		*	\param[in] _eye camera position.
-		*	\param[in] _center camera look at target.
+		*	\param[in] _forward camera look at direction.
 		*	\param[in] _up camera up vector.
 		*/
-		static Mat4 ViewMatrixLH(const Vec3& _eye, const Vec3& _center, const Vec3& _up);
+		static Mat4 ViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up);
 
 		/**
 		*	\brief Right handed world to view matrix.
 		*
 		*	\param[in] _eye camera position.
-		*	\param[in] _center camera look at target.
+		*	\param[in] _center camera look at direction.
 		*	\param[in] _up camera up vector.
 		*/
-		static Mat4 ViewMatrixRH(const Vec3& _eye, const Vec3& _center, const Vec3& _up);
+		static Mat4 ViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up);
 
 		/**
 		*	\brief Create left handed perspective projection matrix.
