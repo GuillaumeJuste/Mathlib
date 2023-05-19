@@ -99,11 +99,11 @@ TEST(Mat4UnitTest, View_matrix)
 
 	EXPECT_TRUE(mat_1.Equals(result_1, 0.01f));
 
-	Mat4 mat_2 = Mat4::ViewMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Vec3(0.f, 0.f, -1.f), Vec3(0.f, 0.f, 1.f), Vec3(0.f, -1.f, 0.f));
+	Mat4 mat_2 = Mat4::ViewMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Vec3(0.f, 0.f, 1.f), Vec3(0.f, 0.f, -1.f), Vec3(0.f, 1.f, 0.f));
 
-	Mat4 result_2 = Mat4(1.f, 0.f, 0.f, 0.f,
-		0.f, -1.f, 0.f, 0.f,
-		0.f, 0.f, -1.f, 1.f,
+	Mat4 result_2 = Mat4(-1.f, 0.f, 0.f, 0.f,
+		0.f, 1.f, 0.f, 0.f,
+		0.f, 0.f, -1.f, -1.f,
 		0.f, 0.f, 0.f, 1.f);
 
 	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));
@@ -118,7 +118,7 @@ TEST(Mat4UnitTest, Perspective_matrix)
 
 	Mat4 result_1 = Mat4(1.81066012f, 0.f, 0.f, 0.f,
 		0.f, 2.41421342f, 0.f, 0.f,
-		0.f, 0.f, 0.0010010f, 0.100100100f,
+		0.f, 0.f, 1.00200200f, -0.200200200f,
 		0.f, 0.f, 1.f, 0.f);
 
 	EXPECT_TRUE(mat_1.Equals(result_1, Math::FloatEpsilon));
@@ -127,7 +127,7 @@ TEST(Mat4UnitTest, Perspective_matrix)
 
 	Mat4 result_2 = Mat4(1.81066012f, 0.f, 0.f, 0.f,
 		0.f, 2.41421342f, 0.f, 0.f,
-		0.f, 0.f, -0.0010010f, 0.100100100f,
+		0.f, 0.f, -1.00200200f, -0.200200200f,
 		0.f, 0.f, -1.f, 0.f);
 
 	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));

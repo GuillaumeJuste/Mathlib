@@ -155,21 +155,22 @@ Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
 	Vec3 up = _up.GetNormalized();
 
-	return Mat4(right.X, up.X, look.X, -Vec3::DotProduct(right, _eye),
-		right.Y, up.Y, look.Y, -Vec3::DotProduct(up, _eye),
-		right.Z, up.Z, look.Z, -Vec3::DotProduct(look, _eye),
+	return Mat4(right.X, right.Y, right.Z, -Vec3::DotProduct(right, _eye),
+		up.X, up.Y, up.Z, -Vec3::DotProduct(up, _eye),
+		look.X, look.Y, look.Z, -Vec3::DotProduct(look, _eye),
 		0.f, 0.f, 0.f, 1.f);
+
 }
 
 Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
-	Vec3 look = _forward.GetNormalized();
+	Vec3 look = -_forward.GetNormalized();
 	Vec3 right = Vec3::CrossProduct(look, _up).Normalize();
 	Vec3 up = _up.GetNormalized();
 
-	return Mat4(right.X, up.X, -look.X, -Vec3::DotProduct(right, _eye),
-		right.Y, up.Y, -look.Y, -Vec3::DotProduct(up, _eye),
-		right.Z, up.Z, -look.Z, -Vec3::DotProduct(look, _eye),
+	return Mat4(right.X, right.Y, right.Z, -Vec3::DotProduct(right, _eye),
+		up.X, up.Y, up.Z, -Vec3::DotProduct(up, _eye),
+		-look.X, -look.Y, -look.Z, -Vec3::DotProduct(look, _eye),
 		0.f, 0.f, 0.f, 1.f);
 }
 
@@ -191,8 +192,8 @@ Mat4 Mat4::PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _f
 	Mat4 result = Mat4::Zero;
 	result.e00 = 1.f / (_aspect * tan_half_fov);
 	result.e11 = 1.f / (tan_half_fov);
-	result.e22 = _near / (_far - _near);
-	result.e23 = (_far * _near) / (_far - _near);
+	result.e22 = (_far + _near) / (_far - _near);
+	result.e23 = -(2.f * _far * _near) / (_far - _near);
 	result.e32 = 1.f;
 
 	return result;
@@ -208,8 +209,8 @@ Mat4 Mat4::PerspectiveMatrixRH(float _fovy, float _aspect, float _near, float _f
 	Mat4 result = Mat4::Zero;
 	result.e00 = 1.f / (_aspect * tan_half_fov);
 	result.e11 = 1.f / (tan_half_fov);
-	result.e22 = _near / (_near - _far);
-	result.e23 = (_far * _near) / (_far - _near);
+	result.e22 = -(_far + _near) / (_far - _near);
+	result.e23 = -(2.f * _far * _near) / (_far - _near);
 	result.e32 = -1.f;
 
 	return result;
