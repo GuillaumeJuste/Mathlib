@@ -94,8 +94,8 @@ TEST(Mat4UnitTest, InvView_matrix)
 
 	Mat4 result_1 = Mat4(1.f, 0.f, 0.f, 0.f,
 		0.f, 1.f, 0.f, 0.f,
-		0.f, 0.f, 1.f, 0.f,
-		0.f, 0.f, 1.f, 1.f);
+		0.f, 0.f, 1.f, 1.f,
+		0.f, 0.f, 0.f, 1.f);
 
 	EXPECT_TRUE(mat_1.Equals(result_1, 0.01f));
 
@@ -103,8 +103,8 @@ TEST(Mat4UnitTest, InvView_matrix)
 
 	Mat4 result_2 = Mat4(1.f, 0.f, 0.f, 0.f,
 		0.f, 1.f, 0.f, 0.f,
-		0.f, 0.f, -1.f, 0.f,
-		0.f, 0.f, 1.f, 1.f);
+		0.f, 0.f, -1.f, 1.f,
+		0.f, 0.f, 0.f, 1.f);
 
 	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));
 }
