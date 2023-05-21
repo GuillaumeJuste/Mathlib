@@ -164,13 +164,13 @@ Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 
 Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
-	Vec3 look = -_forward.GetNormalized();
+	Vec3 look = _forward.GetNormalized();
 	Vec3 right = Vec3::CrossProduct(look, _up).Normalize();
 	Vec3 up = _up.GetNormalized();
 
 	return Mat4(right.X, right.Y, right.Z, -Vec3::DotProduct(right, _eye),
 		up.X, up.Y, up.Z, -Vec3::DotProduct(up, _eye),
-		-look.X, -look.Y, -look.Z, -Vec3::DotProduct(look, _eye),
+		look.X, look.Y, look.Z, -Vec3::DotProduct(look, _eye),
 		0.f, 0.f, 0.f, 1.f);
 }
 

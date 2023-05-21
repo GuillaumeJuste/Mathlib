@@ -101,9 +101,9 @@ TEST(Mat4UnitTest, View_matrix)
 
 	Mat4 mat_2 = Mat4::ViewMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Vec3(0.f, 0.f, 1.f), Vec3(0.f, 0.f, -1.f), Vec3(0.f, 1.f, 0.f));
 
-	Mat4 result_2 = Mat4(-1.f, 0.f, 0.f, 0.f,
+	Mat4 result_2 = Mat4(1.f, 0.f, 0.f, 0.f,
 		0.f, 1.f, 0.f, 0.f,
-		0.f, 0.f, -1.f, -1.f,
+		0.f, 0.f, -1.f, 1.f,
 		0.f, 0.f, 0.f, 1.f);
 
 	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));
