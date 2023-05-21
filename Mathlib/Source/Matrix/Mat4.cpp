@@ -149,7 +149,7 @@ Mat4 Mat4::TranslationMatrix(const Vec3& _vec) noexcept
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
+Mat4 Mat4::InvViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
 	Vec3 look = _forward.GetNormalized();
 	Vec3 right = Vec3::CrossProduct(_up, look).Normalize();
@@ -162,7 +162,7 @@ Mat4 Mat4::ViewMatrixLH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 
 }
 
-Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
+Mat4 Mat4::InvViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
 	Vec3 look = _forward.GetNormalized();
 	Vec3 right = Vec3::CrossProduct(look, _up).Normalize();
@@ -174,12 +174,12 @@ Mat4 Mat4::ViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::ViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up)
+Mat4 Mat4::InvViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up)
 {
 	if (_coordinate_system == COORDINATE_SYSTEM::LEFT_HAND)
-		return ViewMatrixLH(_eye, _center, _up);
+		return InvViewMatrixLH(_eye, _center, _up);
 	else
-		return ViewMatrixRH(_eye, _center, _up);
+		return InvViewMatrixRH(_eye, _center, _up);
 }
 
 Mat4 Mat4::PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _far)
