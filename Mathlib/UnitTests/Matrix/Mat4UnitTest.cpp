@@ -88,23 +88,23 @@ TEST(Mat4UnitTest, Scale_matrix)
 /**
 *	\brief Unit test for view matrix computation function
 */
-TEST(Mat4UnitTest, View_matrix)
+TEST(Mat4UnitTest, InvView_matrix)
 {
-	Mat4 mat_1 = Mat4::ViewMatrix(COORDINATE_SYSTEM::LEFT_HAND, Vec3(0.f, 0.f, -1.f), Vec3(0.f, 0.f, 1.f), Vec3(0.f, 1.f, 0.f));
+	Mat4 mat_1 = Mat4::InvViewMatrix(COORDINATE_SYSTEM::LEFT_HAND, Vec3(0.f, 0.f, -1.f), Vec3(0.f, 0.f, 1.f), Vec3(0.f, 1.f, 0.f));
 
 	Mat4 result_1 = Mat4(1.f, 0.f, 0.f, 0.f,
 		0.f, 1.f, 0.f, 0.f,
-		0.f, 0.f, 1.f, 1.f,
-		0.f, 0.f, 0.f, 1.f);
+		0.f, 0.f, 1.f, 0.f,
+		0.f, 0.f, 1.f, 1.f);
 
 	EXPECT_TRUE(mat_1.Equals(result_1, 0.01f));
 
-	Mat4 mat_2 = Mat4::ViewMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Vec3(0.f, 0.f, 1.f), Vec3(0.f, 0.f, -1.f), Vec3(0.f, 1.f, 0.f));
+	Mat4 mat_2 = Mat4::InvViewMatrix(COORDINATE_SYSTEM::RIGHT_HAND, Vec3(0.f, 0.f, 1.f), Vec3(0.f, 0.f, -1.f), Vec3(0.f, 1.f, 0.f));
 
 	Mat4 result_2 = Mat4(1.f, 0.f, 0.f, 0.f,
 		0.f, 1.f, 0.f, 0.f,
-		0.f, 0.f, -1.f, 1.f,
-		0.f, 0.f, 0.f, 1.f);
+		0.f, 0.f, -1.f, 0.f,
+		0.f, 0.f, 1.f, 1.f);
 
 	EXPECT_TRUE(mat_2.Equals(result_2, 0.01f));
 }
