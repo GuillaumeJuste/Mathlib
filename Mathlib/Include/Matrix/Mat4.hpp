@@ -230,10 +230,10 @@ namespace Mathlib
 		*
 		*	\param[in] _coordinate_system coordinate system to use to compute the view matrix.
 		*	\param[in] _eye camera position.
-		*	\param[in] _center camera look at target.
+		*	\param[in] _forward camera look at direction.
 		*	\param[in] _up camera up vector.
 		*/
-		static Mat4 InvViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up);
+		static Mat4 InvViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _forward, const Vec3& _up);
 
 		/**
 		*	\brief Create perspective projection matrix.

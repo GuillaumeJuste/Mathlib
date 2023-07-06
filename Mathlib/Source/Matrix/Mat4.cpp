@@ -170,16 +170,16 @@ Mat4 Mat4::InvViewMatrixRH(const Vec3& _eye, const Vec3& _forward, const Vec3& _
 
 	return Mat4(right.X, right.Y, right.Z, -Vec3::DotProduct(right, _eye),
 		up.X, up.Y, up.Z, -Vec3::DotProduct(up, _eye),
-		forward.X, forward.Y, forward.Z, -Vec3::DotProduct(forward, _eye),
+		-forward.X, -forward.Y, -forward.Z, Vec3::DotProduct(forward, _eye),
 		0.f, 0.f, 0.f, 1.f);
 }
 
-Mat4 Mat4::InvViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _center, const Vec3& _up)
+Mat4 Mat4::InvViewMatrix(COORDINATE_SYSTEM _coordinate_system, const Vec3& _eye, const Vec3& _forward, const Vec3& _up)
 {
 	if (_coordinate_system == COORDINATE_SYSTEM::LEFT_HAND)
-		return InvViewMatrixLH(_eye, _center, _up);
+		return InvViewMatrixLH(_eye, _forward, _up);
 	else
-		return InvViewMatrixRH(_eye, _center, _up);
+		return InvViewMatrixRH(_eye, _forward, _up);
 }
 
 Mat4 Mat4::PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _far)
