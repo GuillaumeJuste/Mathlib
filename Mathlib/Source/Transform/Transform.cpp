@@ -71,15 +71,15 @@ Mat4 Transform::ToMatrixWithScale() const
 	Mat4 transform = Mat4::RotationMatrix(rotation);
 	
 	transform.e00 *= scale.X;
-	transform.e01 *= scale.X;
-	transform.e02 *= scale.X;
+	transform.e10 *= scale.X;
+	transform.e20 *= scale.X;
 
-	transform.e10 *= scale.Y;
 	transform.e11 *= scale.Y;
-	transform.e12 *= scale.Y;
+	transform.e01 *= scale.Y;
+	transform.e21 *= scale.Y;
 
-	transform.e20 *= scale.Z;
-	transform.e21 *= scale.Z;
+	transform.e02 *= scale.Z;
+	transform.e12 *= scale.Z;
 	transform.e22 *= scale.Z;
 
 	transform.e03 = position.X;
