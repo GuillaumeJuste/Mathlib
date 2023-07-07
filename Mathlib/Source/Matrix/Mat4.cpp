@@ -192,8 +192,8 @@ Mat4 Mat4::PerspectiveMatrixLH(float _fovy, float _aspect, float _near, float _f
 	Mat4 result = Mat4::Zero;
 	result.e00 = 1.f / (_aspect * tan_half_fov);
 	result.e11 = 1.f / (tan_half_fov);
-	result.e22 = (_far + _near) / (_far - _near);
-	result.e23 = -(2.f * _far * _near) / (_far - _near);
+	result.e22 = _far / (_far - _near);
+	result.e23 = -(_far * _near) / (_far - _near);
 	result.e32 = 1.f;
 
 	return result;
@@ -209,8 +209,8 @@ Mat4 Mat4::PerspectiveMatrixRH(float _fovy, float _aspect, float _near, float _f
 	Mat4 result = Mat4::Zero;
 	result.e00 = 1.f / (_aspect * tan_half_fov);
 	result.e11 = 1.f / (tan_half_fov);
-	result.e22 = -(_far + _near) / (_far - _near);
-	result.e23 = -(2.f * _far * _near) / (_far - _near);
+	result.e22 = _far / (_near - _far);
+	result.e23 = -(_far * _near) / (_far - _near);
 	result.e32 = -1.f;
 
 	return result;
