@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['radians_0',['Radians',['../_math_8hpp.html#a46192da0109cb1fc93e3aa7ce3adb9e5',1,'Mathlib::Math']]],
+  ['random_1',['Random',['../_math_8hpp.html#a0de73a1511301d4a8c319b018d30f2fc',1,'Mathlib::Math::Random() noexcept'],['../_math_8hpp.html#a3bf3211a130a0b4602cae86957f0390b',1,'Mathlib::Math::Random(int _min, int _max) noexcept']]],
+  ['rotate_2',['Rotate',['../struct_mathlib_1_1_quat.html#a8cba32932bede9d249e6899f3332665e',1,'Mathlib::Quat::Rotate(const Quat &amp;_quat) const noexcept'],['../struct_mathlib_1_1_quat.html#adae9725b027b9ba3340a9c01d490e847',1,'Mathlib::Quat::Rotate(const Vec3 &amp;_vec) const noexcept']]],
+  ['rotationmatrix_3',['RotationMatrix',['../struct_mathlib_1_1_mat2.html#a5e406accb4a4fc6b247409acbcf02a40',1,'Mathlib::Mat2::RotationMatrix()'],['../struct_mathlib_1_1_mat3.html#a9b98eced8ea62e0d2b5af36e179a7f39',1,'Mathlib::Mat3::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept'],['../struct_mathlib_1_1_mat3.html#aa048bf7bd69a1c221386ecae78ada351',1,'Mathlib::Mat3::RotationMatrix(const Vec3 &amp;_rotation) noexcept'],['../struct_mathlib_1_1_mat4.html#a352598e173be70f6c15f2c4c3086f6bf',1,'Mathlib::Mat4::RotationMatrix(float _x_angle, float _y_angle, float _z_angle) noexcept'],['../struct_mathlib_1_1_mat4.html#a01792b5654d00045a2d59f8832894d7c',1,'Mathlib::Mat4::RotationMatrix(const Vec3 &amp;_rotation) noexcept'],['../struct_mathlib_1_1_mat4.html#a0b0ffecbe1927d3e3e59e19458e26af1',1,'Mathlib::Mat4::RotationMatrix(const Quat &amp;_rotation) noexcept']]],
+  ['rotationmatrix2d_4',['RotationMatrix2D',['../struct_mathlib_1_1_mat3.html#aac7619d8a9f78c0a4084277e213636e2',1,'Mathlib::Mat3']]]
+];
